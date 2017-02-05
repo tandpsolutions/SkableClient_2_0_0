@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="stockVal" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="d45cf4c6-5661-443e-8475-0cc7f2a729a2">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="type" class="java.lang.String"/>
+	<field name="IMEI_NO" class="java.lang.String">
+		<fieldDescription><![CDATA[IMEI_NO]]></fieldDescription>
+	</field>
+	<field name="SR_NAME" class="java.lang.String">
+		<fieldDescription><![CDATA[SR_NAME]]></fieldDescription>
+	</field>
+	<field name="PUR_RATE" class="java.lang.Double">
+		<fieldDescription><![CDATA[PUR_RATE]]></fieldDescription>
+	</field>
+	<field name="BRAND_NAME" class="java.lang.String">
+		<fieldDescription><![CDATA[BRAND_NAME]]></fieldDescription>
+	</field>
+	<field name="V_DATE" class="java.sql.Date">
+		<fieldDescription><![CDATA[V_DATE]]></fieldDescription>
+	</field>
+	<variable name="tot_brand" class="java.lang.Double" resetType="Group" resetGroup="brand" calculation="Sum">
+		<variableExpression><![CDATA[$F{PUR_RATE}]]></variableExpression>
+	</variable>
+	<group name="brand">
+		<groupExpression><![CDATA[$F{BRAND_NAME}]]></groupExpression>
+		<groupHeader>
+			<band height="20">
+				<textField>
+					<reportElement x="0" y="0" width="277" height="20" uuid="4f8cc401-af42-458d-a2ca-1d71754db50d"/>
+					<box leftPadding="2"/>
+					<textElement verticalAlignment="Middle">
+						<font size="12" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Brand :"+$F{BRAND_NAME}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="51" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="555" height="31" uuid="e395002c-d421-4047-a5ea-0536e7d7fc82"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="18" isBold="true"/>
+				</textElement>
+				<text><![CDATA[IMEI Wise Stock Report]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="50">
+			<textField pattern="dd/MM/yyyy h.mm a">
+				<reportElement x="455" y="30" width="100" height="20" uuid="9ad284ac-44d8-4263-9e7b-6bf1fcd0ba13"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="390" y="30" width="65" height="20" uuid="f69e2daa-1dd3-4278-990e-84ac9d0ff3bd"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Print Date]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="436" y="10" width="80" height="20" uuid="4e8ee818-dc4b-46a9-ae9a-d18a8c3cd132"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="516" y="10" width="40" height="20" uuid="be50327a-23be-4295-8438-c13e8d49d14e"/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<detail>
+		<band height="16" splitType="Stretch">
+			<textField isStretchWithOverflow="true">
+				<reportElement stretchType="RelativeToTallestObject" x="40" y="0" width="288" height="16" uuid="c0991aaf-549b-4ec8-8bd5-f6ee88428d18"/>
+				<box leftPadding="2">
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{SR_NAME}.replaceAll( "NONE", "" )]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement stretchType="RelativeToTallestObject" x="328" y="0" width="127" height="16" uuid="96691424-251b-4bc5-93f1-c5f7b3e8e2e0"/>
+				<box leftPadding="2">
+					<topPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{IMEI_NO}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement stretchType="RelativeToTallestObject" x="0" y="0" width="40" height="16" uuid="f4ec3a64-1873-4f74-a2da-a82d87cfd7f4"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$V{REPORT_COUNT}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="dd/MM/yyyy">
+				<reportElement stretchType="RelativeToTallestObject" x="455" y="0" width="98" height="16" uuid="681c8674-6762-4b71-8397-ad4bb51ace3c"/>
+				<box leftPadding="2">
+					<topPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{V_DATE}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

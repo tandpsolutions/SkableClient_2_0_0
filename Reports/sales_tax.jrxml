@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="sales_tax" pageWidth="216" pageHeight="90" orientation="Landscape" columnWidth="216" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="0d93bd76-821e-415a-9082-f0b61b10ef1f">
+	<property name="ireport.zoom" value="2.8531167061100033"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString>
+		<![CDATA[SELECT t.tax_name,SUM(v1.BASIC_AMT) AS basic,SUM(v1.TAX_AMT) AS tax,SUM(v1.ADD_TAX_AMT) AS add_tax FROM vilshd v LEFT JOIN vilsdt v1 ON v.REF_NO=v1.REF_NO
+LEFT JOIN taxmst t ON v1.TAX_CD=t.TAX_CD GROUP BY t.TAX_NAME]]>
+	</queryString>
+	<field name="tax_name" class="java.lang.String">
+		<fieldDescription><![CDATA[tax_name]]></fieldDescription>
+	</field>
+	<field name="basic" class="java.lang.Double">
+		<fieldDescription><![CDATA[basic]]></fieldDescription>
+	</field>
+	<field name="tax" class="java.lang.Double">
+		<fieldDescription><![CDATA[tax]]></fieldDescription>
+	</field>
+	<field name="add_tax" class="java.lang.Double">
+		<fieldDescription><![CDATA[add_tax]]></fieldDescription>
+	</field>
+	<field name="disc" class="java.lang.Double">
+		<fieldDescription><![CDATA[disc]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<columnHeader>
+		<band height="20" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="46" height="20" uuid="ffdff643-05ee-4164-8496-465a128c1db9"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Tax Name]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="46" y="0" width="44" height="20" uuid="afc51f27-20ff-4747-973b-39a4e7cf6e20"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Basic]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="90" y="0" width="39" height="20" uuid="d6ecae2e-baff-41c4-928e-af640ea71736"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Tax]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="129" y="0" width="40" height="20" uuid="ecc6563a-8596-4995-8ac4-32413b790e53"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Add Tax]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="169" y="0" width="47" height="20" uuid="405f2b9b-faa3-4ae1-892a-3598f0693fbb"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="46" height="20" uuid="53050629-3e80-4c91-85b2-f12bc5653563"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{tax_name}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="46" y="0" width="44" height="20" uuid="d7eaad3f-1d47-470a-8446-3b64749e5227"/>
+				<box rightPadding="2">
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{basic}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="90" y="0" width="39" height="20" uuid="c5b2d15d-3162-4e04-b9f6-7b160c19e8dd"/>
+				<box rightPadding="2">
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{tax}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="129" y="0" width="40" height="20" uuid="97b3679f-a686-423f-92a9-9c076454f49c"/>
+				<box rightPadding="2">
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{add_tax}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="169" y="0" width="47" height="20" uuid="8a06d9ca-3d2d-40b7-bd63-dc89baf5c615"/>
+				<box rightPadding="2">
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{basic}+$F{tax}+$F{add_tax}-$F{disc}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>
