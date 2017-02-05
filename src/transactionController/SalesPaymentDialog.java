@@ -5,16 +5,22 @@
 package transactionController;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+import java.awt.event.KeyEvent;
 import java.util.ArrayList;
+import java.util.Vector;
 import javax.swing.JComponent;
 import javax.swing.JOptionPane;
+import masterController.TidMasterController;
 import model.AccountHead;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofitAPI.StartUpAPI;
 import support.Library;
+import support.ReportTable;
+import support.SelectDailog;
 
 /**
  *
@@ -34,6 +40,7 @@ public class SalesPaymentDialog extends javax.swing.JDialog {
     private JComponent focusComp = null, returnComp = null;
     private int type = -1;
     public String bank_cd = "", card_cd = "", bajaj_cd = "";
+    private ReportTable viewTable = null;
 
     /**
      * Creates new form PaymentDialog
@@ -56,8 +63,17 @@ public class SalesPaymentDialog extends javax.swing.JDialog {
         java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
         this.setBounds(screenSize.width / 2 - this.getWidth() / 2, screenSize.height / 2 - this.getHeight() / 2, this.getWidth(), this.getHeight());
         setCompEnable();
+        tableForView();
     }
 
+    
+    
+    private void tableForView() {
+        viewTable = new ReportTable();
+        viewTable.AddColumn(0, "TID Code", 120, java.lang.String.class, null, false);
+        viewTable.makeTable();
+    }
+    
     /**
      * @return the return status of this dialog - one of RET_OK or RET_CANCEL
      */
@@ -288,6 +304,62 @@ public class SalesPaymentDialog extends javax.swing.JDialog {
 
     }
 
+    
+     private void setTIDData(String param_cd, String value) {
+        try {
+            Call<JsonObject> call = lb.getRetrofit().create(StartUpAPI.class).getDataFromServer(param_cd, value.toUpperCase());
+            lb.addGlassPane(this);
+            call.enqueue(new Callback<JsonObject>() {
+
+                @Override
+                public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+                    lb.removeGlassPane(SalesPaymentDialog.this);
+                    if (response.isSuccessful()) {
+                        System.out.println(response.body().toString());
+                        if (response.body().get("result").getAsInt() == 1) {
+                            final SelectDailog sa = new SelectDailog(null, true);
+                            sa.setData(viewTable);
+                            sa.setLocationRelativeTo(null);
+                            JsonArray array = response.body().getAsJsonArray("data");
+                            sa.getDtmHeader().setRowCount(0);
+                            for (int i = 0; i < array.size(); i++) {
+                                Vector row = new Vector();
+                                row.add(array.get(i).getAsJsonObject().get("TID_NAME").getAsString());
+                                sa.getDtmHeader().addRow(row);
+                            }
+                            lb.setColumnSizeForTable(viewTable, sa.jPanelHeader.getWidth());
+                            sa.setVisible(true);
+                            if (sa.getReturnStatus() == SelectDailog.RET_OK) {
+                                int row = viewTable.getSelectedRow();
+                                if (row != -1) {
+                                    jtxtTIDNo.setText(viewTable.getValueAt(row, 0).toString());
+                                    jtxtCardPer.requestFocusInWindow();
+                                }
+                                sa.dispose();
+                            }
+                        } else {
+                            lb.showMessageDailog(response.body().get("Cause").toString());
+                        }
+                    } else {
+                        // handle request errors yourself
+                        lb.showMessageDailog(response.message());
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<JsonObject> call, Throwable thrwbl) {
+                    lb.removeGlassPane(SalesPaymentDialog.this);
+                }
+            }
+            );
+        } catch (Exception ex) {
+            lb.removeGlassPane(SalesPaymentDialog.this);
+            lb.printToLogFile("Exception at setData at account master in sales invoice", ex);
+        }
+
+    }
+
+     
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -1298,7 +1370,16 @@ public class SalesPaymentDialog extends javax.swing.JDialog {
 
     private void jtxtTIDNoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtTIDNoKeyPressed
         // TODO add your handling code here:
-        lb.enterFocus(evt, jtxtCardPer);
+        if (evt.getKeyCode() == KeyEvent.VK_N) {
+            if (evt.getModifiers() == KeyEvent.CTRL_MASK) {
+                TidMasterController tid = new TidMasterController(null, true, null, "", "");
+                tid.setLocationRelativeTo(null);
+                tid.setVisible(true);
+            }
+        }
+        if (lb.isEnter(evt)) {
+            setTIDData("32", jtxtTIDNo.getText().trim());
+        }
     }//GEN-LAST:event_jtxtTIDNoKeyPressed
 
     private void jtxtCardNoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtxtCardNoFocusGained
