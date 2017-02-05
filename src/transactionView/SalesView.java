@@ -98,6 +98,7 @@ public class SalesView extends javax.swing.JInternalFrame {
 
     private void setUpData() {
         jComboBox1.removeAllItems();
+        jComboBox1.addItem("All");
         for (int i = 0; i < Constants.BRANCH.size(); i++) {
             jComboBox1.addItem(Constants.BRANCH.get(i).getBranch_name());
         }
@@ -112,7 +113,7 @@ public class SalesView extends javax.swing.JInternalFrame {
     public void setData() {
         lb.addGlassPane(this);
         Call<PurchaseHead> call = salesAPI.getDataHeader(lb.ConvertDateFormetForDB(jtxtFromDate.getText()),
-                lb.ConvertDateFormetForDB(jtxtToDate.getText()), vType + "", Constants.BRANCH.get(jComboBox1.getSelectedIndex()).getBranch_cd());
+                lb.ConvertDateFormetForDB(jtxtToDate.getText()), vType + "", (jComboBox1.getSelectedIndex() == 0) ? "0" : Constants.BRANCH.get(jComboBox1.getSelectedIndex() - 1).getBranch_cd());
         call.enqueue(new Callback<PurchaseHead>() {
             @Override
             public void onResponse(Call<PurchaseHead> call, Response<PurchaseHead> response) {
@@ -127,7 +128,7 @@ public class SalesView extends javax.swing.JInternalFrame {
                             row.add(header.getPurchaseHeader().get(i).getREFNO());
                             row.add(header.getPurchaseHeader().get(i).getINVNO());
                             row.add(lb.ConvertDateFormetForDisplay(header.getPurchaseHeader().get(i).getVDATE()));
-                            row.add(header.getPurchaseHeader().get(i).getVTYPE());
+                            row.add(Constants.BRANCH.get(header.getPurchaseHeader().get(i).getBRANCHCD() - 1).getBranch_name());
                             row.add(header.getPurchaseHeader().get(i).getACNAME());
                             row.add(header.getPurchaseHeader().get(i).getNETAMT());
                             row.add(header.getPurchaseHeader().get(i).getCASHAMT());
@@ -137,6 +138,7 @@ public class SalesView extends javax.swing.JInternalFrame {
                             row.add(header.getPurchaseHeader().get(i).getSFID());
                             row.add(header.getPurchaseHeader().get(i).getREMARK());
                             row.add(header.getPurchaseHeader().get(i).getACCD());
+                            
                             dtm.addRow(row);
                         }
                     } else {
@@ -491,7 +493,7 @@ public class SalesView extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "ref no", "INV No", "Date", "Type", "Name", "Net Amt", "Cash", "Bank", "Card", "Bajaj", "SFID", "Remark", "Ac Cd"
+                "ref no", "INV No", "Date", "Branch", "Name", "Net Amt", "Cash", "Bank", "Card", "Bajaj", "SFID", "Remark", "Ac Cd"
             }
         ) {
             boolean[] canEdit = new boolean [] {

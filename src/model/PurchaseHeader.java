@@ -72,6 +72,10 @@ public class PurchaseHeader {
     @Expose
     private String ACCD;
 
+    @SerializedName("BRANCH_CD")
+    @Expose
+    private int BRANCHCD;
+
     @SerializedName("MOBILE1")
     @Expose
     private String MOBILE;
@@ -266,6 +270,14 @@ public class PurchaseHeader {
 
     public void setMOBILE(String MOBILE) {
         this.MOBILE = MOBILE;
+    }
+
+    public int getBRANCHCD() {
+        return BRANCHCD;
+    }
+
+    public void setBRANCHCD(int BRANCHCD) {
+        this.BRANCHCD = BRANCHCD;
     }
 
 }

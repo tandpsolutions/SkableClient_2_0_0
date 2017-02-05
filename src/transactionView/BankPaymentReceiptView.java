@@ -37,7 +37,6 @@ import support.Library;
 import support.OurDateChooser;
 import support.SmallNavigation;
 import transactionController.BankPaymentController;
-import transactionController.CashPaymentReceiptController;
 import utility.PrintPanel;
 
 /**
@@ -98,6 +97,7 @@ public class BankPaymentReceiptView extends javax.swing.JInternalFrame {
 
     private void setUpData() {
         jComboBox1.removeAllItems();
+        jComboBox1.addItem("All");
         for (int i = 0; i < Constants.BRANCH.size(); i++) {
             jComboBox1.addItem(Constants.BRANCH.get(i).getBranch_name());
         }
@@ -113,7 +113,7 @@ public class BankPaymentReceiptView extends javax.swing.JInternalFrame {
         try {
             lb.addGlassPane(this);
             JsonObject call = bankAPI.GetBankPaymentHeader(lb.ConvertDateFormetForDB(jtxtFromDate.getText()),
-                    lb.ConvertDateFormetForDB(jtxtToDate.getText()), vType + "", Constants.BRANCH.get(jComboBox1.getSelectedIndex()).getBranch_cd()).execute().body();
+                    lb.ConvertDateFormetForDB(jtxtToDate.getText()), vType + "", (jComboBox1.getSelectedIndex() == 0) ? "0" : Constants.BRANCH.get(jComboBox1.getSelectedIndex() - 1).getBranch_cd()).execute().body();
             lb.removeGlassPane(this);
             if (call != null) {
                 if (call.get("result").getAsInt() == 1) {
@@ -127,6 +127,8 @@ public class BankPaymentReceiptView extends javax.swing.JInternalFrame {
                         row.add(array.get(i).getAsJsonObject().get("BAL").getAsString());
                         row.add(array.get(i).getAsJsonObject().get("REMARK").getAsString());
                         row.add(array.get(i).getAsJsonObject().get("AC_CD").getAsString());
+                        row.add(array.get(i).getAsJsonObject().get("CHEQUE_NO").getAsString());
+                        row.add(Constants.BRANCH.get(array.get(i).getAsJsonObject().get("BRANCH_CD").getAsInt() - 1).getBranch_name());
                         dtm.addRow(row);
                     }
                 } else {
@@ -453,11 +455,11 @@ public class BankPaymentReceiptView extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "Voucher", "Date", "Name", "Balance", "Remark", "ac cd"
+                "Voucher", "Date", "Name", "Balance", "Remark", "ac cd", "Cheque", "Branch"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false
+                false, false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -484,6 +486,8 @@ public class BankPaymentReceiptView extends javax.swing.JInternalFrame {
             jTable1.getColumnModel().getColumn(5).setMinWidth(0);
             jTable1.getColumnModel().getColumn(5).setPreferredWidth(0);
             jTable1.getColumnModel().getColumn(5).setMaxWidth(0);
+            jTable1.getColumnModel().getColumn(6).setResizable(false);
+            jTable1.getColumnModel().getColumn(7).setResizable(false);
         }
 
         jPanel2.add(jScrollPane1, java.awt.BorderLayout.CENTER);

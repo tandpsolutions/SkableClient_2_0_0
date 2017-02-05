@@ -243,7 +243,7 @@
                     <Column editable="false" title="ref no" type="java.lang.Object"/>
                     <Column editable="false" title="INV No" type="java.lang.Object"/>
                     <Column editable="false" title="Date" type="java.lang.Object"/>
-                    <Column editable="false" title="Type" type="java.lang.Object"/>
+                    <Column editable="false" title="Branch" type="java.lang.Object"/>
                     <Column editable="false" title="Name" type="java.lang.Object"/>
                     <Column editable="false" title="Net Amt" type="java.lang.Object"/>
                     <Column editable="false" title="Cash" type="java.lang.Object"/>
