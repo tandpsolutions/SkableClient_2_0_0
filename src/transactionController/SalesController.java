@@ -349,8 +349,8 @@ public class SalesController extends javax.swing.JDialog {
                         if (call != null) {
                             JsonArray array = call.getAsJsonArray("data");
                             JsonArray old_data = call.getAsJsonArray("old_data");
-                            if (old_data.size() > 0) {
-                                lb.showMessageDailog("Old Stock available.\n Please select old stock?");
+                            if (!SkableHome.user_grp_cd.equalsIgnoreCase("1") && old_data.size() > 0) {
+                                lb.showMessageDailog("Old Stock available\n Select old stock");
 //                                if (lb.type) {
 //                                    final SelectDailog sa = new SelectDailog(null, true);
 //                                    sa.setData(oldData);
