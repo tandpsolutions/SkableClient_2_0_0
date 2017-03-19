@@ -350,62 +350,63 @@ public class SalesController extends javax.swing.JDialog {
                             JsonArray array = call.getAsJsonArray("data");
                             JsonArray old_data = call.getAsJsonArray("old_data");
                             if (old_data.size() > 0) {
-                                lb.confirmDialog("Old Stock available.\n Do you want to see list of old stock?");
-                                if (lb.type) {
-                                    final SelectDailog sa = new SelectDailog(null, true);
-                                    sa.setData(oldData);
-                                    sa.setLocationRelativeTo(null);
-                                    sa.getDtmHeader().setRowCount(0);
-                                    for (int i = 0; i < old_data.size(); i++) {
-                                        Vector row = new Vector();
-                                        row.add(old_data.get(i).getAsJsonObject().get("TAG_NO").getAsString());
-                                        row.add(old_data.get(i).getAsJsonObject().get("IMEI_NO").getAsString());
-                                        row.add(old_data.get(i).getAsJsonObject().get("SERAIL_NO").getAsString());
-                                        row.add(lb.ConvertDateFormetForDisplay(old_data.get(i).getAsJsonObject().get("PUR_DATE").getAsString()));
-                                        row.add(old_data.get(i).getAsJsonObject().get("SR_NAME").getAsString());
-                                        sa.getDtmHeader().addRow(row);
-                                    }
-                                    lb.setColumnSizeForTable(oldData, sa.jPanelHeader.getWidth());
-                                    sa.setVisible(true);
-                                } else {
-                                    subDetail.clear();
-                                    if (array.size() > 0) {
-                                        for (int i = 0; i < array.size(); i++) {
-                                            if (array.get(i).getAsJsonObject().get("IS_MAIN").getAsInt() == 1) {
-                                                jtxtTag.setText(array.get(i).getAsJsonObject().get("TAG_NO").getAsString());
-                                                jtxtItem.setText(array.get(i).getAsJsonObject().get("ITEM_NAME").getAsString());
-                                                pur_tag_no = (array.get(i).getAsJsonObject().get("REF_NO").getAsString());
-                                                jtxtIMEI.setText(array.get(i).getAsJsonObject().get("IMEI_NO").getAsString());
-                                                jtxtSerialNo.setText(array.get(i).getAsJsonObject().get("SERAIL_NO").getAsString());
-                                                sr_cd = (array.get(i).getAsJsonObject().get("SR_CD").getAsString());
-                                                item_name = (array.get(i).getAsJsonObject().get("ITEM_NAME").getAsString());
-                                                pur_rate = 0.00;
-                                                mop = (array.get(i).getAsJsonObject().get("MOP").getAsDouble());
-                                                jtxtQty.setText("1");
-                                                jcmbTax.setSelectedItem(array.get(i).getAsJsonObject().get("TAX_NAME").getAsString());
-                                                jtxtRate.requestFocusInWindow();
-                                            } else {
-                                                SalesControllerDetailModel model = new SalesControllerDetailModel();
-                                                model.setTAG_NO(array.get(i).getAsJsonObject().get("TAG_NO").getAsString());
-                                                model.setSR_NAME(array.get(i).getAsJsonObject().get("ITEM_NAME").getAsString());
-                                                model.setIMEI_NO(array.get(i).getAsJsonObject().get("IMEI_NO").getAsString());
-                                                model.setSERAIL_NO(array.get(i).getAsJsonObject().get("SERAIL_NO").getAsString());
-                                                model.setQTY(1);
-                                                model.setRATE(array.get(i).getAsJsonObject().get("PUR_RATE").getAsDouble());
-                                                model.setPUR_TAG_NO(array.get(i).getAsJsonObject().get("REF_NO").getAsString());
-                                                model.setTAX_CD(array.get(i).getAsJsonObject().get("TAX_NAME").getAsString());
-                                                model.setBASIC_AMT(0.00);
-                                                model.setTAX_AMT(0.00);
-                                                model.setADD_TAX_AMT(0.00);
-                                                model.setDISC_PER(0.00);
-                                                model.setMRP(0.00);
-                                                model.setAMT(0.00);
-                                                model.setSR_CD(array.get(i).getAsJsonObject().get("SR_CD").getAsString());
-                                                subDetail.add(model);
-                                            }
-                                        }
-                                    }
-                                }
+                                lb.showMessageDailog("Old Stock available.\n Please select old stock?");
+//                                if (lb.type) {
+//                                    final SelectDailog sa = new SelectDailog(null, true);
+//                                    sa.setData(oldData);
+//                                    sa.setLocationRelativeTo(null);
+//                                    sa.getDtmHeader().setRowCount(0);
+//                                    for (int i = 0; i < old_data.size(); i++) {
+//                                        Vector row = new Vector();
+//                                        row.add(old_data.get(i).getAsJsonObject().get("TAG_NO").getAsString());
+//                                        row.add(old_data.get(i).getAsJsonObject().get("IMEI_NO").getAsString());
+//                                        row.add(old_data.get(i).getAsJsonObject().get("SERAIL_NO").getAsString());
+//                                        row.add(lb.ConvertDateFormetForDisplay(old_data.get(i).getAsJsonObject().get("PUR_DATE").getAsString()));
+//                                        row.add(old_data.get(i).getAsJsonObject().get("SR_NAME").getAsString());
+//                                        sa.getDtmHeader().addRow(row);
+//                                    }
+//                                    lb.setColumnSizeForTable(oldData, sa.jPanelHeader.getWidth());
+//                                    sa.setVisible(true);
+//                                } else {
+
+//                                    subDetail.clear();
+//                                    if (array.size() > 0) {
+//                                        for (int i = 0; i < array.size(); i++) {
+//                                            if (array.get(i).getAsJsonObject().get("IS_MAIN").getAsInt() == 1) {
+//                                                jtxtTag.setText(array.get(i).getAsJsonObject().get("TAG_NO").getAsString());
+//                                                jtxtItem.setText(array.get(i).getAsJsonObject().get("ITEM_NAME").getAsString());
+//                                                pur_tag_no = (array.get(i).getAsJsonObject().get("REF_NO").getAsString());
+//                                                jtxtIMEI.setText(array.get(i).getAsJsonObject().get("IMEI_NO").getAsString());
+//                                                jtxtSerialNo.setText(array.get(i).getAsJsonObject().get("SERAIL_NO").getAsString());
+//                                                sr_cd = (array.get(i).getAsJsonObject().get("SR_CD").getAsString());
+//                                                item_name = (array.get(i).getAsJsonObject().get("ITEM_NAME").getAsString());
+//                                                pur_rate = 0.00;
+//                                                mop = (array.get(i).getAsJsonObject().get("MOP").getAsDouble());
+//                                                jtxtQty.setText("1");
+//                                                jcmbTax.setSelectedItem(array.get(i).getAsJsonObject().get("TAX_NAME").getAsString());
+//                                                jtxtRate.requestFocusInWindow();
+//                                            } else {
+//                                                SalesControllerDetailModel model = new SalesControllerDetailModel();
+//                                                model.setTAG_NO(array.get(i).getAsJsonObject().get("TAG_NO").getAsString());
+//                                                model.setSR_NAME(array.get(i).getAsJsonObject().get("ITEM_NAME").getAsString());
+//                                                model.setIMEI_NO(array.get(i).getAsJsonObject().get("IMEI_NO").getAsString());
+//                                                model.setSERAIL_NO(array.get(i).getAsJsonObject().get("SERAIL_NO").getAsString());
+//                                                model.setQTY(1);
+//                                                model.setRATE(array.get(i).getAsJsonObject().get("PUR_RATE").getAsDouble());
+//                                                model.setPUR_TAG_NO(array.get(i).getAsJsonObject().get("REF_NO").getAsString());
+//                                                model.setTAX_CD(array.get(i).getAsJsonObject().get("TAX_NAME").getAsString());
+//                                                model.setBASIC_AMT(0.00);
+//                                                model.setTAX_AMT(0.00);
+//                                                model.setADD_TAX_AMT(0.00);
+//                                                model.setDISC_PER(0.00);
+//                                                model.setMRP(0.00);
+//                                                model.setAMT(0.00);
+//                                                model.setSR_CD(array.get(i).getAsJsonObject().get("SR_CD").getAsString());
+//                                                subDetail.add(model);
+//                                            }
+//                                        }
+//                                    }
+//                                }
                             } else {
 
                                 subDetail.clear();
@@ -2639,10 +2640,10 @@ public class SalesController extends javax.swing.JDialog {
     }//GEN-LAST:event_jcmbTypeKeyPressed
 
     private void jcmbPmtKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jcmbPmtKeyPressed
-        
-        if(jcmbPmt.getSelectedIndex() == 0){
+
+        if (jcmbPmt.getSelectedIndex() == 0) {
             lb.enterFocus(evt, jtxtMobile);
-        }else{
+        } else {
             lb.enterFocus(evt, jComboBox2);
         }
     }//GEN-LAST:event_jcmbPmtKeyPressed

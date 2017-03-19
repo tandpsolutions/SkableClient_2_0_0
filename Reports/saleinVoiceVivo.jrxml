@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="inVoice" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="5f096cfe-7c20-47fd-8f84-d94a86d085ec">
 	<property name="ireport.zoom" value="1.607691607500004"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="768"/>
+	<property name="ireport.y" value="1200"/>
 	<parameter name="dir" class="java.lang.String"/>
 	<parameter name="email" class="java.lang.String"/>
 	<parameter name="mobile" class="java.lang.String"/>
@@ -306,7 +306,7 @@ LEFT JOIN payment p1 ON v.REF_NO=p1.REF_NO]]>
 			</textField>
 			<image onErrorType="Blank">
 				<reportElement uuid="3879acca-03ea-4845-879f-482d839b5a68" x="-1" y="1" width="187" height="56"/>
-				<imageExpression><![CDATA[$P{dir}+File.separator+"Resources"+File.separator+"Images"+File.separator+"logo.JPG"]]></imageExpression>
+				<imageExpression><![CDATA[$P{dir}+File.separator+"Resources"+File.separator+"Images"+File.separator+"vivo.png"]]></imageExpression>
 			</image>
 			<textField>
 				<reportElement uuid="c1ffbbab-b751-48d2-8b7e-0d81eee3bc6f" x="235" y="1" width="320" height="14"/>
@@ -722,7 +722,7 @@ LEFT JOIN payment p1 ON v.REF_NO=p1.REF_NO]]>
 				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
 					<font fontName="Arial" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA["For, "+$P{comp_name}]]></textFieldExpression>
+				<textFieldExpression><![CDATA["Powered By, "+$P{comp_name}]]></textFieldExpression>
 			</textField>
 			<frame>
 				<reportElement uuid="5ce37d97-8ed8-49f2-8315-d83852ffbed2" x="385" y="0" width="170" height="80"/>
@@ -807,54 +807,6 @@ LEFT JOIN payment p1 ON v.REF_NO=p1.REF_NO]]>
 				</textElement>
 				<text><![CDATA[I/We have read invoice and the terms & conditions as given above. We have checked the quality of the above goods and received the same in good condition.]]></text>
 			</staticText>
-			<staticText>
-				<reportElement uuid="e01a19f1-6685-4f7a-8679-003d91a9d3c1" x="-1" y="194" width="554" height="18"/>
-				<box>
-					<topPen lineWidth="0.5" lineStyle="Dashed"/>
-				</box>
-				<textElement verticalAlignment="Bottom" markup="html">
-					<font fontName="Arial" size="9"/>
-				</textElement>
-				<text><![CDATA[<b>Satellite..</b> 30/31, Manas Complex, Opp. Ratnmani Complex, Nr.Jodhpur Char Rasta, Ahmedabad 380015. (M).9099009672]]></text>
-			</staticText>
-			<staticText>
-				<reportElement uuid="9bc64abb-2825-4be8-b435-ebba2e843b93" x="0" y="212" width="554" height="16"/>
-				<textElement verticalAlignment="Bottom" markup="html">
-					<font fontName="Arial" size="9"/>
-				</textElement>
-				<text><![CDATA[<b>Juhapura..</b> B/4 Uneed Complex,Nr.Noor E Burhan Society, Sarkhej Road, Ahmedabad  (M).9099009693]]></text>
-			</staticText>
-			<staticText>
-				<reportElement uuid="7974e8bd-9f85-4efc-b8c3-064e97b20275" x="0" y="227" width="554" height="16"/>
-				<textElement verticalAlignment="Bottom" markup="html">
-					<font fontName="Arial" size="9"/>
-				</textElement>
-				<text><![CDATA[<b>Ashram Road..</b> Shop No.11 C/8, Janpath Complex, Ashram Road, Ahmedabad 380009.  (M):9924440222]]></text>
-			</staticText>
-			<staticText>
-				<reportElement uuid="cc88c256-6221-4c7c-93ff-e0af0472ffe8" x="0" y="244" width="554" height="16"/>
-				<textElement verticalAlignment="Bottom" markup="html">
-					<font fontName="Arial" size="9"/>
-				</textElement>
-				<text><![CDATA[<b>CGRD..</b> Rock Regency Hotel Opp Zinzuwadia Jewellers Body line Cross Road,  (M).9099009675]]></text>
-			</staticText>
-			<staticText>
-				<reportElement uuid="0afdd1f3-6902-42bf-a64a-13059596e55d" x="0" y="260" width="554" height="16"/>
-				<textElement verticalAlignment="Bottom" markup="html">
-					<font fontName="Arial" size="9"/>
-				</textElement>
-				<text><![CDATA[<b>Maninagar..</b> G3 Keshar Kunj Complex, Krishnabaug Cross Road,Maninagar, Ahmedabad, (M) 9099009691]]></text>
-			</staticText>
-			<staticText>
-				<reportElement uuid="3b158d1d-de1d-46c7-97d4-f8812c30646c" x="-1" y="324" width="554" height="16"/>
-				<box>
-					<bottomPen lineWidth="0.5" lineStyle="Dashed"/>
-				</box>
-				<textElement verticalAlignment="Bottom" markup="html">
-					<font fontName="Arial" size="9"/>
-				</textElement>
-				<text><![CDATA[<b>Regd Office: Paldi </b>Shop No 9, Zalak Complex,Paldi, Bhatha,Ahmedabad 380007.  (M). 9099009676]]></text>
-			</staticText>
 			<textField>
 				<reportElement uuid="eaee5ddd-acf0-445b-b160-781a409f4c87" x="386" y="15" width="69" height="13" forecolor="#000000"/>
 				<box leftPadding="2">
@@ -895,13 +847,6 @@ LEFT JOIN payment p1 ON v.REF_NO=p1.REF_NO]]>
 				</textElement>
 				<textFieldExpression><![CDATA["Add Tax Amt"]]></textFieldExpression>
 			</textField>
-			<staticText>
-				<reportElement uuid="67fd2490-226e-4301-bbc5-0a4b7e90c712" x="0" y="276" width="554" height="16"/>
-				<textElement verticalAlignment="Bottom" markup="html">
-					<font fontName="Arial" size="9"/>
-				</textElement>
-				<text><![CDATA[<b>Naroda..</b> A37, Galaxy Avenue, Opp Galaxy Cinema naroda - 382330,  (M).9099009698]]></text>
-			</staticText>
 			<textField>
 				<reportElement uuid="e9266925-7725-4d1a-a766-0fc2fbc8b18a" x="0" y="54" width="140" height="14"/>
 				<box>
@@ -941,20 +886,6 @@ LEFT JOIN payment p1 ON v.REF_NO=p1.REF_NO]]>
 				<dataSourceExpression><![CDATA[$P{tax_data}]]></dataSourceExpression>
 				<subreportExpression><![CDATA[$P{dir} + File.separator+"Reports"+File.separator+"sales_tax.jasper"]]></subreportExpression>
 			</subreport>
-			<staticText>
-				<reportElement uuid="5ce4fd98-e6fe-464b-962c-604fa0f56950" x="1" y="292" width="554" height="16"/>
-				<textElement verticalAlignment="Bottom" markup="html">
-					<font fontName="Arial" size="9"/>
-				</textElement>
-				<text><![CDATA[<b>New Naroda..</b> A1, Galaxy Avenue,  Opp Galaxy Cinema naroda - 382330,  (M).9099009670]]></text>
-			</staticText>
-			<staticText>
-				<reportElement uuid="e00e47e0-04ac-4d44-8a81-adefb8b3b663" x="1" y="308" width="554" height="16"/>
-				<textElement verticalAlignment="Bottom" markup="html">
-					<font fontName="Arial" size="9"/>
-				</textElement>
-				<text><![CDATA[<b>Bapunagar..</b> 29/30/31, Sukhsagar Complex,Besides Kakadia Hospital, Bapunagar Ahmedabad 380028,  (M).9099009700]]></text>
-			</staticText>
 			<staticText>
 				<reportElement uuid="3d8e5ecb-eea7-41ff-9517-72b11aa69ac0" x="386" y="67" width="69" height="13" forecolor="#000000"/>
 				<box leftPadding="2">

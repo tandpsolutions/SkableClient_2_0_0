@@ -21,6 +21,7 @@ public class BranchMasterModel {
     private String email;
     private double credit_limit;
     private String cash_ac_cd;
+    private String authorised;
 
     public String getCash_ac_cd() {
         return cash_ac_cd;
@@ -100,6 +101,14 @@ public class BranchMasterModel {
 
     public void setSh_name(String sh_name) {
         this.sh_name = sh_name;
+    }
+
+    public String getAuthorised() {
+        return authorised;
+    }
+
+    public void setAuthorised(String authorised) {
+        this.authorised = authorised;
     }
 
 }

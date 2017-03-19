@@ -138,7 +138,7 @@ public class SalesView extends javax.swing.JInternalFrame {
                             row.add(header.getPurchaseHeader().get(i).getSFID());
                             row.add(header.getPurchaseHeader().get(i).getREMARK());
                             row.add(header.getPurchaseHeader().get(i).getACCD());
-                            
+
                             dtm.addRow(row);
                         }
                     } else {
@@ -275,15 +275,7 @@ public class SalesView extends javax.swing.JInternalFrame {
                     int row = jTable1.getSelectedRow();
                     if (row != -1) {
                         PrintPanel pp = new PrintPanel(null, true);
-                        lb.confirmDialog("Do you want to print sales bill?");
-                        if (lb.type) {
-                            pp.getSalesBillPrint(jTable1.getValueAt(row, 0).toString());
-                        } else {
-                            if (vType == 2) {
-                                pp.getInsuranceBill(jTable1.getValueAt(row, 0).toString());
-                                pp.setVisible(true);
-                            }
-                        }
+                        pp.getSalesBillPrint(jTable1.getValueAt(row, 0).toString());
                     }
                 } else {
                     lb.showMessageDailog("You don't have rights to perform this action");

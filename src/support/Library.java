@@ -108,12 +108,11 @@ public class Library {
     private CursorGlassPane glassPane = new CursorGlassPane();
     private Component oldGlass = null;
 
-     private Library() {
+    private Library() {
         makeConnection();
     }
-    
-    public void makeConnection()
-    {
+
+    public void makeConnection() {
         try {
             HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
             interceptor.setLevel(HttpLoggingInterceptor.Level.BASIC);
@@ -137,7 +136,6 @@ public class Library {
             System.out.println(ex.getMessage());
         }
     }
-
 
     public static Library getInstance() {
         return ourInstance;
@@ -1278,8 +1276,8 @@ public class Library {
                 new File(System.getProperty("user.dir") + "/PDF").mkdir();
             }
             print = JasperFillManager.fillReport(System.getProperty("user.dir") + File.separatorChar + "Reports" + File.separatorChar + fileName, params, viewDataRs);
-            JasperExportManager.exportReportToPdfFile(print, System.getProperty("user.dir") + "/PDF/" + ref_no + ".pdf");
-            open(new File(System.getProperty("user.dir") + "/PDF/" + ref_no + ".pdf"));
+            JasperExportManager.exportReportToPdfFile(print, System.getProperty("user.dir") + File.separatorChar + "PDF" + File.separatorChar + ref_no + ".pdf");
+            open(new File(System.getProperty("user.dir") + File.separatorChar + "PDF" + File.separatorChar + ref_no + ".pdf"));
 //            ((JPanel)jrViewer.getComponent(0)).remove(0);
         } catch (Exception ex) {
             printToLogFile("Exception at reportGenerator report", ex);
@@ -1316,9 +1314,9 @@ public class Library {
             if (isWindows()) {
                 Runtime.getRuntime().exec(new String[]{"rundll32", "url.dll,FileProtocolHandler",
                     file.getAbsolutePath()});
-            } else if (isLinux() || isMac()) {
-                Runtime.getRuntime().exec(new String[]{"/usr/bin/open",
-                    file.getAbsolutePath()});
+//            } else if (isLinux() || isMac()) {
+//                Runtime.getRuntime().exec(new String[]{"/usr/bin/open",
+//                    file.getAbsolutePath()});
             } else {
                 // Unknown OS, try with desktop
                 if (Desktop.isDesktopSupported()) {

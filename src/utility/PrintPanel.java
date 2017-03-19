@@ -86,6 +86,7 @@ public class PrintPanel extends javax.swing.JDialog {
                     JsonArray array1 = call1.getAsJsonArray("data");
                     if (array != null) {
                         try {
+
                             FileWriter file = new FileWriter(System.getProperty("user.dir") + File.separator + "file1.txt");
                             FileWriter file2 = new FileWriter(System.getProperty("user.dir") + File.separator + "file2.txt");
                             file.write(array.toString());
@@ -101,13 +102,17 @@ public class PrintPanel extends javax.swing.JDialog {
                             params.put("comp_name", "APPLE N BERRY");
                             params.put("tin_no", (array.get(0).getAsJsonObject().get("COMPANY_TIN").getAsString()));
                             params.put("cst_no", (array.get(0).getAsJsonObject().get("COMPANY_CST").getAsString()));
-                            params.put("add1", SkableHome.selected_branch.getAddress1());
-                            params.put("add2", SkableHome.selected_branch.getAddress2());
-                            params.put("add3", SkableHome.selected_branch.getAddress3());
-                            params.put("email", SkableHome.selected_branch.getEmail());
-                            params.put("mobile", SkableHome.selected_branch.getPhone());
+                            params.put("add1", Constants.BRANCH.get(array.get(0).getAsJsonObject().get("BRANCH_CD").getAsInt() - 1).getAddress1());
+                            params.put("add2", Constants.BRANCH.get(array.get(0).getAsJsonObject().get("BRANCH_CD").getAsInt() - 1).getAddress2());
+                            params.put("add3", Constants.BRANCH.get(array.get(0).getAsJsonObject().get("BRANCH_CD").getAsInt() - 1).getAddress3());
+                            params.put("email", Constants.BRANCH.get(array.get(0).getAsJsonObject().get("BRANCH_CD").getAsInt() - 1).getEmail());
+                            params.put("mobile", Constants.BRANCH.get(array.get(0).getAsJsonObject().get("BRANCH_CD").getAsInt() - 1).getPhone());
                             params.put("tax_data", dataSource1);
-                            lb.reportGeneratorPDF("saleinVoice.jasper", params, dataSource, ref_no);
+                            if (Constants.BRANCH.get(array.get(0).getAsJsonObject().get("BRANCH_CD").getAsInt() - 1).getAuthorised().equalsIgnoreCase("0")) {
+                                lb.reportGeneratorPDF("saleinVoice.jasper", params, dataSource, ref_no);
+                            } else {
+                                lb.reportGeneratorPDF("saleinVoiceVivo.jasper", params, dataSource, ref_no);
+                            }
                         } catch (Exception ex) {
                         }
                     }
@@ -233,7 +238,7 @@ public class PrintPanel extends javax.swing.JDialog {
                             params.put("dir", System.getProperty("user.dir"));
                             if (type == 0) {
                                 params.put("title", "Debit Note");
-                            }else{
+                            } else {
                                 params.put("title", "Credit Note");
                             }
                             params.put("comp_name", "APPLE N BERRY");

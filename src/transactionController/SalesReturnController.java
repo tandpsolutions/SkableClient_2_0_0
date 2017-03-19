@@ -1085,6 +1085,12 @@ public class SalesReturnController extends javax.swing.JDialog {
                 }
             }
         }
+        
+         if (lb.isNumber(jtxtAmount) == 0) {
+            lb.showMessageDailog("Enter valid rate");
+            jtxtRate.requestFocusInWindow();
+            return false;
+        }
         return flag;
     }
 
