@@ -349,7 +349,9 @@ public class SalesController extends javax.swing.JDialog {
                         if (call != null) {
                             JsonArray array = call.getAsJsonArray("data");
                             JsonArray old_data = call.getAsJsonArray("old_data");
-                            if (!SkableHome.user_grp_cd.equalsIgnoreCase("1") && old_data.size() > 0) {
+                            if (!(array.get(0).getAsJsonObject().get("IMEI_NO").getAsString().isEmpty()
+                                    && array.get(0).getAsJsonObject().get("SERAIL_NO").getAsString().isEmpty())
+                                    && !SkableHome.user_grp_cd.equalsIgnoreCase("1") && old_data.size() > 0) {
                                 lb.showMessageDailog("Old Stock available\n Select old stock");
 //                                if (lb.type) {
 //                                    final SelectDailog sa = new SelectDailog(null, true);
