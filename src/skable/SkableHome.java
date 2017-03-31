@@ -140,6 +140,7 @@ public class SkableHome extends javax.swing.JFrame {
 
     public static String user_id = "1";
     public static String user_grp_cd = "1";
+    public static String selected_year = "1";
     public static BranchMasterModel selected_branch;
     public static BufferedWriter logFile = null;
     FileOutputStream errorFile = null;

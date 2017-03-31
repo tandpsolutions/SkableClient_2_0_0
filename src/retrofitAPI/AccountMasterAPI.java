@@ -24,6 +24,6 @@ public interface AccountMasterAPI {
 
     @FormUrlEncoded
     @POST("AddUpdateAccountMaster")
-    Call<JsonObject> AddUpdateAccountMaster(@Field("ac_model") String ac_model);
+    Call<JsonObject> AddUpdateAccountMaster(@Field("ac_model") String ac_model, @Field("AC_YEAR") String ac_year);
 
 }

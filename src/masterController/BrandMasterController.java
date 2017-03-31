@@ -111,7 +111,7 @@ public class BrandMasterController extends javax.swing.JDialog {
     }
 
     private void saveVoucher() {
-        Call<JsonObject> call = brandAPI.addUpdateBrandMaster(brand_cd, jtxtBrandName.getText(), SkableHome.user_id);
+        Call<JsonObject> call = brandAPI.addUpdateBrandMaster(brand_cd, jtxtBrandName.getText(), SkableHome.user_id, SkableHome.selected_year);
         lb.addGlassPane(this);
         call.enqueue(new Callback<JsonObject>() {
             @Override

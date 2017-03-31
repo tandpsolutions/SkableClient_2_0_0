@@ -20,6 +20,6 @@ public interface MemoryAPI {
     Call<JsonObject> getColorMaster();
 
     @GET("AddUpdateMemoryMaster")
-    Call<JsonObject> addUpdateColorMaster(@Query("memory_cd") String color_cd, @Query("memory_name") String color_name, @Query("user_id") String user_id);
+    Call<JsonObject> addUpdateColorMaster(@Query("memory_cd") String color_cd, @Query("memory_name") String color_name, @Query("user_id") String user_id, @Query("AC_YEAR") String ac_year);
 
 }

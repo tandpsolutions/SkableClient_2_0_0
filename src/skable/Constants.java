@@ -7,21 +7,25 @@ package skable;
 
 import java.util.ArrayList;
 import model.BranchMasterModel;
+import model.DBYearModel;
 import model.RefModel;
 import model.TaxMasterModel;
 
 /**
- *  
+ *
  * @author bhaumikc
  */
 public class Constants {
 
-    public static final String HOST2 = "182.70.127.231:8080";
-    public static String HOST1 = "219.91.186.105:8080";
-//    public static final String HOST1 = "127.0.0.1:8084"; 
+    public static final String HOST1 = "182.70.127.231:8080";
+    public static String HOST2 = "219.91.186.105:8080";
+//    public static final String HOST1 = "127.0.0.1:8084";
     public static final String FOLDER = "Skable2.0.0";
 //    public static final String FOLDER = "Skable2.0.0_Git";
+    public static final String FOLDER_NEW = "Skable2.0.0_1";
+//    public static final String FOLDER_NEW = "Skable2.0.0_1_Git";
     public static final String UPDATE_FOLDER = "Skable";
+
     public static final String UPDATE_host = "tandpsolutions.in";
     public static final String VER = "2";
     public static String BASE_URL = "http://" + HOST1 + "/" + FOLDER + "/";
@@ -29,4 +33,5 @@ public class Constants {
     public static final ArrayList<TaxMasterModel> TAX = new ArrayList<TaxMasterModel>();
     public static final ArrayList<BranchMasterModel> BRANCH = new ArrayList<BranchMasterModel>();
     public static final ArrayList<RefModel> REFERAL = new ArrayList<RefModel>();
+    public static final ArrayList<DBYearModel> DBYMS = new ArrayList<DBYearModel>();
 }

@@ -35,13 +35,17 @@ public class Login extends javax.swing.JFrame {
 
     private void setUpData() {
         jComboBox1.removeAllItems();
+        jComboBox2.removeAllItems();
         for (int i = 0; i < Constants.BRANCH.size(); i++) {
             jComboBox1.addItem(Constants.BRANCH.get(i).getBranch_name());
+        }
+        for (int i = 0; i < Constants.DBYMS.size(); i++) {
+            jComboBox2.addItem(Constants.DBYMS.get(i).getDb_year());
         }
     }
 
     private void validateLogin() {
-        Call<JsonObject> call = lb.getRetrofit().create(StartUpAPI.class).validateLogin(jtxtUserName.getText(), jtxtPassword.getText(),Constants.BRANCH.get(jComboBox1.getSelectedIndex()).getBranch_cd());
+        Call<JsonObject> call = lb.getRetrofit().create(StartUpAPI.class).validateLogin(jtxtUserName.getText(), jtxtPassword.getText(), Constants.BRANCH.get(jComboBox1.getSelectedIndex()).getBranch_cd());
         try {
             jbtnLogin.setEnabled(true);
             JsonObject data = call.execute().body();
@@ -51,7 +55,14 @@ public class Login extends javax.swing.JFrame {
                 password = jtxtPassword.getText();
                 SkableHome.user_id = data.get("USER_ID").getAsString();
                 SkableHome.user_grp_cd = data.get("USER_GRP_CD").getAsString();
+                SkableHome.selected_year = jComboBox2.getSelectedItem().toString();
                 SkableHome.selected_branch = Constants.BRANCH.get(jComboBox1.getSelectedIndex());
+                if (jComboBox2.getSelectedIndex() == 0) {
+                    Constants.BASE_URL = "http://" + Constants.HOST1 + "/" + Constants.FOLDER + "/";
+                } else {
+                    Constants.BASE_URL = "http://" + Constants.HOST1 + "/" + Constants.FOLDER_NEW + "/";
+                }
+                Library.getInstance().makeConnection();
                 SkableHome home = new SkableHome();
                 home.setVisible(true);
                 Login.this.dispose();
@@ -110,6 +121,8 @@ public class Login extends javax.swing.JFrame {
         jbtnExit = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         jComboBox1 = new javax.swing.JComboBox();
+        jLabel4 = new javax.swing.JLabel();
+        jComboBox2 = new javax.swing.JComboBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -190,6 +203,15 @@ public class Login extends javax.swing.JFrame {
             }
         });
 
+        jLabel4.setText("Year");
+
+        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBox2.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jComboBox2KeyPressed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -208,7 +230,11 @@ public class Login extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jComboBox2, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -230,7 +256,11 @@ public class Login extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                     .addComponent(jtxtUserName, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -300,15 +330,22 @@ public class Login extends javax.swing.JFrame {
 
     private void jComboBox1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jComboBox1KeyPressed
         // TODO add your handling code here:
-        lb.enterFocus(evt, jbtnLogin);
+        lb.enterFocus(evt, jComboBox2);
     }//GEN-LAST:event_jComboBox1KeyPressed
+
+    private void jComboBox2KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jComboBox2KeyPressed
+        // TODO add your handling code here:
+        lb.enterFocus(evt, jbtnLogin);
+    }//GEN-LAST:event_jComboBox2KeyPressed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox jComboBox1;
+    private javax.swing.JComboBox jComboBox2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JButton jbtnExit;

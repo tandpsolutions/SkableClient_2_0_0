@@ -111,7 +111,7 @@ public class SalesmanController extends javax.swing.JDialog {
     }
 
     private void saveVoucher() {
-        Call<JsonObject> call = salesmanAPI.AddUpdateSalesmanMaster(sm_cd, jtxtSmName.getText(), SkableHome.user_id);
+        Call<JsonObject> call = salesmanAPI.AddUpdateSalesmanMaster(sm_cd, jtxtSmName.getText(), SkableHome.user_id, SkableHome.selected_year);
         lb.addGlassPane(this);
         call.enqueue(new Callback<JsonObject>() {
             @Override

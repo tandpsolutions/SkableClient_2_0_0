@@ -118,7 +118,7 @@ public class ColorMasterController extends javax.swing.JDialog {
     }
 
     private void saveVoucher() {
-        Call<JsonObject> call = colorAPI.addUpdateColorMaster(colour_cd, jtxtColorName.getText(), SkableHome.user_id);
+        Call<JsonObject> call = colorAPI.addUpdateColorMaster(colour_cd, jtxtColorName.getText(), SkableHome.user_id, SkableHome.selected_year);
         lb.addGlassPane(ColorMasterController.this);
         call.enqueue(new Callback<JsonObject>() {
 

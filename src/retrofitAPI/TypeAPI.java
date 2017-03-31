@@ -20,6 +20,6 @@ public interface TypeAPI {
     Call<JsonObject> getTypeMaster();
 
     @GET("AddUpdateTypeMaster")
-    Call<JsonObject> addUpdateTypeMaster(@Query("type_cd") String type_cd, @Query("type_name") String type_name, @Query("user_id") String user_id);
+    Call<JsonObject> addUpdateTypeMaster(@Query("type_cd") String type_cd, @Query("type_name") String type_name, @Query("user_id") String user_id, @Query("AC_YEAR") String ac_year);
 
 }

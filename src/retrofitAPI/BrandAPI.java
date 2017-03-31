@@ -20,6 +20,6 @@ public interface BrandAPI {
     Call<JsonObject> getBrandMaster();
 
     @GET("AddUpdateBrandMaster")
-    Call<JsonObject> addUpdateBrandMaster(@Query("brand_cd") String brand_cd, @Query("brand_name") String brand_name, @Query("user_id") String user_id);
+    Call<JsonObject> addUpdateBrandMaster(@Query("brand_cd") String brand_cd, @Query("brand_name") String brand_name, @Query("user_id") String user_id, @Query("AC_YEAR") String ac_year);
 
 }

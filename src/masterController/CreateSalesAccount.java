@@ -20,6 +20,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofitAPI.AccountMasterAPI;
+import skable.SkableHome;
 import support.Library;
 
 /**
@@ -116,7 +117,7 @@ public class CreateSalesAccount extends javax.swing.JDialog {
     }
 
     private void saveVoucher(AccountMasterModel acc) {
-        Call<JsonObject> call = api.AddUpdateAccountMaster(new Gson().toJson(acc));
+        Call<JsonObject> call = api.AddUpdateAccountMaster(new Gson().toJson(acc), SkableHome.selected_year);
         lb.addGlassPane(this);
         call.enqueue(new Callback<JsonObject>() {
             @Override

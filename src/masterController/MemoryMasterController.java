@@ -118,7 +118,7 @@ public class MemoryMasterController extends javax.swing.JDialog {
     }
 
     private void saveVoucher() {
-        Call<JsonObject> call = memoryAPI.addUpdateColorMaster(memory_cd, jtxtMemoryName.getText(), SkableHome.user_id);
+        Call<JsonObject> call = memoryAPI.addUpdateColorMaster(memory_cd, jtxtMemoryName.getText(), SkableHome.user_id, SkableHome.selected_year);
         lb.addGlassPane(this);
         call.enqueue(new Callback<JsonObject>() {
             @Override

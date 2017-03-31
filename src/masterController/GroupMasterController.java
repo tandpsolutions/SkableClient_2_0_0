@@ -134,7 +134,7 @@ public class GroupMasterController extends javax.swing.JDialog {
 
     private void saveVoucher() {
         Call<JsonObject> call = groupAPI.AddUpdateGroupMaster(grp_cd, jcmbEffect.getSelectedIndex() + "", jtxtGroupName.getText(),
-                jcmbHeadGroup.getSelectedItem().toString(), SkableHome.user_id);
+                jcmbHeadGroup.getSelectedItem().toString(), SkableHome.user_id, SkableHome.selected_year);
         lb.addGlassPane(this);
         call.enqueue(new Callback<JsonObject>() {
             @Override

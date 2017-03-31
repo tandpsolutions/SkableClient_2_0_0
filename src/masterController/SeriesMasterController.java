@@ -471,7 +471,7 @@ public class SeriesMasterController extends javax.swing.JDialog {
         }
         String detailJson = new Gson().toJson(detail);
         Call<JsonObject> call = seriesAPI.appUpdateSeriesMaster(sr_cd, jtxtSeriesAlias.getText(), jtxtItemName.getText(),
-                "", model_cd, memory_cd, color_cd, SkableHome.user_id, detailJson, (int) lb.isNumber(jtxtQty), lb.isNumber(jtxtVal));
+                "", model_cd, memory_cd, color_cd, SkableHome.user_id, detailJson, (int) lb.isNumber(jtxtQty), lb.isNumber(jtxtVal), SkableHome.selected_year);
         lb.addGlassPane(this);
         call.enqueue(new Callback<JsonObject>() {
             @Override

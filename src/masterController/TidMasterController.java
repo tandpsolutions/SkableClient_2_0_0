@@ -111,7 +111,7 @@ public class TidMasterController extends javax.swing.JDialog {
     }
 
     private void saveVoucher() {
-        Call<JsonObject> call = tidApi.addUpdateTidMaster(tid_cd, jtxtTidNumber.getText(), SkableHome.user_id);
+        Call<JsonObject> call = tidApi.addUpdateTidMaster(tid_cd, jtxtTidNumber.getText(), SkableHome.user_id, SkableHome.selected_year);
         lb.addGlassPane(this);
         call.enqueue(new Callback<JsonObject>() {
             @Override

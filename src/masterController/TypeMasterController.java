@@ -118,7 +118,7 @@ public class TypeMasterController extends javax.swing.JDialog {
 
     private void saveVoucher() {
 
-        Call<JsonObject> call = typeAPI.addUpdateTypeMaster(type_cd, jtxtTypeName.getText(), SkableHome.user_id);
+        Call<JsonObject> call = typeAPI.addUpdateTypeMaster(type_cd, jtxtTypeName.getText(), SkableHome.user_id, SkableHome.selected_year);
         lb.addGlassPane(this);
         call.enqueue(new Callback<JsonObject>() {
 

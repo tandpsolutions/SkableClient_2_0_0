@@ -20,6 +20,6 @@ public interface ColorAPI {
     Call<JsonObject> getColorMaster();
 
     @GET("AddUpdateColorMaster")
-    Call<JsonObject> addUpdateColorMaster(@Query("colour_cd") String color_cd, @Query("colour_name") String color_name, @Query("user_id") String user_id);
+    Call<JsonObject> addUpdateColorMaster(@Query("colour_cd") String color_cd, @Query("colour_name") String color_name, @Query("user_id") String user_id, @Query("AC_YEAR") String ac_year);
 
 }
