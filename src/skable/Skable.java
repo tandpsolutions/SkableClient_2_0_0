@@ -33,7 +33,7 @@ public class Skable {
 
     /**
      */
-    public static String ver = "100";
+    public static String ver = "101";
 
     public static void main(String[] args) {
         // TODO code application logic here

@@ -139,6 +139,7 @@ import utility.UserPermission;
 public class SkableHome extends javax.swing.JFrame {
 
     public static String user_id = "1";
+    public static String user_name = "";
     public static String user_grp_cd = "1";
     public static String selected_year = "1";
     public static BranchMasterModel selected_branch;
@@ -168,7 +169,7 @@ public class SkableHome extends javax.swing.JFrame {
         setTrayIcon();
         openLogFile();
         createMenuList();
-        setTitle(selected_branch.getBranch_name());
+        setTitle(user_name + " - " + selected_branch.getBranch_name() + " - " + selected_year);
         if (!user_grp_cd.equalsIgnoreCase("1")) {
             jmnBranchWiseCreditLimit.setVisible(false);
         }
