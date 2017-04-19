@@ -2738,11 +2738,7 @@ public class SalesController extends javax.swing.JDialog {
                 jtxtBasicAmt.setText(lb.Convert2DecFmtForRs(taxable));
                 jtxtTaxAmt.setText(lb.Convert2DecFmtForRs((tax_rate * taxable) / 100));
                 double tax = lb.isNumber(jlblTax);
-                if (add_tax_rate_On == 1) {
-                    jtxtAddTaxAmt.setText(lb.Convert2DecFmtForRs((add_tax_rate * taxable) / 100));
-                } else {
-                    jtxtAddTaxAmt.setText(lb.Convert2DecFmtForRs((add_tax_rate * tax) / 100));
-                }
+                jtxtAddTaxAmt.setText(lb.Convert2DecFmtForRs(lb.isNumber(jtxtRate) - lb.isNumber(jtxtTaxAmt) - lb.isNumber(jtxtBasicAmt)));
             }
         }
     }//GEN-LAST:event_jcmbTaxItemStateChanged

@@ -108,6 +108,7 @@ public class SalesReturnController extends javax.swing.JDialog {
     private SalesPaymentDialog sd = null;
     private HashMap<String, double[]> taxInfo;
     private DefaultTableModel dtmTax;
+    private double sale_rate = 0.00;
 
     /**
      * Creates new form PurchaseController
@@ -450,19 +451,21 @@ public class SalesReturnController extends javax.swing.JDialog {
 
             @Override
             public void focusLost(java.awt.event.FocusEvent e) {
-//                if (pur_rate < lb.isNumber2(jtxtRate.getText())) {
-//                    jtxtMRP.setText(lb.Convert2DecFmtForRs(lb.isNumber(jtxtRate) - getSubDetailRate()));
-//                    jtxtDiscPer.setText("0.00");
-//                    jtxtRate.setText(lb.Convert2DecFmtForRs(lb.isNumber(jtxtRate) - getSubDetailRate()));
-//                } else {
-//                    jtxtMRP.setText(lb.Convert2DecFmtForRs(lb.isNumber(jtxtRate) - getSubDetailRate()));
-//                    jtxtDiscPer.setText(lb.Convert2DecFmtForRs(pur_rate - lb.isNumber(jtxtMRP)));
-//                    jtxtRate.setText(lb.Convert2DecFmtForRs(pur_rate));
-//                }
-                jcmbTaxItemStateChanged(null);
-                calculation();
-                jbtnAdd.doClick();
                 lb.toDouble(e);
+                int row = jTable1.getSelectedRow();
+                if (row == -1) {
+                    sale_rate = lb.isNumber(jtxtRate);
+                    jtxtMRP.setText(lb.Convert2DecFmtForRs(lb.isNumber(jtxtRate) - getSubDetailRate()));
+                    jtxtDiscPer.setText("0.00");
+                    jtxtRate.setText(lb.Convert2DecFmtForRs(lb.isNumber(jtxtRate) - getSubDetailRate()));
+
+                    jcmbTaxItemStateChanged(null);
+                    calculation();
+                    jbtnAdd.doClick();
+
+                } else {
+                    jtxtDiscPer.requestFocusInWindow();
+                }
             }
         });
 
@@ -1085,8 +1088,8 @@ public class SalesReturnController extends javax.swing.JDialog {
                 }
             }
         }
-        
-         if (lb.isNumber(jtxtAmount) == 0) {
+
+        if (lb.isNumber(jtxtAmount) == 0) {
             lb.showMessageDailog("Enter valid rate");
             jtxtRate.requestFocusInWindow();
             return false;
@@ -2152,7 +2155,7 @@ public class SalesReturnController extends javax.swing.JDialog {
                 double tax_rate = Double.parseDouble(tm.getTAXPER());
                 double add_tax_rate = Double.parseDouble(tm.getADDTAXPER());
                 int add_tax_rate_On = (int) lb.isNumber2(tm.getTAXONSALES());
-                if (tm.getTAXACCD().equalsIgnoreCase("T000003")) {
+                if (tm.getTAXCD().equalsIgnoreCase("T000003")) {
                     try {
                         final Calendar cal = Calendar.getInstance();
                         cal.set(Calendar.MONTH, Calendar.JUNE);
@@ -2171,11 +2174,7 @@ public class SalesReturnController extends javax.swing.JDialog {
                 jtxtBasicAmt.setText(lb.Convert2DecFmtForRs(taxable));
                 jtxtTaxAmt.setText(lb.Convert2DecFmtForRs((tax_rate * taxable) / 100));
                 double tax = lb.isNumber(jlblTax);
-                if (add_tax_rate_On == 1) {
-                    jtxtAddTaxAmt.setText(lb.Convert2DecFmtForRs((add_tax_rate * taxable) / 100));
-                } else {
-                    jtxtAddTaxAmt.setText(lb.Convert2DecFmtForRs((add_tax_rate * tax) / 100));
-                }
+                jtxtAddTaxAmt.setText(lb.Convert2DecFmtForRs(lb.isNumber(jtxtRate) - lb.isNumber(jtxtTaxAmt) - lb.isNumber(jtxtBasicAmt)));
             }
         }
     }//GEN-LAST:event_jcmbTaxItemStateChanged
@@ -2242,7 +2241,8 @@ public class SalesReturnController extends javax.swing.JDialog {
                     jtxtSerialNo.setText(subDetail.get(i).getSERAIL_NO());
                     sr_cd = (subDetail.get(i).getSR_CD());
                     item_name = (subDetail.get(i).getSR_NAME());
-                    jtxtRate.setText(lb.Convert2DecFmtForRs(0.00));
+                    double pur_rate = (subDetail.get(i).getRATE());
+                    jtxtRate.setText(lb.Convert2DecFmtForRs(pur_rate));
                     jtxtQty.setText("1");
                     jcmbTax.setSelectedItem(subDetail.get(i).getTAX_CD());
                     jcmbTaxItemStateChanged(null);

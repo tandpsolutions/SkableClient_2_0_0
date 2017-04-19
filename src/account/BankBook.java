@@ -183,7 +183,7 @@ public class BankBook extends javax.swing.JInternalFrame {
                         row.add(array.get(i).getAsJsonObject().get("DOC_REF_NO").getAsString());
                         row.add(lb.ConvertDateFormetForDisplay(array.get(i).getAsJsonObject().get("DOC_DATE").getAsString()));
                         row.add((array.get(i).getAsJsonObject().get("DOC_CD").getAsString()));
-                        row.add(array.get(i).getAsJsonObject().get("CHQ_NO").getAsString());
+                        row.add((array.get(i).getAsJsonObject().get("CHQ_NO").isJsonNull()) ? "" : array.get(i).getAsJsonObject().get("CHQ_NO").getAsString());
                         if (array.get(i).getAsJsonObject().get("REC_DATE").isJsonNull()) {
                             row.add("");
                         } else {

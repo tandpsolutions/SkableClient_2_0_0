@@ -8,6 +8,7 @@ package transactionView;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+import java.awt.event.KeyEvent;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Vector;
@@ -248,7 +249,7 @@ public class ListBill extends javax.swing.JInternalFrame {
                     jTable1.getValueAt(jTable1.getSelectedRow(), 1).toString(), jTable2.getValueAt(jTable2.getSelectedRow(), 1).toString(),
                     jTable1.getValueAt(jTable1.getSelectedRow(), 2).toString(), jTable2.getValueAt(jTable2.getSelectedRow(), 2).toString(),
                     jTable1.getValueAt(jTable1.getSelectedRow(), 5).toString(), jTable2.getValueAt(jTable2.getSelectedRow(), 5).toString(),
-                    jTable1.getValueAt(jTable1.getSelectedRow(), 6).toString(), jTable2.getValueAt(jTable2.getSelectedRow(), 6).toString()).execute().body();
+                    jTable1.getValueAt(jTable1.getSelectedRow(), 6).toString(), jTable2.getValueAt(jTable2.getSelectedRow(), 6).toString(), ac_cd).execute().body();
 
             if (addUpdaCall != null) {
                 System.out.println(addUpdaCall.toString());
@@ -274,6 +275,27 @@ public class ListBill extends javax.swing.JInternalFrame {
 //            lb.printToLogFile("Exception at dispose at codeBinding", ex);
         }
     }
+    
+    private void reverseBill(String doc_ref_no) {
+        try {
+            AccountAPI accountAPI = lb.getRetrofit().create(AccountAPI.class);
+            JsonObject addUpdaCall = accountAPI.ReverseBill(doc_ref_no).execute().body();
+
+            if (addUpdaCall != null) {
+                System.out.println(addUpdaCall.toString());
+                JsonObject object = addUpdaCall;
+                if (object.get("result").getAsInt() == 1) {
+                    lb.showMessageDailog("Voucher saved successfully");
+                    jButton1.doClick();
+                } else {
+                    lb.showMessageDailog(object.get("Cause").getAsString());
+                }
+            }
+        } catch (IOException ex) {
+            Logger.getLogger(ListBill.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -353,6 +375,16 @@ public class ListBill extends javax.swing.JInternalFrame {
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
+            }
+        });
+        jTable3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable3MouseClicked(evt);
+            }
+        });
+        jTable3.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jTable3KeyPressed(evt);
             }
         });
         jScrollPane3.setViewportView(jTable3);
@@ -560,6 +592,25 @@ public class ListBill extends javax.swing.JInternalFrame {
             adjustBill();
         }
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jTable3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable3MouseClicked
+        // TODO add your handling code here:
+
+    }//GEN-LAST:event_jTable3MouseClicked
+
+    private void jTable3KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTable3KeyPressed
+        // TODO add your handling code here:
+        int row = jTable3.getSelectedRow();
+        if (row != -1) {
+            if (evt.getKeyCode() == KeyEvent.VK_DELETE) {
+                lb.confirmDialog("Do you want to revese the entry?");
+                if (lb.type) {
+                    final String doc_ref_no = jTable3.getValueAt(row, 0).toString();
+                    reverseBill(doc_ref_no);
+                }
+            }
+        }
+    }//GEN-LAST:event_jTable3KeyPressed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
