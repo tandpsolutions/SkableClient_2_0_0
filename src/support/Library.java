@@ -122,11 +122,13 @@ public class Library {
                     .readTimeout(60, TimeUnit.SECONDS)
                     .addInterceptor(interceptor).build();
 
-            retrofit = new Retrofit.Builder()
-                    .baseUrl(Constants.BASE_URL)
-                    .client(client)
-                    .addConverterFactory(GsonConverterFactory.create())
-                    .build();
+            if (!Constants.BASE_URL.isEmpty()) {
+                retrofit = new Retrofit.Builder()
+                        .baseUrl(Constants.BASE_URL)
+                        .client(client)
+                        .addConverterFactory(GsonConverterFactory.create())
+                        .build();
+            }
             upDateRetrofit = new Retrofit.Builder()
                     .baseUrl(Constants.UPDATE_BASE_URL)
                     .client(client)

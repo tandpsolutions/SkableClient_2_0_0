@@ -114,6 +114,7 @@ public class StockTransferPendingReport extends javax.swing.JInternalFrame {
                 lb.showMessageDailog(call.get("Cause").getAsString());
             }
         }
+        jButton1.doClick();
     }
 
     private void searchOnTextFields() {

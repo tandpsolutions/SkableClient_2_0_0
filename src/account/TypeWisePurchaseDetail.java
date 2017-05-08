@@ -394,6 +394,7 @@ public class TypeWisePurchaseDetail extends javax.swing.JInternalFrame {
                             row.add("");
                         }
                         row.add(lb.ConvertDateFormetForDisplay(array.get(i).getAsJsonObject().get("v_date").getAsString()));
+                        row.add(array.get(i).getAsJsonObject().get("model_name").getAsString());
                         row.add(array.get(i).getAsJsonObject().get("sr_name").getAsString());
                         row.add(array.get(i).getAsJsonObject().get("pcs").getAsDouble());
                         row.add(array.get(i).getAsJsonObject().get("tot_sales").getAsDouble());
@@ -405,11 +406,12 @@ public class TypeWisePurchaseDetail extends javax.swing.JInternalFrame {
 
                     double qty = 0.0, amt = 0.00;
                     for (int i = 0; i < jTable1.getRowCount(); i++) {
-                        qty += lb.isNumber2(jTable1.getValueAt(i, 4).toString());
-                        amt += lb.isNumber2(jTable1.getValueAt(i, 5).toString());
+                        qty += lb.isNumber2(jTable1.getValueAt(i, 5).toString());
+                        amt += lb.isNumber2(jTable1.getValueAt(i, 6).toString());
                     }
 
                     Vector row = new Vector();
+                    row.add(" ");
                     row.add(" ");
                     row.add(" ");
                     row.add(" ");
@@ -423,6 +425,7 @@ public class TypeWisePurchaseDetail extends javax.swing.JInternalFrame {
 
                     row = new Vector();
                     row.add("Total");
+                    row.add(" ");
                     row.add(" ");
                     row.add(" ");
                     row.add(" ");
@@ -460,7 +463,8 @@ public class TypeWisePurchaseDetail extends javax.swing.JInternalFrame {
                 row.add(jTable1.getValueAt(i, 4).toString());
                 row.add(jTable1.getValueAt(i, 5).toString());
                 row.add(jTable1.getValueAt(i, 6).toString());
-                row.add(jTable1.getValueAt(i, 8).toString());
+                row.add(jTable1.getValueAt(i, 7).toString());
+                row.add(jTable1.getValueAt(i, 9).toString());
                 rows.add(row);
             }
 
@@ -468,6 +472,7 @@ public class TypeWisePurchaseDetail extends javax.swing.JInternalFrame {
             header.add("Sr No");
             header.add("Name");
             header.add("Date");
+            header.add("Model Name");
             header.add("Item Name");
             header.add("PCS");
             header.add("Amount");
@@ -557,11 +562,11 @@ public class TypeWisePurchaseDetail extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "SR No", "Name", "Date", "Item Name", "PCS", "Amount", "IMEI NO", "REF", "Branch"
+                "SR No", "Name", "Date", "Model Name", "Item Name", "PCS", "Amount", "IMEI NO", "REF", "Branch"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -582,10 +587,11 @@ public class TypeWisePurchaseDetail extends javax.swing.JInternalFrame {
             jTable1.getColumnModel().getColumn(4).setResizable(false);
             jTable1.getColumnModel().getColumn(5).setResizable(false);
             jTable1.getColumnModel().getColumn(6).setResizable(false);
-            jTable1.getColumnModel().getColumn(7).setMinWidth(0);
-            jTable1.getColumnModel().getColumn(7).setPreferredWidth(0);
-            jTable1.getColumnModel().getColumn(7).setMaxWidth(0);
-            jTable1.getColumnModel().getColumn(8).setResizable(false);
+            jTable1.getColumnModel().getColumn(7).setResizable(false);
+            jTable1.getColumnModel().getColumn(8).setMinWidth(0);
+            jTable1.getColumnModel().getColumn(8).setPreferredWidth(0);
+            jTable1.getColumnModel().getColumn(8).setMaxWidth(0);
+            jTable1.getColumnModel().getColumn(9).setResizable(false);
         }
 
         jPanel1.add(jScrollPane1, java.awt.BorderLayout.CENTER);
@@ -792,7 +798,7 @@ public class TypeWisePurchaseDetail extends javax.swing.JInternalFrame {
                         .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(20, Short.MAX_VALUE))
+                        .addContainerGap(24, Short.MAX_VALUE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -1022,7 +1028,7 @@ public class TypeWisePurchaseDetail extends javax.swing.JInternalFrame {
         if (evt.getClickCount() == 2) {
             int row = jTable1.getSelectedRow();
             if (row != -1) {
-                lb.openVoucherBook(jTable1.getValueAt(row, 7).toString());
+                lb.openVoucherBook(jTable1.getValueAt(row, 9).toString());
             }
         }
     }//GEN-LAST:event_jTable1MouseClicked

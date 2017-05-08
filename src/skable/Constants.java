@@ -17,9 +17,7 @@ import model.TaxMasterModel;
  */
 public class Constants {
 
-    public static final String HOST1 = "182.70.127.231:8080";
-    public static String HOST2 = "219.91.186.105:8080";
-//    public static final String HOST1 = "127.0.0.1:8084";
+    public static String HOST1 = "";
     public static final String FOLDER = "Skable2.0.0";
 //    public static final String FOLDER = "Skable2.0.0_Git";
     public static final String FOLDER_NEW = "Skable2.0.0_1";
@@ -28,7 +26,7 @@ public class Constants {
 
     public static final String UPDATE_host = "tandpsolutions.in";
     public static final String VER = "2";
-    public static String BASE_URL = "http://" + HOST1 + "/" + FOLDER + "/";
+    public static String BASE_URL = "";
     public static final String UPDATE_BASE_URL = "http://" + UPDATE_host + "/" + UPDATE_FOLDER + "/";
     public static final ArrayList<TaxMasterModel> TAX = new ArrayList<TaxMasterModel>();
     public static final ArrayList<BranchMasterModel> BRANCH = new ArrayList<BranchMasterModel>();

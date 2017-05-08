@@ -5,23 +5,16 @@
  */
 package skable;
 
-import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.jtattoo.plaf.mcwin.McWinLookAndFeel;
 import java.io.IOException;
-import java.net.ConnectException;
 import java.util.Properties;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 import javax.swing.UnsupportedLookAndFeelException;
-import login.Login;
-import model.BranchMasterModel;
-import model.DBYearModel;
-import model.RefModel;
-import retrofitAPI.RefralAPI;
+import login.SelectIP;
 import retrofitAPI.UpdateInterface;
-import static skable.Constants.FOLDER;
 import support.Library;
 import utility.SwingFileDownloadHTTP;
 
@@ -33,7 +26,7 @@ public class Skable {
 
     /**
      */
-    public static String ver = "105";
+    public static String ver = "108";
 
     public static void main(String[] args) {
         // TODO code application logic here
@@ -70,66 +63,15 @@ public class Skable {
                     }
                 }
             } else {
-                final UpdateInterface update1 = lb.getRetrofit().create(UpdateInterface.class);
-                final RefralAPI refralAPI = lb.getRetrofit().create(RefralAPI.class);
-                final JsonObject branchMaster = update1.GetBranchMaster().execute().body();
-                final JsonObject refmaster = refralAPI.GetSalesmanMaster().execute().body();
-                final JsonArray branchArray = branchMaster.getAsJsonArray("data");
-                final JsonArray refMaster = refmaster.getAsJsonArray("data");
-                final JsonArray yearArray = branchMaster.getAsJsonArray("year");
-                if (branchArray.size() > 0) {
-                    for (int i = 0; i < branchArray.size(); i++) {
-                        BranchMasterModel model = new Gson().fromJson(branchArray.get(i).getAsJsonObject().toString(), BranchMasterModel.class);
-                        Constants.BRANCH.add(model);
-                    }
-                }
-                if (yearArray.size() > 0) {
-                    for (int i = 0; i < yearArray.size(); i++) {
-                        DBYearModel model = new Gson().fromJson(yearArray.get(i).getAsJsonObject().toString(), DBYearModel.class);
-                        Constants.DBYMS.add(model);
-                    }
-                }
-                if (refMaster.size() > 0) {
-                    for (int i = 0; i < refMaster.size(); i++) {
-                        RefModel model = new Gson().fromJson(refMaster.get(i).getAsJsonObject().toString(), RefModel.class);
-                        Constants.REFERAL.add(model);
-                    }
-                }
                 startApplication();
             }
         } catch (IOException ex) {
-            if (ex instanceof ConnectException) {
-                try {
-                    Constants.BASE_URL = "http://" + Constants.HOST2 + "/" + FOLDER + "/";
-                    Library.getInstance().makeConnection();
-                    final UpdateInterface update1 = lb.getRetrofit().create(UpdateInterface.class);
-                    final RefralAPI refralAPI = lb.getRetrofit().create(RefralAPI.class);
-                    final JsonObject branchMaster = update1.GetBranchMaster().execute().body();
-                    final JsonObject refmaster = refralAPI.GetSalesmanMaster().execute().body();
-                    final JsonArray branchArray = branchMaster.getAsJsonArray("data");
-                    final JsonArray refMaster = refmaster.getAsJsonArray("data");
-                    if (branchArray.size() > 0) {
-                        for (int i = 0; i < branchArray.size(); i++) {
-                            BranchMasterModel model = new Gson().fromJson(branchArray.get(i).getAsJsonObject().toString(), BranchMasterModel.class);
-                            Constants.BRANCH.add(model);
-                        }
-                    }
-                    if (refMaster.size() > 0) {
-                        for (int i = 0; i < refMaster.size(); i++) {
-                            RefModel model = new Gson().fromJson(refMaster.get(i).getAsJsonObject().toString(), RefModel.class);
-                            Constants.REFERAL.add(model);
-                        }
-                    }
-                    startApplication();
-                } catch (IOException ex2) {
-                    System.out.println(ex.getMessage());
-                }
-            }
+            System.out.println(ex.getMessage());
         }
     }
 
     private static void startApplication() {
-        Login lg = new Login();
+        SelectIP lg = new SelectIP();
         lg.setLocationRelativeTo(null);
         lg.setVisible(true);
     }

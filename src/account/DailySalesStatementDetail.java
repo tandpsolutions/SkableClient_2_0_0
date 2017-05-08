@@ -128,7 +128,7 @@ public class DailySalesStatementDetail extends javax.swing.JInternalFrame {
                             - array.get(i).getAsJsonObject().get("bank").getAsDouble()));
                     row.add(lb.Convert2DecFmtForRs(array.get(i).getAsJsonObject().get("net_amt").getAsDouble()));
                     row.add(lb.Convert2DecFmtForRs(array.get(i).getAsJsonObject().get("MOP").getAsDouble()));
-
+                    row.add((array.get(i).getAsJsonObject().get("ref_no").getAsString()));
                     dtm.addRow(row);
                 }
 
@@ -300,11 +300,11 @@ public class DailySalesStatementDetail extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "Branch", "Date", "Inv No", "Type", "Name", "Cash", "Bank", "Card", "Card No", "TID No", "Bajaj", "Buy Back", "Card Charges", "Debtors", "Net Amt", "Discount"
+                "Branch", "Date", "Inv No", "Type", "Name", "Cash", "Bank", "Card", "Card No", "TID No", "Bajaj", "Buy Back", "Card Charges", "Debtors", "Net Amt", "Discount", "Ref"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -335,6 +335,9 @@ public class DailySalesStatementDetail extends javax.swing.JInternalFrame {
             jTable1.getColumnModel().getColumn(13).setResizable(false);
             jTable1.getColumnModel().getColumn(14).setResizable(false);
             jTable1.getColumnModel().getColumn(15).setResizable(false);
+            jTable1.getColumnModel().getColumn(16).setMinWidth(0);
+            jTable1.getColumnModel().getColumn(16).setPreferredWidth(0);
+            jTable1.getColumnModel().getColumn(16).setMaxWidth(0);
         }
 
         jPanel1.add(jScrollPane1, java.awt.BorderLayout.CENTER);
@@ -634,8 +637,7 @@ public class DailySalesStatementDetail extends javax.swing.JInternalFrame {
         if (evt.getClickCount() == 2) {
             int row = jTable1.getSelectedRow();
             if (row != -1) {
-//                DailySalesStatementDetail dsd = new DailySalesStatementDetail(jTable1.getValueAt(row, 0).toString(), jTable1.getValueAt(row, 0).toString(), jComboBox1.getSelectedIndex(), jCheckBox1.isSelected());
-//                MobiHome.addOnScreen(dsd, "Daily Sales Statement Detail");
+                lb.openVoucherBook(jTable1.getValueAt(row, 16).toString());
             }
         }
     }//GEN-LAST:event_jTable1MouseClicked

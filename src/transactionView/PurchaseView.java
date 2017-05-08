@@ -114,7 +114,7 @@ public class PurchaseView extends javax.swing.JInternalFrame {
                             row.add(header.getPurchaseHeader().get(i).getVTYPE());
                             row.add(lb.ConvertDateFormetForDisplay(header.getPurchaseHeader().get(i).getVDATE()));
                             row.add(header.getPurchaseHeader().get(i).getACNAME());
-                            row.add(header.getPurchaseHeader().get(i).getNETAMT());
+                            row.add(lb.Convert2DecFmtForRs(header.getPurchaseHeader().get(i).getNETAMT()));
                             row.add(header.getPurchaseHeader().get(i).getREMARK());
                             row.add(header.getPurchaseHeader().get(i).getACCD());
                             dtm.addRow(row);

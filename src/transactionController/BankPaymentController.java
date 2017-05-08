@@ -223,12 +223,13 @@ public class BankPaymentController extends javax.swing.JDialog {
                     JsonObject object = call;
 
                     JsonArray array = object.get("data").getAsJsonArray();
+                    String remark = "";
                     try {
                         for (int i = 0; i < array.size(); i++) {
                             jtxtVoucher.setText(array.get(i).getAsJsonObject().get("REF_NO").getAsString() + "");
                             jtxtVouDate.setText(lb.ConvertDateFormetForDBForConcurrency(array.get(i).getAsJsonObject().get("VDATE").getAsString()));
                             BankPaymentController.this.ref_no = array.get(i).getAsJsonObject().get("REF_NO").getAsString();
-                            jlblUser.setText(array.get(i).getAsJsonObject().get("USER_ID").getAsString()+ "");
+                            jlblUser.setText(array.get(i).getAsJsonObject().get("USER_ID").getAsString() + "");
                             jlblEditNo.setText(array.get(i).getAsJsonObject().get("EDIT_NO").getAsDouble() + "");
                             jlblTimeStamp.setText(array.get(i).getAsJsonObject().get("TIME_STAMP").getAsString());
                             jlblVday.setText(lb.setDay(jtxtVouDate));
@@ -260,9 +261,11 @@ public class BankPaymentController extends javax.swing.JDialog {
                             row.add(array.get(i).getAsJsonObject().get("BAL").getAsString());
                             row.add(array.get(i).getAsJsonObject().get("REMARK").getAsString());
                             row.add(array.get(i).getAsJsonObject().get("IS_EDITED").getAsString());
+                            remark += "\n" + array.get(i).getAsJsonObject().get("REMARK").getAsString();
                             dtm.addRow(row);
 
                         }
+                        jlblRemark.setText(remark);
                         setTotal();
                     } catch (Exception ex) {
                         lb.printToLogFile("Exception", ex);
@@ -493,6 +496,7 @@ public class BankPaymentController extends javax.swing.JDialog {
         jLabel15 = new javax.swing.JLabel();
         jlblTimeStamp = new javax.swing.JLabel();
         jbtnOK = new javax.swing.JButton();
+        jlblRemark = new javax.swing.JLabel();
 
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
@@ -855,6 +859,10 @@ public class BankPaymentController extends javax.swing.JDialog {
             }
         });
 
+        jlblRemark.setText("jLabel4");
+        jlblRemark.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+        jlblRemark.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -867,7 +875,8 @@ public class BankPaymentController extends javax.swing.JDialog {
                     .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jlblRemark, javax.swing.GroupLayout.PREFERRED_SIZE, 528, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jbtnOK, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(cancelButton))
@@ -905,10 +914,15 @@ public class BankPaymentController extends javax.swing.JDialog {
                     .addComponent(jlblEditNo, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel15)
                     .addComponent(jlblTimeStamp, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(29, 29, 29)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(cancelButton)
-                    .addComponent(jbtnOK))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(158, 158, 158)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(cancelButton)
+                            .addComponent(jbtnOK)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jlblRemark, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
 
@@ -987,6 +1001,7 @@ public class BankPaymentController extends javax.swing.JDialog {
             jTable1.setValueAt(jtxtAmount.getText(), rowSel, 3);
             jTable1.setValueAt(jtxtRemark.getText(), rowSel, 4);
         }
+        jlblRemark.setText(jlblRemark.getText() + "\n" + jtxtRemark.getText());
         clear();
         jTable1.clearSelection();
         if (JOptionPane.showConfirmDialog(this, "Do you want to Add more Entry?", "Cash Entry", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
@@ -1198,6 +1213,7 @@ public class BankPaymentController extends javax.swing.JDialog {
     private javax.swing.JButton jbtnAdd;
     private javax.swing.JButton jbtnOK;
     private javax.swing.JLabel jlblEditNo;
+    private javax.swing.JLabel jlblRemark;
     private javax.swing.JLabel jlblTimeStamp;
     private javax.swing.JLabel jlblUser;
     private javax.swing.JLabel jlblVday;
