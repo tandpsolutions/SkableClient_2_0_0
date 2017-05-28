@@ -45,6 +45,7 @@ import retrofit2.Response;
 import retrofitAPI.InventoryAPI;
 import retrofitAPI.StartUpAPI;
 import retrofitAPI.TypeAPI;
+import skable.Constants;
 import skable.SkableHome;
 import support.Library;
 import support.OurDateChooser;
@@ -252,6 +253,7 @@ public class StockStatementDateWise extends javax.swing.JInternalFrame {
                             row.add(array.get(i).getAsJsonObject().get("OPB").getAsDouble() + array.get(i).getAsJsonObject().get("PURCHASE").getAsDouble() - array.get(i).getAsJsonObject().get("SALES").getAsDouble());
                             row.add(array.get(i).getAsJsonObject().get("SR_CD").getAsString());
                             row.add(array.get(i).getAsJsonObject().get("SR_ALIAS").getAsString());
+                            row.add(Constants.BRANCH.get(array.get(i).getAsJsonObject().get("branch_cd").getAsInt() - 1).getBranch_name());
                             dtm.addRow(row);
                             opb += array.get(i).getAsJsonObject().get("OPB").getAsDouble();
                             pur += array.get(i).getAsJsonObject().get("PURCHASE").getAsDouble();
@@ -259,6 +261,7 @@ public class StockStatementDateWise extends javax.swing.JInternalFrame {
                             stock = opb + pur - sal;
                         }
                         Vector row = new Vector();
+                        row.add(" ");
                         row.add(" ");
                         row.add(" ");
                         row.add(" ");
@@ -276,6 +279,7 @@ public class StockStatementDateWise extends javax.swing.JInternalFrame {
                         row.add(pur);
                         row.add(sal);
                         row.add(stock);
+                        row.add(" ");
                         row.add(" ");
                         row.add(" ");
                         dtm.addRow(row);
@@ -475,6 +479,7 @@ public class StockStatementDateWise extends javax.swing.JInternalFrame {
                 row.add(jTable1.getValueAt(i, 4).toString());
                 row.add(jTable1.getValueAt(i, 5).toString());
                 row.add(jTable1.getValueAt(i, 7).toString());
+                row.add(jTable1.getValueAt(i, 8).toString());
                 rows.add(row);
             }
 
@@ -484,7 +489,9 @@ public class StockStatementDateWise extends javax.swing.JInternalFrame {
             header.add("OPB");
             header.add("Purcahse");
             header.add("Sales");
+            header.add("Total");
             header.add("Alias");
+            header.add("Branch");
             lb.exportToExcel("Stock Statement Date Wise", header, rows, "Stock Statement Date Wise");
         } catch (Exception ex) {
             lb.printToLogFile("Exception at callView as OPDPatientListDateWise", ex);
@@ -539,11 +546,11 @@ public class StockStatementDateWise extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "Sr No", "Product Name", "Opening", "Purchase", "Sales", "Balance", "sr_cd", "SR Alias"
+                "Sr No", "Product Name", "Opening", "Purchase", "Sales", "Balance", "sr_cd", "SR Alias", "Branch"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -569,6 +576,7 @@ public class StockStatementDateWise extends javax.swing.JInternalFrame {
             jTable1.getColumnModel().getColumn(6).setPreferredWidth(0);
             jTable1.getColumnModel().getColumn(6).setMaxWidth(0);
             jTable1.getColumnModel().getColumn(7).setResizable(false);
+            jTable1.getColumnModel().getColumn(8).setResizable(false);
         }
 
         jPanel1.add(jScrollPane1, java.awt.BorderLayout.CENTER);

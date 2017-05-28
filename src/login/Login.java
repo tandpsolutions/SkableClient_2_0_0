@@ -63,6 +63,7 @@ public class Login extends javax.swing.JFrame {
                 } else {
                     Constants.BASE_URL = "http://" + Constants.HOST1 + "/" + Constants.FOLDER_NEW + "/";
                 }
+                jtxtPassword.setText("");
                 Library.getInstance().makeConnection();
                 SkableHome home = new SkableHome();
                 home.setVisible(true);

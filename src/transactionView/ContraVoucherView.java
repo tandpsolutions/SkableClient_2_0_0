@@ -101,6 +101,7 @@ public class ContraVoucherView extends javax.swing.JInternalFrame {
                     JsonArray array = call.get("data").getAsJsonArray();
                     dtm.setRowCount(0);
                     for (int i = 0; i < array.size(); i++) {
+                        try{
                         Vector row = new Vector();
                         row.add(array.get(i).getAsJsonObject().get("REF_NO").getAsString());
                         row.add(lb.ConvertDateFormetForDisplay(array.get(i).getAsJsonObject().get("VDATE").getAsString()));
@@ -109,6 +110,9 @@ public class ContraVoucherView extends javax.swing.JInternalFrame {
                         row.add(array.get(i).getAsJsonObject().get("PART").getAsString());
                         row.add(array.get(i).getAsJsonObject().get("AC_CD").getAsString());
                         dtm.addRow(row);
+                        }catch(Exception e){
+                            
+                        }
                     }
                 } else {
 //                        lb.showMessageDailog(response.body().getd("Cause").getAsString());

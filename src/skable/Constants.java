@@ -18,10 +18,10 @@ import model.TaxMasterModel;
 public class Constants {
 
     public static String HOST1 = "";
-    public static final String FOLDER = "Skable2.0.0";
-//    public static final String FOLDER = "Skable2.0.0_Git";
-    public static final String FOLDER_NEW = "Skable2.0.0_1";
-//    public static final String FOLDER_NEW = "Skable2.0.0_1_Git";
+//    public static final String FOLDER = "Skable2.0.0";
+    public static final String FOLDER = "Skable2.0.0_Git";
+//    public static final String FOLDER_NEW = "Skable2.0.0_1";
+    public static final String FOLDER_NEW = "Skable2.0.0_1_Git";
     public static final String UPDATE_FOLDER = "Skable";
 
     public static final String UPDATE_host = "tandpsolutions.in";

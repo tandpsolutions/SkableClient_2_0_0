@@ -344,7 +344,7 @@ public class StockValueStatementDateWise extends javax.swing.JInternalFrame {
                             if (sa.getReturnStatus() == SelectDailog.RET_OK) {
                                 int row = viewTable.getSelectedRow();
                                 if (row != -1) {
-                                    code = viewTable.getValueAt(row, 0).toString();
+                                    sr_cd = viewTable.getValueAt(row, 0).toString();
                                     jtxtProductName.setText(viewTable.getValueAt(row, 1).toString());
                                     jbtnView.requestFocusInWindow();
                                 }

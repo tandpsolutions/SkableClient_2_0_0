@@ -23,7 +23,8 @@ public interface AccountAPI {
     Call<JsonObject> GetGroupSummary(@Query("grp_cd") String sr_cd, @Query("mode") int mode, @Query("amt") double amt);
 
     @GET("UpdateOLDB2_4")
-    Call<JsonObject> UpdateOLDB2_4(@Query("unpaid_amt") String sr_cd, @Query("doc_ref_no") String mode);
+    Call<JsonObject> UpdateOLDB2_4(@Query("unpaid_amt") String unpaid_amt, @Query("doc_ref_no") String doc_ref_no,@Query("ac_cd") String ac_cd);
+
 
     @GET("CashSnapshot")
     Call<JsonObject> CashSnapshot(@Query("grp_cd") String grp_cd, @Query("from_date") String from_date, @Query("to_date") String to_date);

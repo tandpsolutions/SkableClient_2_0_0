@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import model.AccountHead;
 import retrofitAPI.AccountAPI;
@@ -275,7 +276,7 @@ public class ListBill extends javax.swing.JInternalFrame {
 //            lb.printToLogFile("Exception at dispose at codeBinding", ex);
         }
     }
-    
+
     private void reverseBill(String doc_ref_no) {
         try {
             AccountAPI accountAPI = lb.getRetrofit().create(AccountAPI.class);
@@ -295,7 +296,6 @@ public class ListBill extends javax.swing.JInternalFrame {
             Logger.getLogger(ListBill.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -340,6 +340,11 @@ public class ListBill extends javax.swing.JInternalFrame {
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
+            }
+        });
+        jTable1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jTable1KeyPressed(evt);
             }
         });
         jScrollPane1.setViewportView(jTable1);
@@ -418,6 +423,11 @@ public class ListBill extends javax.swing.JInternalFrame {
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
+            }
+        });
+        jButton1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jButton1KeyPressed(evt);
             }
         });
 
@@ -501,6 +511,11 @@ public class ListBill extends javax.swing.JInternalFrame {
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
+            }
+        });
+        jTable2.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jTable2KeyPressed(evt);
             }
         });
         jScrollPane2.setViewportView(jTable2);
@@ -609,6 +624,59 @@ public class ListBill extends javax.swing.JInternalFrame {
             }
         }
     }//GEN-LAST:event_jTable3KeyPressed
+
+    private void jTable1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTable1KeyPressed
+        // TODO add your handling code here:
+        int row = jTable1.getSelectedRow();
+        if (row != -1) {
+            if (evt.getKeyCode() == KeyEvent.VK_F2) {
+                String amtW = new JOptionPane().showInputDialog(null, "Please enter rate");
+                double amt = lb.isNumber(amtW);
+                {
+                    try {
+                        final AccountAPI accountAPI = lb.getRetrofit().create(AccountAPI.class);
+                        JsonObject call = accountAPI.UpdateOLDB2_4(amt + "", jTable1.getValueAt(row, 0).toString(), ac_cd).execute().body();
+                        JsonObject result = call;
+                        lb.showMessageDailog(result.get("Cause").getAsString());
+                        if (result.get("result").getAsInt() == 1) {
+                            jButton1.doClick();
+                        }
+                    } catch (IOException ex) {
+                    }
+                }
+
+            }
+        }
+    }//GEN-LAST:event_jTable1KeyPressed
+
+    private void jTable2KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTable2KeyPressed
+        // TODO add your handling code here:
+        int row = jTable2.getSelectedRow();
+        if (row != -1) {
+            if (evt.getKeyCode() == KeyEvent.VK_F2) {
+                String amtW = new JOptionPane().showInputDialog(null, "Please enter rate");
+                double amt = lb.isNumber(amtW);
+                {
+                    try {
+                        final AccountAPI accountAPI = lb.getRetrofit().create(AccountAPI.class);
+                        JsonObject call = accountAPI.UpdateOLDB2_4(amt + "", jTable2.getValueAt(row, 0).toString(), ac_cd).execute().body();
+                        JsonObject result = call;
+                        lb.showMessageDailog(result.get("Cause").getAsString());
+                        if (result.get("result").getAsInt() == 1) {
+                            jButton1.doClick();
+                        }
+                    } catch (IOException ex) {
+                    }
+                }
+
+            }
+        }
+    }//GEN-LAST:event_jTable2KeyPressed
+
+    private void jButton1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jButton1KeyPressed
+        // TODO add your handling code here:
+        lb.enterClick(evt);
+    }//GEN-LAST:event_jButton1KeyPressed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

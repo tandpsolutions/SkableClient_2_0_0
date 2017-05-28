@@ -136,10 +136,11 @@
         <Component class="javax.swing.JComboBox" name="jComboBox3">
           <Properties>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-              <StringArray count="3">
+              <StringArray count="4">
                 <StringItem index="0" value="182.70.127.231:8080"/>
                 <StringItem index="1" value="219.91.131.204:8080"/>
                 <StringItem index="2" value="127.0.0.1:8080"/>
+                <StringItem index="3" value="127.0.0.1:8084"/>
               </StringArray>
             </Property>
           </Properties>
