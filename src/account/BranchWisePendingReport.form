@@ -65,7 +65,7 @@
             <Component class="javax.swing.JTable" name="jTable1">
               <Properties>
                 <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                  <Table columnCount="14" rowCount="0">
+                  <Table columnCount="15" rowCount="0">
                     <Column editable="false" title="Branch" type="java.lang.Object"/>
                     <Column editable="false" title="Bill No" type="java.lang.Object"/>
                     <Column editable="false" title="ref_no" type="java.lang.Object"/>
@@ -80,6 +80,7 @@
                     <Column editable="false" title="Buy Back AMT" type="java.lang.Object"/>
                     <Column editable="false" title="Remark" type="java.lang.Object"/>
                     <Column editable="false" title="Referal" type="java.lang.Object"/>
+                    <Column editable="false" title="Sr" type="java.lang.Object"/>
                   </Table>
                 </Property>
                 <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
@@ -150,6 +151,11 @@
                       <Renderer/>
                     </Column>
                     <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="false">
+                      <Title/>
+                      <Editor/>
+                      <Renderer/>
+                    </Column>
+                    <Column maxWidth="0" minWidth="0" prefWidth="0" resizable="true">
                       <Title/>
                       <Editor/>
                       <Renderer/>

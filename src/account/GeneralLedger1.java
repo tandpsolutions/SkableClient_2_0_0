@@ -814,23 +814,23 @@ public class GeneralLedger1 extends javax.swing.JInternalFrame {
 
     private void jTable1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTable1KeyPressed
         // TODO add your handling code here:
-        int row = jTable1.getSelectedRow();
-        if (row != -1) {
-            if (evt.getKeyCode() == KeyEvent.VK_F2) {
-                String amtW = new JOptionPane().showInputDialog(null, "Please enter rate");
-                double amt = lb.isNumber(amtW);
-                {
-                    try {
-                        final AccountAPI accountAPI = lb.getRetrofit().create(AccountAPI.class);
-                        JsonObject call = accountAPI.UpdateOLDB2_4(amt + "", jTable1.getValueAt(row, 7).toString(), ac_cd).execute().body();
-                        JsonObject result = call;
-                        lb.showMessageDailog(result.get("Cause").getAsString());
-                    } catch (IOException ex) {
-                    }
-                }
-
-            }
-        }
+//        int row = jTable1.getSelectedRow();
+//        if (row != -1) {
+//            if (evt.getKeyCode() == KeyEvent.VK_F2) {
+//                String amtW = new JOptionPane().showInputDialog(null, "Please enter rate");
+//                double amt = lb.isNumber(amtW);
+//                {
+//                    try {
+//                        final AccountAPI accountAPI = lb.getRetrofit().create(AccountAPI.class);
+//                        JsonObject call = accountAPI.UpdateOLDB2_4(amt + "", jTable1.getValueAt(row, 7).toString(), ac_cd).execute().body();
+//                        JsonObject result = call;
+//                        lb.showMessageDailog(result.get("Cause").getAsString());
+//                    } catch (IOException ex) {
+//                    }
+//                }
+//
+//            }
+//        }
     }//GEN-LAST:event_jTable1KeyPressed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
