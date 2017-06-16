@@ -394,6 +394,7 @@ public class TypeWisePurchaseDetail extends javax.swing.JInternalFrame {
                             row.add("");
                         }
                         row.add(lb.ConvertDateFormetForDisplay(array.get(i).getAsJsonObject().get("v_date").getAsString()));
+                        row.add(array.get(i).getAsJsonObject().get("brand_name").getAsString());
                         row.add(array.get(i).getAsJsonObject().get("model_name").getAsString());
                         row.add(array.get(i).getAsJsonObject().get("sr_name").getAsString());
                         row.add(array.get(i).getAsJsonObject().get("pcs").getAsDouble());
@@ -406,11 +407,12 @@ public class TypeWisePurchaseDetail extends javax.swing.JInternalFrame {
 
                     double qty = 0.0, amt = 0.00;
                     for (int i = 0; i < jTable1.getRowCount(); i++) {
-                        qty += lb.isNumber2(jTable1.getValueAt(i, 5).toString());
-                        amt += lb.isNumber2(jTable1.getValueAt(i, 6).toString());
+                        qty += lb.isNumber2(jTable1.getValueAt(i, 6).toString());
+                        amt += lb.isNumber2(jTable1.getValueAt(i, 7).toString());
                     }
 
                     Vector row = new Vector();
+                    row.add(" ");
                     row.add(" ");
                     row.add(" ");
                     row.add(" ");
@@ -425,6 +427,7 @@ public class TypeWisePurchaseDetail extends javax.swing.JInternalFrame {
 
                     row = new Vector();
                     row.add("Total");
+                    row.add(" ");
                     row.add(" ");
                     row.add(" ");
                     row.add(" ");
@@ -464,7 +467,8 @@ public class TypeWisePurchaseDetail extends javax.swing.JInternalFrame {
                 row.add(jTable1.getValueAt(i, 5).toString());
                 row.add(jTable1.getValueAt(i, 6).toString());
                 row.add(jTable1.getValueAt(i, 7).toString());
-                row.add(jTable1.getValueAt(i, 9).toString());
+                row.add(jTable1.getValueAt(i, 8).toString());
+                row.add(jTable1.getValueAt(i, 10).toString());
                 rows.add(row);
             }
 
@@ -472,6 +476,7 @@ public class TypeWisePurchaseDetail extends javax.swing.JInternalFrame {
             header.add("Sr No");
             header.add("Name");
             header.add("Date");
+            header.add("Brand Name");
             header.add("Model Name");
             header.add("Item Name");
             header.add("PCS");
@@ -562,11 +567,11 @@ public class TypeWisePurchaseDetail extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "SR No", "Name", "Date", "Model Name", "Item Name", "PCS", "Amount", "IMEI NO", "REF", "Branch"
+                "SR No", "Name", "Date", "Brand Name", "Model Name", "Item Name", "PCS", "Amount", "IMEI NO", "REF", "Branch"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -588,10 +593,11 @@ public class TypeWisePurchaseDetail extends javax.swing.JInternalFrame {
             jTable1.getColumnModel().getColumn(5).setResizable(false);
             jTable1.getColumnModel().getColumn(6).setResizable(false);
             jTable1.getColumnModel().getColumn(7).setResizable(false);
-            jTable1.getColumnModel().getColumn(8).setMinWidth(0);
-            jTable1.getColumnModel().getColumn(8).setPreferredWidth(0);
-            jTable1.getColumnModel().getColumn(8).setMaxWidth(0);
-            jTable1.getColumnModel().getColumn(9).setResizable(false);
+            jTable1.getColumnModel().getColumn(8).setResizable(false);
+            jTable1.getColumnModel().getColumn(9).setMinWidth(0);
+            jTable1.getColumnModel().getColumn(9).setPreferredWidth(0);
+            jTable1.getColumnModel().getColumn(9).setMaxWidth(0);
+            jTable1.getColumnModel().getColumn(10).setResizable(false);
         }
 
         jPanel1.add(jScrollPane1, java.awt.BorderLayout.CENTER);
