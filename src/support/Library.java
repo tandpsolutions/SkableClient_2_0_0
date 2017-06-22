@@ -300,6 +300,21 @@ public class Library {
         }
         return ans;
     }
+    
+    public String checkTag(String inputTag) {
+        String tag[] = inputTag.split("/");
+        if (tag.length == 2) {
+            String antyzero = tag[0] + tag[1];
+            String newTag = tag[0];
+            for (int i = antyzero.length(); i < 16; i++) {
+                newTag += "0";
+            }
+            newTag += tag[1];
+            return (newTag);
+        } else {
+            return inputTag;
+        }
+    }
 
     public void setDateChooserPropertyInit(JDateChooser jcmbDate) {
         jcmbDate.setDateFormatString("dd/MM/yyyy");

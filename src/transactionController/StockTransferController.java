@@ -183,6 +183,7 @@ public class StockTransferController extends javax.swing.JDialog {
             public void keyPressed(java.awt.event.KeyEvent e) {
                 if (lb.isEnter(e) && !lb.isBlank(jtxtTag)) {
                     try {
+                        jtxtTag.setText(lb.checkTag(jtxtTag.getText()));
                         JsonObject call = StkTrAPI.getTagNoDetailSales("'" + jtxtTag.getText() + "'", "20", true, (jComboBox2.getSelectedIndex() + 1) + "").execute().body();
                         if (call != null) {
                             JsonArray array = call.getAsJsonArray("data");

@@ -277,6 +277,7 @@ public class PurchaseReturnController extends javax.swing.JDialog {
 
                 if (lb.isEnter(e) && !lb.isBlank(jtxtTag)) {
                     try {
+                        jtxtTag.setText(lb.checkTag(jtxtTag.getText()));
                         JsonObject call = purchaseReturnAPI.getTagNoDetailSales("'" + jtxtTag.getText() + "'", "15", true).execute().body();
 
                         if (call != null) {

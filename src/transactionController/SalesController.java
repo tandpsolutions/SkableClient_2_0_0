@@ -344,6 +344,7 @@ public class SalesController extends javax.swing.JDialog {
 
                 if (lb.isEnter(e) && !lb.isBlank(jtxtTag)) {
                     try {
+                        jtxtTag.setText(lb.checkTag(jtxtTag.getText()));
                         JsonObject call = salesAPI.getTagNoDetailSales("'" + jtxtTag.getText() + "'", "20", true, (jComboBox1.getSelectedIndex() + 1) + "").execute().body();
 
                         if (call != null) {
