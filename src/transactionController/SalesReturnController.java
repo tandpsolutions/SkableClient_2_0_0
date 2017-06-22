@@ -2085,7 +2085,7 @@ public class SalesReturnController extends javax.swing.JDialog {
     }//GEN-LAST:event_jBillDateBtnActionPerformed
 
     private void jcmbPmtKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jcmbPmtKeyPressed
-        lb.enterFocus(evt, jtxtDueDate);
+        lb.enterFocus(evt, jtxtMobile);
     }//GEN-LAST:event_jcmbPmtKeyPressed
 
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
@@ -2593,7 +2593,7 @@ public class SalesReturnController extends javax.swing.JDialog {
 
     private void jtxtPmtDaysKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtPmtDaysKeyPressed
         // TODO add your handling code here:
-        lb.enterFocus(evt, jtxtMobile);
+        lb.enterFocus(evt, jcmbPmt);
     }//GEN-LAST:event_jtxtPmtDaysKeyPressed
 
     private void doClose(int retStatus) {

@@ -1985,7 +1985,7 @@ public class PurchaseReturnController extends javax.swing.JDialog {
     }//GEN-LAST:event_jBillDateBtnActionPerformed
 
     private void jcmbPmtKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jcmbPmtKeyPressed
-        lb.enterFocus(evt, jtxtDueDate);
+        lb.enterFocus(evt, jtxtPmtDays);
     }//GEN-LAST:event_jcmbPmtKeyPressed
 
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
@@ -2270,7 +2270,7 @@ public class PurchaseReturnController extends javax.swing.JDialog {
 
     private void jComboBox1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jComboBox1KeyPressed
         // TODO add your handling code here:
-        lb.enterFocus(evt, jtxtPmtDays);
+        lb.enterFocus(evt, jcmbPmt);
     }//GEN-LAST:event_jComboBox1KeyPressed
 
     private void jtxtDueDateFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtxtDueDateFocusGained

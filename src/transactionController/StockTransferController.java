@@ -618,6 +618,11 @@ public class StockTransferController extends javax.swing.JDialog {
         jLabel2.setText("Transfer To");
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Godown", "Shop" }));
+        jComboBox1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jComboBox1KeyPressed(evt);
+            }
+        });
 
         jLabel5.setText("From");
 
@@ -856,7 +861,11 @@ public class StockTransferController extends javax.swing.JDialog {
     }//GEN-LAST:event_jtxtVouDateFocusGained
 
     private void jtxtVouDateKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtVouDateKeyPressed
-        lb.enterFocus(evt, jtxtTag);
+        if (SkableHome.user_grp_cd.equalsIgnoreCase("1")) {
+                jComboBox2.requestFocusInWindow();
+            } else {
+                jComboBox1.requestFocusInWindow();
+            }
     }//GEN-LAST:event_jtxtVouDateKeyPressed
 
     private void jBillDateBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBillDateBtnActionPerformed
@@ -971,8 +980,13 @@ public class StockTransferController extends javax.swing.JDialog {
 
     private void jComboBox2KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jComboBox2KeyPressed
         // TODO add your handling code here:
-        lb.enterFocus(evt, jButton1);
+        lb.enterFocus(evt, jComboBox1);
     }//GEN-LAST:event_jComboBox2KeyPressed
+
+    private void jComboBox1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jComboBox1KeyPressed
+        // TODO add your handling code here:
+        lb.enterFocus(evt, jtxtTag);
+    }//GEN-LAST:event_jComboBox1KeyPressed
 
     private void doClose(int retStatus) {
         returnStatus = retStatus;

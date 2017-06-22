@@ -304,7 +304,11 @@ public class BankPaymentController extends javax.swing.JDialog {
                             } else {
                                 bank_cd = header.getAccountHeader().get(row).getACCD();
                                 jtxtBankName.setText(header.getAccountHeader().get(row).getFNAME());
-                                jtxtAcName.requestFocusInWindow();
+                                if (SkableHome.user_grp_cd.equalsIgnoreCase("1")) {
+                                    jComboBox1.requestFocusInWindow();
+                                } else {
+                                    jtxtAcName.requestFocusInWindow();
+                                }
                             }
                         }
                     }

@@ -842,7 +842,11 @@ public class CashPaymentReceiptController extends javax.swing.JDialog {
     }//GEN-LAST:event_jtxtVouDateFocusLost
 
     private void jtxtVouDateKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtVouDateKeyPressed
-        lb.enterFocus(evt, jtxtAcName);
+        if (SkableHome.user_grp_cd.equalsIgnoreCase("1")) {
+            lb.enterFocus(evt, jComboBox1);
+        } else {
+            lb.enterFocus(evt, jtxtAcName);
+        }
     }//GEN-LAST:event_jtxtVouDateKeyPressed
 
     private void jBillDateBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBillDateBtnActionPerformed
