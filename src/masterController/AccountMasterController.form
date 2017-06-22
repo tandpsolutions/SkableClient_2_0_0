@@ -38,6 +38,7 @@
                           <Component id="jLabel5" linkSize="5" alignment="0" pref="70" max="32767" attributes="0"/>
                           <Component id="jLabel6" linkSize="5" alignment="0" pref="70" max="32767" attributes="0"/>
                           <Component id="jLabel8" linkSize="5" alignment="0" pref="70" max="32767" attributes="0"/>
+                          <Component id="jLabel9" alignment="0" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
@@ -51,6 +52,7 @@
                           <Component id="jtxtName" linkSize="6" alignment="0" min="-2" pref="216" max="-2" attributes="0"/>
                           <Component id="jtxtBal" linkSize="6" alignment="0" min="-2" pref="143" max="-2" attributes="0"/>
                           <Component id="jcmbEffect" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="jtxtGst" alignment="0" min="-2" pref="216" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
@@ -107,6 +109,11 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="jtxtTin" linkSize="4" alignment="0" min="-2" max="-2" attributes="0"/>
                   <Component id="jLabel6" linkSize="4" alignment="0" min="-2" pref="20" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="jLabel9" linkSize="7" alignment="0" min="-2" pref="20" max="-2" attributes="0"/>
+                  <Component id="jtxtGst" linkSize="7" alignment="0" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
@@ -245,8 +252,8 @@
       <Events>
         <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="jtxtTinFocusGained"/>
         <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="jtxtTinFocusLost"/>
-        <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jtxtTinKeyPressed"/>
         <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jtxtTinKeyTyped"/>
+        <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jtxtTinKeyPressed"/>
       </Events>
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
@@ -355,6 +362,22 @@
       <Events>
         <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jComboBox2KeyPressed"/>
       </Events>
+    </Component>
+    <Component class="javax.swing.JLabel" name="jLabel9">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="GST No"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="jtxtGst">
+      <Events>
+        <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="jtxtGstFocusGained"/>
+        <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="jtxtGstFocusLost"/>
+        <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jtxtGstKeyTyped"/>
+        <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jtxtGstKeyPressed"/>
+      </Events>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
+      </AuxValues>
     </Component>
   </SubComponents>
 </Form>

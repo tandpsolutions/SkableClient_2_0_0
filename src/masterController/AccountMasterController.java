@@ -109,6 +109,7 @@ public class AccountMasterController extends javax.swing.JDialog {
                         jtxtEmail.setText(ac.getEMAIL());
                         jtxtCardNo.setText(ac.getCARD_NO());
                         jtxtBal.setText(lb.Convert2DecFmt(ac.getOPB_AMT()));
+                        jtxtGst.setText((ac.getGST_NO()));
                         jcmbEffect.setSelectedIndex(ac.getOPB_EFF());
                         jComboBox2.setSelectedItem(ac.getRef_cd());
                     } else {
@@ -181,6 +182,7 @@ public class AccountMasterController extends javax.swing.JDialog {
         account.setGRP_CD(detail.get(jcmbHeadGroup.getSelectedIndex()).getGRP_CD());
         account.setCST(jtxtCST.getText());
         account.setTIN(jtxtTin.getText());
+        account.setGST_NO(jtxtGst.getText());
         account.setCARD_NO(jtxtCardNo.getText());
         account.setOPB_AMT(lb.isNumber(jtxtBal));
         account.setOPB_EFF(jcmbEffect.getSelectedIndex());
@@ -256,6 +258,8 @@ public class AccountMasterController extends javax.swing.JDialog {
         okButton1 = new javax.swing.JButton();
         jLabel31 = new javax.swing.JLabel();
         jComboBox2 = new javax.swing.JComboBox();
+        jLabel9 = new javax.swing.JLabel();
+        jtxtGst = new javax.swing.JTextField();
 
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
@@ -366,11 +370,11 @@ public class AccountMasterController extends javax.swing.JDialog {
             }
         });
         jtxtTin.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                jtxtTinKeyPressed(evt);
-            }
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 jtxtTinKeyTyped(evt);
+            }
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jtxtTinKeyPressed(evt);
             }
         });
 
@@ -455,6 +459,25 @@ public class AccountMasterController extends javax.swing.JDialog {
             }
         });
 
+        jLabel9.setText("GST No");
+
+        jtxtGst.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jtxtGstFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jtxtGstFocusLost(evt);
+            }
+        });
+        jtxtGst.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jtxtGstKeyTyped(evt);
+            }
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jtxtGstKeyPressed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -473,7 +496,8 @@ public class AccountMasterController extends javax.swing.JDialog {
                             .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 70, Short.MAX_VALUE)
                             .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, 70, Short.MAX_VALUE)
                             .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, 70, Short.MAX_VALUE)
-                            .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, 70, Short.MAX_VALUE))
+                            .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, 70, Short.MAX_VALUE)
+                            .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jtxtAddress1, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -485,7 +509,8 @@ public class AccountMasterController extends javax.swing.JDialog {
                             .addComponent(jtxtTin, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jtxtName, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jtxtBal, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jcmbEffect, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jcmbEffect, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jtxtGst, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel31, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
@@ -538,6 +563,10 @@ public class AccountMasterController extends javax.swing.JDialog {
                     .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jtxtGst, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jtxtCardNo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -567,6 +596,8 @@ public class AccountMasterController extends javax.swing.JDialog {
         layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jLabel1, jtxtName});
 
         layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jLabel6, jtxtTin});
+
+        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jLabel9, jtxtGst});
 
         getRootPane().setDefaultButton(okButton);
         getRootPane().setDefaultButton(okButton);
@@ -678,7 +709,7 @@ public class AccountMasterController extends javax.swing.JDialog {
 
     private void jtxtTinKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtTinKeyPressed
         // TODO add your handling code here:
-        lb.enterFocus(evt, jtxtCardNo);
+        lb.enterFocus(evt, jtxtGst);
     }//GEN-LAST:event_jtxtTinKeyPressed
 
     private void jtxtTinKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtTinKeyTyped
@@ -749,6 +780,25 @@ public class AccountMasterController extends javax.swing.JDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_jComboBox2KeyPressed
 
+    private void jtxtGstFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtxtGstFocusGained
+        // TODO add your handling code here:
+        lb.selectAll(evt);
+    }//GEN-LAST:event_jtxtGstFocusGained
+
+    private void jtxtGstFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtxtGstFocusLost
+        // TODO add your handling code here:
+        lb.toUpper(evt);
+    }//GEN-LAST:event_jtxtGstFocusLost
+
+    private void jtxtGstKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtGstKeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jtxtGstKeyTyped
+
+    private void jtxtGstKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtGstKeyPressed
+        // TODO add your handling code here:
+        lb.enterFocus(evt, jtxtCardNo);
+    }//GEN-LAST:event_jtxtGstKeyPressed
+
     private void doClose(int retStatus) {
         returnStatus = retStatus;
         if (returnStatus == RET_OK) {
@@ -778,6 +828,7 @@ public class AccountMasterController extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JComboBox jcmbEffect;
     private javax.swing.JComboBox jcmbHeadGroup;
     public javax.swing.JTextField jtxtAddress1;
@@ -785,6 +836,7 @@ public class AccountMasterController extends javax.swing.JDialog {
     public javax.swing.JTextField jtxtCST;
     public javax.swing.JTextField jtxtCardNo;
     public javax.swing.JTextField jtxtEmail;
+    public javax.swing.JTextField jtxtGst;
     public javax.swing.JTextField jtxtMobile;
     public javax.swing.JTextField jtxtName;
     public javax.swing.JTextField jtxtTin;
