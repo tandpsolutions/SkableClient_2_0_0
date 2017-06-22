@@ -13,7 +13,12 @@ package account;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import java.awt.Component;
+import java.awt.MouseInfo;
+import java.awt.Toolkit;
+import java.awt.datatransfer.Clipboard;
+import java.awt.datatransfer.StringSelection;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.io.IOException;
 import java.util.Vector;
@@ -23,6 +28,8 @@ import javax.swing.AbstractAction;
 import javax.swing.Action;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
+import javax.swing.JMenuItem;
+import javax.swing.JPopupMenu;
 import javax.swing.JTable;
 import javax.swing.KeyStroke;
 import javax.swing.SwingConstants;
@@ -61,7 +68,33 @@ public class PurchaseRateBYTag extends javax.swing.JInternalFrame {
     private void initOther() {
         dtm = (DefaultTableModel) jTable1.getModel();
         registerShortKeys();
+        setPopUp();
     }
+    
+     private void setPopUp() {
+        final JPopupMenu popup = new JPopupMenu();
+        ActionListener menuListener = new ActionListener() {
+            public void actionPerformed(ActionEvent event) {
+                popup.setVisible(false);
+                int row = jTable1.getSelectedRow();
+                int column = jTable1.getSelectedColumn();
+                if (row != -1 && column != -1) {
+                    String selection = jTable1.getValueAt(row, column).toString();
+                    StringSelection data = new StringSelection(selection);
+                    Clipboard clipboard
+                            = Toolkit.getDefaultToolkit().getSystemClipboard();
+                    clipboard.setContents(data, data);
+                }
+            }
+        };
+        final JMenuItem item;
+        popup.add(item = new JMenuItem("COPY"));
+        item.setHorizontalTextPosition(JMenuItem.RIGHT);
+        item.addActionListener(menuListener);
+        popup.setLocation(MouseInfo.getPointerInfo().getLocation());
+        jTable1.setComponentPopupMenu(popup);
+    }
+
 
     @Override
     public void dispose() {
