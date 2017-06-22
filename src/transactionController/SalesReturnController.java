@@ -281,6 +281,7 @@ public class SalesReturnController extends javax.swing.JDialog {
             public void keyPressed(java.awt.event.KeyEvent e) {
 
                 if (lb.isEnter(e) && !lb.isBlank(jtxtTag)) {
+                    jtxtTag.setText(lb.checkTag(jtxtTag.getText()));
                     Call<JsonObject> call = salesReturnAPI.getTagNoDetailSales("'" + jtxtTag.getText() + "'", "15", false);
                     call.enqueue(new Callback<JsonObject>() {
                         @Override

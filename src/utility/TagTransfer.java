@@ -206,6 +206,7 @@ private void jbtnViewKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_
     private void jtxtTagNoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtTagNoKeyPressed
         // TODO add your handling code here:
         if (lb.isEnter(evt)) {
+            jtxtTagNo.setText(lb.checkTag(jtxtTagNo.getText()));
             jbtnView.requestFocusInWindow();
         }
     }//GEN-LAST:event_jtxtTagNoKeyPressed

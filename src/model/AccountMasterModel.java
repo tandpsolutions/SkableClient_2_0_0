@@ -25,7 +25,16 @@ public class AccountMasterModel {
     private int OPB_EFF;
     private String ref_by;
     private String ref_cd;
-    
+    private String GST_NO;
+
+    public String getGST_NO() {
+        return GST_NO;
+    }
+
+    public void setGST_NO(String GST_NO) {
+        this.GST_NO = GST_NO;
+    }
+
     public String getRef_cd() {
         return ref_cd;
     }
@@ -33,7 +42,6 @@ public class AccountMasterModel {
     public void setRef_cd(String ref_cd) {
         this.ref_cd = ref_cd;
     }
-
 
     public double getOPB_AMT() {
         return OPB_AMT;
@@ -139,5 +147,4 @@ public class AccountMasterModel {
         this.ref_by = ref_by;
     }
 
-    
 }

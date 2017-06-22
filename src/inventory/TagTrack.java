@@ -71,7 +71,33 @@ public class TagTrack extends javax.swing.JInternalFrame {
     private void initOther() {
         dtm = (DefaultTableModel) jTable1.getModel();
         registerShortKeys();
+        setPopUp();
     }
+    
+     private void setPopUp() {
+        final JPopupMenu popup = new JPopupMenu();
+        ActionListener menuListener = new ActionListener() {
+            public void actionPerformed(ActionEvent event) {
+                popup.setVisible(false);
+                int row = jTable1.getSelectedRow();
+                int column = jTable1.getSelectedColumn();
+                if (row != -1 && column != -1) {
+                    String selection = jTable1.getValueAt(row, column).toString();
+                    StringSelection data = new StringSelection(selection);
+                    Clipboard clipboard
+                            = Toolkit.getDefaultToolkit().getSystemClipboard();
+                    clipboard.setContents(data, data);
+                }
+            }
+        };
+        final JMenuItem item;
+        popup.add(item = new JMenuItem("COPY"));
+        item.setHorizontalTextPosition(JMenuItem.RIGHT);
+        item.addActionListener(menuListener);
+        popup.setLocation(MouseInfo.getPointerInfo().getLocation());
+        jTable1.setComponentPopupMenu(popup);
+    }
+
 
     @Override
     public void dispose() {
@@ -372,6 +398,7 @@ private void jbtnPreviewKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:eve
     private void jtxtTagNoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtTagNoKeyPressed
         // TODO add your handling code here:
         if (lb.isEnter(evt)) {
+            jtxtTagNo.setText(lb.checkTag(jtxtTagNo.getText()));
             jbtnView.requestFocusInWindow();
         }
     }//GEN-LAST:event_jtxtTagNoKeyPressed

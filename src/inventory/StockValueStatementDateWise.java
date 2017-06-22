@@ -74,6 +74,7 @@ public class StockValueStatementDateWise extends javax.swing.JInternalFrame {
 
     public StockValueStatementDateWise() {
         initComponents();
+        setPopUp();
         typeAPI = lb.getRetrofit().create(TypeAPI.class);
         getData();
         dtm = (DefaultTableModel) jTable1.getModel();
@@ -82,6 +83,32 @@ public class StockValueStatementDateWise extends javax.swing.JInternalFrame {
         searchOnTextFields();
     }
 
+    
+     private void setPopUp() {
+        final JPopupMenu popup = new JPopupMenu();
+        ActionListener menuListener = new ActionListener() {
+            public void actionPerformed(ActionEvent event) {
+                popup.setVisible(false);
+                int row = jTable1.getSelectedRow();
+                int column = jTable1.getSelectedColumn();
+                if (row != -1 && column != -1) {
+                    String selection = jTable1.getValueAt(row, column).toString();
+                    StringSelection data = new StringSelection(selection);
+                    Clipboard clipboard
+                            = Toolkit.getDefaultToolkit().getSystemClipboard();
+                    clipboard.setContents(data, data);
+                }
+            }
+        };
+        final JMenuItem item;
+        popup.add(item = new JMenuItem("COPY"));
+        item.setHorizontalTextPosition(JMenuItem.RIGHT);
+        item.addActionListener(menuListener);
+        popup.setLocation(MouseInfo.getPointerInfo().getLocation());
+        jTable1.setComponentPopupMenu(popup);
+    }
+
+     
     private void tableForView() {
         viewTable = new ReportTable();
 

@@ -7,6 +7,12 @@ package account;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import java.awt.BorderLayout;
+import java.awt.MouseInfo;
+import java.awt.Toolkit;
+import java.awt.datatransfer.Clipboard;
+import java.awt.datatransfer.StringSelection;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -14,8 +20,10 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Vector;
 import javax.swing.JLabel;
+import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JPopupMenu;
 import javax.swing.JTextField;
 import javax.swing.RowFilter;
 import javax.swing.event.DocumentEvent;
@@ -45,12 +53,38 @@ public class BranchWisePendingReport extends javax.swing.JInternalFrame {
 
     public BranchWisePendingReport() {
         initComponents();
+        setPopUp();
         setUpData();
         dtm = (DefaultTableModel) jTable1.getModel();
         searchOnTextFields();
         lb.setDateChooserPropertyInit(jtxtFromDate);
         lb.setDateChooserPropertyInit(jtxtToDate);
     }
+    
+     private void setPopUp() {
+        final JPopupMenu popup = new JPopupMenu();
+        ActionListener menuListener = new ActionListener() {
+            public void actionPerformed(ActionEvent event) {
+                popup.setVisible(false);
+                int row = jTable1.getSelectedRow();
+                int column = jTable1.getSelectedColumn();
+                if (row != -1 && column != -1) {
+                    String selection = jTable1.getValueAt(row, column).toString();
+                    StringSelection data = new StringSelection(selection);
+                    Clipboard clipboard
+                            = Toolkit.getDefaultToolkit().getSystemClipboard();
+                    clipboard.setContents(data, data);
+                }
+            }
+        };
+        final JMenuItem item;
+        popup.add(item = new JMenuItem("COPY"));
+        item.setHorizontalTextPosition(JMenuItem.RIGHT);
+        item.addActionListener(menuListener);
+        popup.setLocation(MouseInfo.getPointerInfo().getLocation());
+        jTable1.setComponentPopupMenu(popup);
+    }
+
 
     private void searchOnTextFields() {
         this.rowSorter = new TableRowSorter<>(jTable1.getModel());
