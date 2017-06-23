@@ -906,14 +906,14 @@ public class CashPaymentReceiptController extends javax.swing.JDialog {
             evt.consume();
             int rowSel = jTable1.getSelectedRow();
             if (rowSel != -1) {
-                if (jTable1.getValueAt(rowSel, 5).toString().equalsIgnoreCase("1")) {
+//                if (jTable1.getValueAt(rowSel, 5).toString().equalsIgnoreCase("1")) {
                     doc_ref_no = (jTable1.getValueAt(rowSel, 0).toString());
                     jtxtDocRefNo.setText(jTable1.getValueAt(rowSel, 1).toString());
                     doc_cd = (jTable1.getValueAt(rowSel, 2).toString());
                     jtxtAmount.setText(jTable1.getValueAt(rowSel, 3).toString());
                     jtxtRemark.setText(jTable1.getValueAt(rowSel, 4).toString());
                     jtxtDocRefNo.requestFocusInWindow();
-                }
+//                }
             }else{
                 lb.showMessageDailog("This item already adjusted");
             }

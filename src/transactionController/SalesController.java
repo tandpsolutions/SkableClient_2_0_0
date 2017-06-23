@@ -578,7 +578,7 @@ public class SalesController extends javax.swing.JDialog {
             public void focusLost(java.awt.event.FocusEvent e) {
                 lb.toDouble(e);
                 int row = jTable1.getSelectedRow();
-                if (row == -1) {
+//                if (row == -1) {
                     sale_rate = lb.isNumber(jtxtRate);
                     if (mop != 0.00 && !SkableHome.user_grp_cd.equalsIgnoreCase("1")) {
                         if (jcmbType.getSelectedIndex() != 1 && mop > lb.isNumber2(jtxtRate.getText())) {
@@ -612,9 +612,9 @@ public class SalesController extends javax.swing.JDialog {
                         calculation();
                         jbtnAdd.doClick();
                     }
-                } else {
-                    jtxtDiscPer.requestFocusInWindow();
-                }
+//                } else {
+//                    jtxtDiscPer.requestFocusInWindow();
+//                }
             }
         });
 
