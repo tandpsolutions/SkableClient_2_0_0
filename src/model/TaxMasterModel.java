@@ -35,116 +35,104 @@ public class TaxMasterModel {
     @SerializedName("ADD_TAX_AC_CD")
     @Expose
     private String ADDTAXACCD;
+    @SerializedName("EDIT_NO")
+    @Expose
+    private String EDITNO;
+    @SerializedName("USER_ID")
+    @Expose
+    private String USERID;
+    @SerializedName("TIME_STAMP")
+    @Expose
+    private String TIMESTAMP;
+    @SerializedName("IGST")
+    @Expose
+    private String IGST;
 
-    /**
-     *
-     * @return The TAXCD
-     */
+    public String getIGST() {
+        return IGST;
+    }
+
+    public void setIGST(String IGST) {
+        this.IGST = IGST;
+    }
+
     public String getTAXCD() {
         return TAXCD;
     }
 
-    /**
-     *
-     * @param TAXCD The TAX_CD
-     */
     public void setTAXCD(String TAXCD) {
         this.TAXCD = TAXCD;
     }
 
-    /**
-     *
-     * @return The TAXNAME
-     */
     public String getTAXNAME() {
         return TAXNAME;
     }
 
-    /**
-     *
-     * @param TAXNAME The TAX_NAME
-     */
     public void setTAXNAME(String TAXNAME) {
         this.TAXNAME = TAXNAME;
     }
 
-    /**
-     *
-     * @return The TAXPER
-     */
     public String getTAXPER() {
         return TAXPER;
     }
 
-    /**
-     *
-     * @param TAXPER The TAX_PER
-     */
     public void setTAXPER(String TAXPER) {
         this.TAXPER = TAXPER;
     }
 
-    /**
-     *
-     * @return The ADDTAXPER
-     */
     public String getADDTAXPER() {
         return ADDTAXPER;
     }
 
-    /**
-     *
-     * @param ADDTAXPER The ADD_TAX_PER
-     */
     public void setADDTAXPER(String ADDTAXPER) {
         this.ADDTAXPER = ADDTAXPER;
     }
 
-    /**
-     *
-     * @return The TAXONSALES
-     */
     public String getTAXONSALES() {
         return TAXONSALES;
     }
 
-    /**
-     *
-     * @param TAXONSALES The TAX_ON_SALES
-     */
     public void setTAXONSALES(String TAXONSALES) {
         this.TAXONSALES = TAXONSALES;
     }
 
-    /**
-     *
-     * @return The TAXACCD
-     */
     public String getTAXACCD() {
         return TAXACCD;
     }
 
-    /**
-     *
-     * @param TAXACCD The TAX_AC_CD
-     */
     public void setTAXACCD(String TAXACCD) {
         this.TAXACCD = TAXACCD;
     }
 
-    /**
-     *
-     * @return The ADDTAXACCD
-     */
     public String getADDTAXACCD() {
         return ADDTAXACCD;
     }
 
-    /**
-     *
-     * @param ADDTAXACCD The ADD_TAX_AC_CD
-     */
     public void setADDTAXACCD(String ADDTAXACCD) {
         this.ADDTAXACCD = ADDTAXACCD;
+    }
+
+    public String getEDITNO() {
+        return EDITNO;
+    }
+
+    public void setEDITNO(String EDITNO) {
+        this.EDITNO = EDITNO;
+    }
+
+    public String getUSERID() {
+        return USERID;
+    }
+
+    public void setUSERID(String USERID) {
+        this.USERID = USERID;
+    }
+
+    public String getTIMESTAMP() {
+        return TIMESTAMP;
+    }
+
+    public void setTIMESTAMP(String TIMESTAMP) {
+        this.TIMESTAMP = TIMESTAMP;
     }
 }
