@@ -231,6 +231,7 @@ public class ModelMasterView extends javax.swing.JInternalFrame {
                             }
                             row.add(detail.get(i).getTYPE_NAME());
                             row.add(detail.get(i).getHSN_CODE());
+                            row.add(detail.get(i).getGST_CD());
                             dtm.addRow(row);
                         }
                         lb.setColumnSizeForTable(jTable1, jPanel1.getWidth());
@@ -274,11 +275,11 @@ public class ModelMasterView extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "Model_cd", "Model  Name", "Brand Name", "Tax Name", "Type Name", "HSN Code"
+                "Model_cd", "Model  Name", "Brand Name", "Tax Name", "Type Name", "HSN Code", "Gst Code"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false
+                false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -305,6 +306,7 @@ public class ModelMasterView extends javax.swing.JInternalFrame {
         jTable1.getColumnModel().getColumn(3).setResizable(false);
         jTable1.getColumnModel().getColumn(4).setResizable(false);
         jTable1.getColumnModel().getColumn(5).setResizable(false);
+        jTable1.getColumnModel().getColumn(6).setResizable(false);
 
         jPanel1.add(jScrollPane1, java.awt.BorderLayout.CENTER);
 
@@ -342,12 +344,12 @@ public class ModelMasterView extends javax.swing.JInternalFrame {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jTextField1)
+                .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 237, Short.MAX_VALUE)
                 .addContainerGap())
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(82, 82, 82)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jButton1)
-                .addGap(92, 92, 92))
+                .addGap(67, 67, 67))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

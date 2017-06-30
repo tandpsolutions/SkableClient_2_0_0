@@ -17,6 +17,15 @@ public class ModelMasterModel {
     private String TAX_NAME;
     private String TYPE_NAME;
     private String HSN_CODE;
+    private String GST_CD;
+
+    public String getGST_CD() {
+        return GST_CD;
+    }
+
+    public void setGST_CD(String GST_CD) {
+        this.GST_CD = GST_CD;
+    }
 
     public String getHSN_CODE() {
         return HSN_CODE;

@@ -265,7 +265,7 @@
         </Component>
         <Component class="javax.swing.JButton" name="jbtnPreview">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Preview"/>
+            <Property name="text" type="java.lang.String" value="EXCEL"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jbtnPreviewActionPerformed"/>

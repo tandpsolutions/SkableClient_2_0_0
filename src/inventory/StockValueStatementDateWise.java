@@ -541,6 +541,56 @@ public class StockValueStatementDateWise extends javax.swing.JInternalFrame {
         }
 
     }
+    
+    
+    public void callExcel() {
+        try {
+            ArrayList rows = new ArrayList();
+            for (int i = 0; i < jTable1.getRowCount(); i++) {
+                ArrayList row = new ArrayList();
+                row.add(jTable1.getValueAt(i, 0).toString());
+                row.add(jTable1.getValueAt(i, 1).toString());
+                row.add(jTable1.getValueAt(i, 2).toString());
+                row.add(jTable1.getValueAt(i, 3).toString());
+                row.add(jTable1.getValueAt(i, 4).toString());
+                row.add(jTable1.getValueAt(i, 5).toString());
+                row.add(jTable1.getValueAt(i, 6).toString());
+                row.add(jTable1.getValueAt(i, 7).toString());
+                row.add(jTable1.getValueAt(i, 8).toString());
+                row.add(jTable1.getValueAt(i, 9).toString());
+                row.add(jTable1.getValueAt(i, 10).toString());
+                row.add(jTable1.getValueAt(i, 11).toString());
+                row.add(jTable1.getValueAt(i, 12).toString());
+                row.add(jTable1.getValueAt(i, 13).toString());
+                row.add(jTable1.getValueAt(i, 14).toString());
+                row.add(jTable1.getValueAt(i, 15).toString());
+                rows.add(row);
+            }
+
+            ArrayList header = new ArrayList();
+            header.add("Sr No");
+            header.add("Type Name");
+            header.add("Item Name");
+            header.add("OPB");
+            header.add("OPB Rate");
+            header.add("OPB Value");
+            header.add("Purcahse");
+            header.add("Purcahse Rate");
+            header.add("Purcahse Value");
+            header.add("Sales");
+            header.add("Sales Rate");
+            header.add("Sales Value");
+            header.add("Stock");
+            header.add("Avg Rate");
+            header.add("Avg Value");
+            header.add("Alias");
+            lb.exportToExcel("Stock Value Statement Date Wise", header, rows, "Stock Value Statement Date Wise");
+        } catch (Exception ex) {
+            lb.printToLogFile("Exception at callView as OPDPatientListDateWise", ex);
+        }
+
+    }
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -651,7 +701,7 @@ public class StockValueStatementDateWise extends javax.swing.JInternalFrame {
         buttonGroup1.add(jRadioButton1);
         jRadioButton1.setText("Product Name");
 
-        jbtnPreview.setText("Preview");
+        jbtnPreview.setText("EXCEL");
         jbtnPreview.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbtnPreviewActionPerformed(evt);
@@ -885,6 +935,7 @@ public class StockValueStatementDateWise extends javax.swing.JInternalFrame {
     private void jbtnPreviewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnPreviewActionPerformed
         // TODO add your handling code here:
         //        generalLedgerPreview();
+        callExcel();
     }//GEN-LAST:event_jbtnPreviewActionPerformed
 
     private void jbtnPreviewKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jbtnPreviewKeyPressed
