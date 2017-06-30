@@ -98,6 +98,7 @@ public class ModelMasterController extends javax.swing.JDialog {
                             type_cd = array.get(i).getAsJsonObject().get("TYPE_CD").getAsString();
                             jtxtModelName.setText(array.get(i).getAsJsonObject().get("MODEL_NAME").getAsString());
                             jtxtBrandName.setText(array.get(i).getAsJsonObject().get("BRAND_NAME").getAsString());
+                            jtxtHsnCode.setText(array.get(i).getAsJsonObject().get("HSN_CODE").getAsString());
                             jcmbType.setSelectedItem(array.get(i).getAsJsonObject().get("TYPE_NAME").getAsString());
                             jcmbTax.setSelectedItem(array.get(i).getAsJsonObject().get("TAX_NAME").getAsString());
                         }
@@ -298,7 +299,7 @@ public class ModelMasterController extends javax.swing.JDialog {
                                 if (row != -1) {
                                     brand_cd = viewTable.getValueAt(row, 0).toString();
                                     jtxtBrandName.setText(viewTable.getValueAt(row, 1).toString());
-                                    jcmbTax.requestFocusInWindow();
+                                    jtxtHsnCode.requestFocusInWindow();
                                 }
                                 sa.dispose();
                             }
@@ -337,6 +338,8 @@ public class ModelMasterController extends javax.swing.JDialog {
         jtxtBrandName = new javax.swing.JTextField();
         jcmbType = new javax.swing.JComboBox();
         jcmbTax = new javax.swing.JComboBox();
+        jLabel6 = new javax.swing.JLabel();
+        jtxtHsnCode = new javax.swing.JTextField();
 
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
@@ -417,6 +420,22 @@ public class ModelMasterController extends javax.swing.JDialog {
             }
         });
 
+        jLabel6.setText("HSN Code");
+
+        jtxtHsnCode.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jtxtHsnCodeFocusGained(evt);
+            }
+        });
+        jtxtHsnCode.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jtxtHsnCodeKeyPressed(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jtxtHsnCodeKeyReleased(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -444,7 +463,11 @@ public class ModelMasterController extends javax.swing.JDialog {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jcmbType, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(jcmbType, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jtxtHsnCode, javax.swing.GroupLayout.DEFAULT_SIZE, 286, Short.MAX_VALUE)))
                 .addContainerGap())
         );
 
@@ -463,13 +486,17 @@ public class ModelMasterController extends javax.swing.JDialog {
                     .addComponent(jtxtBrandName, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jtxtHsnCode, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jcmbTax, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jcmbType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cancelButton)
                     .addComponent(jbtnSave))
@@ -605,6 +632,20 @@ public class ModelMasterController extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_jcmbTaxKeyPressed
 
+    private void jtxtHsnCodeFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtxtHsnCodeFocusGained
+        // TODO add your handling code here:
+        lb.selectAll(evt);
+    }//GEN-LAST:event_jtxtHsnCodeFocusGained
+
+    private void jtxtHsnCodeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtHsnCodeKeyPressed
+        // TODO add your handling code here:
+        lb.enterFocus(evt, jcmbTax);
+    }//GEN-LAST:event_jtxtHsnCodeKeyPressed
+
+    private void jtxtHsnCodeKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtHsnCodeKeyReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jtxtHsnCodeKeyReleased
+
     private void doClose(int retStatus) {
         returnStatus = retStatus;
         setVisible(false);
@@ -616,10 +657,12 @@ public class ModelMasterController extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JButton jbtnSave;
     private javax.swing.JComboBox jcmbTax;
     private javax.swing.JComboBox jcmbType;
     private javax.swing.JTextField jtxtBrandName;
+    private javax.swing.JTextField jtxtHsnCode;
     private javax.swing.JTextField jtxtModelName;
     // End of variables declaration//GEN-END:variables
 

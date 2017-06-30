@@ -16,6 +16,15 @@ public class ModelMasterModel {
     private String BRAND_NAME;
     private String TAX_NAME;
     private String TYPE_NAME;
+    private String HSN_CODE;
+
+    public String getHSN_CODE() {
+        return HSN_CODE;
+    }
+
+    public void setHSN_CODE(String HSN_CODE) {
+        this.HSN_CODE = HSN_CODE;
+    }
 
     public String getMODEL_CD() {
         return MODEL_CD;
@@ -56,5 +65,4 @@ public class ModelMasterModel {
     public void setTYPE_NAME(String TYPE_NAME) {
         this.TYPE_NAME = TYPE_NAME;
     }
-
 }

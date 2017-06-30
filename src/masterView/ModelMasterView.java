@@ -230,6 +230,7 @@ public class ModelMasterView extends javax.swing.JInternalFrame {
                                 row.add(detail.get(i).getTAX_NAME());
                             }
                             row.add(detail.get(i).getTYPE_NAME());
+                            row.add(detail.get(i).getHSN_CODE());
                             dtm.addRow(row);
                         }
                         lb.setColumnSizeForTable(jTable1, jPanel1.getWidth());
@@ -273,11 +274,11 @@ public class ModelMasterView extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "Model_cd", "Model  Name", "Brand Name", "Tax Name", "Type Name"
+                "Model_cd", "Model  Name", "Brand Name", "Tax Name", "Type Name", "HSN Code"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
+                false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -296,15 +297,14 @@ public class ModelMasterView extends javax.swing.JInternalFrame {
             }
         });
         jScrollPane1.setViewportView(jTable1);
-        if (jTable1.getColumnModel().getColumnCount() > 0) {
-            jTable1.getColumnModel().getColumn(0).setMinWidth(0);
-            jTable1.getColumnModel().getColumn(0).setPreferredWidth(0);
-            jTable1.getColumnModel().getColumn(0).setMaxWidth(0);
-            jTable1.getColumnModel().getColumn(1).setResizable(false);
-            jTable1.getColumnModel().getColumn(2).setResizable(false);
-            jTable1.getColumnModel().getColumn(3).setResizable(false);
-            jTable1.getColumnModel().getColumn(4).setResizable(false);
-        }
+        jTable1.getColumnModel().getColumn(0).setMinWidth(0);
+        jTable1.getColumnModel().getColumn(0).setPreferredWidth(0);
+        jTable1.getColumnModel().getColumn(0).setMaxWidth(0);
+        jTable1.getColumnModel().getColumn(1).setResizable(false);
+        jTable1.getColumnModel().getColumn(2).setResizable(false);
+        jTable1.getColumnModel().getColumn(3).setResizable(false);
+        jTable1.getColumnModel().getColumn(4).setResizable(false);
+        jTable1.getColumnModel().getColumn(5).setResizable(false);
 
         jPanel1.add(jScrollPane1, java.awt.BorderLayout.CENTER);
 

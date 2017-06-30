@@ -261,10 +261,12 @@ public class StockValueStatementDateWise extends javax.swing.JInternalFrame {
                         JsonArray array = rspns.body().getAsJsonArray("data");
                         dtm.setRowCount(0);
                         double opb = 0.00, pur = 0.00, sal = 0.00, stock = 0.00;
+                        double opb_value = 0.00, pur_value = 0.00, sal_value = 0.00, stock_value = 0.00;
                         for (int i = 0; i < array.size(); i++) {
                             Vector row = new Vector();
 
                             row.add(i + 1);
+                            row.add(array.get(i).getAsJsonObject().get("TYPE_NAME").getAsString());
                             row.add(array.get(i).getAsJsonObject().get("SR_NAME").getAsString());
                             row.add(array.get(i).getAsJsonObject().get("OPB").getAsDouble());
                             if (array.get(i).getAsJsonObject().get("OPB").getAsDouble() != 0) {
@@ -272,7 +274,7 @@ public class StockValueStatementDateWise extends javax.swing.JInternalFrame {
                             } else {
                                 row.add(0.00);
                             }
-                            row.add(array.get(i).getAsJsonObject().get("OPB_VAL").getAsDouble());
+                            row.add(lb.Convert2DecFmtForRs(array.get(i).getAsJsonObject().get("OPB_VAL").getAsDouble()));
                             row.add(array.get(i).getAsJsonObject().get("PURCHASE").getAsDouble());
                             if (array.get(i).getAsJsonObject().get("PURCHASE").getAsDouble() != 0) {
                                 row.add(lb.Convert2DecFmtForRs(array.get(i).getAsJsonObject().get("PURCHASE_VAL").getAsDouble() / array.get(i).getAsJsonObject().get("PURCHASE").getAsDouble()));
@@ -293,12 +295,21 @@ public class StockValueStatementDateWise extends javax.swing.JInternalFrame {
                             double opb_val = array.get(i).getAsJsonObject().get("OPB_VAL").getAsDouble();
                             double pur_qty = array.get(i).getAsJsonObject().get("PURCHASE").getAsDouble();
                             double pur_val = array.get(i).getAsJsonObject().get("PURCHASE_VAL").getAsDouble();
+
+                            opb += array.get(i).getAsJsonObject().get("OPB").getAsDouble();
+                            opb_value += array.get(i).getAsJsonObject().get("OPB_VAL").getAsDouble();
+                            pur += array.get(i).getAsJsonObject().get("PURCHASE").getAsDouble();
+                            pur_value += array.get(i).getAsJsonObject().get("PURCHASE_VAL").getAsDouble();
+                            sal += array.get(i).getAsJsonObject().get("SALES").getAsDouble();
+                            sal_value += array.get(i).getAsJsonObject().get("SALES_VAL").getAsDouble();
                             if (((opb_qty + pur_qty)) != 0) {
                                 row.add(lb.Convert2DecFmtForRs(((pur_val + opb_val) / (opb_qty + pur_qty))));
                                 row.add(lb.Convert2DecFmtForRs((opb_qty + pur_qty - array.get(i).getAsJsonObject().get("SALES").getAsDouble()) * ((pur_val + opb_val) / (opb_qty + pur_qty))));
+                                stock += array.get(i).getAsJsonObject().get("OPB").getAsDouble() + array.get(i).getAsJsonObject().get("PURCHASE").getAsDouble() - array.get(i).getAsJsonObject().get("SALES").getAsDouble();
+                                stock_value += (opb_qty + pur_qty - array.get(i).getAsJsonObject().get("SALES").getAsDouble()) * ((pur_val + opb_val) / (opb_qty + pur_qty));
                             } else {
-                                row.add(0.00);
-                                row.add(0.00);
+                                row.add(lb.Convert2DecFmtForRs(0.00));
+                                row.add(lb.Convert2DecFmtForRs(0.00));
                             }
                             row.add(array.get(i).getAsJsonObject().get("SR_CD").getAsString());
                             dtm.addRow(row);
@@ -310,15 +321,35 @@ public class StockValueStatementDateWise extends javax.swing.JInternalFrame {
                         row.add(" ");
                         row.add(" ");
                         row.add(" ");
+                        row.add(" ");
+                        row.add(" ");
+                        row.add(" ");
+                        row.add(" ");
+                        row.add(" ");
+                        row.add(" ");
+                        row.add(" ");
+                        row.add(" ");
+                        row.add(" ");
+                        row.add(" ");
+                        row.add(" ");
                         dtm.addRow(row);
 
                         row = new Vector();
                         row.add("Total");
                         row.add(" ");
+                        row.add(" ");
                         row.add(opb);
+                        row.add(" ");
+                        row.add(lb.Convert2DecFmtForRs(opb_value));
                         row.add(pur);
+                        row.add(" ");
+                        row.add(lb.Convert2DecFmtForRs(pur_value));
                         row.add(sal);
+                        row.add(" ");
+                        row.add(lb.Convert2DecFmtForRs(sal_value));
                         row.add(stock);
+                        row.add(" ");
+                        row.add(lb.Convert2DecFmtForRs(stock_value));
                         row.add(" ");
                         dtm.addRow(row);
 
@@ -555,11 +586,11 @@ public class StockValueStatementDateWise extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "SR No", "Product Name", "Opening", "Rate", "OPB Val", "Purchase", "Rate", "Val", "Sales", "Rate", "Val", "Balance", "Rate", "Val", "sr_cd"
+                "SR No", "Type Name", "Product Name", "Opening", "Rate", "OPB Val", "Purchase", "Rate", "Val", "Sales", "Rate", "Val", "Balance", "Rate", "Val", "sr_cd"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false, false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -574,25 +605,6 @@ public class StockValueStatementDateWise extends javax.swing.JInternalFrame {
             }
         });
         jScrollPane1.setViewportView(jTable1);
-        if (jTable1.getColumnModel().getColumnCount() > 0) {
-            jTable1.getColumnModel().getColumn(0).setResizable(false);
-            jTable1.getColumnModel().getColumn(1).setResizable(false);
-            jTable1.getColumnModel().getColumn(2).setResizable(false);
-            jTable1.getColumnModel().getColumn(3).setResizable(false);
-            jTable1.getColumnModel().getColumn(4).setResizable(false);
-            jTable1.getColumnModel().getColumn(5).setResizable(false);
-            jTable1.getColumnModel().getColumn(6).setResizable(false);
-            jTable1.getColumnModel().getColumn(7).setResizable(false);
-            jTable1.getColumnModel().getColumn(8).setResizable(false);
-            jTable1.getColumnModel().getColumn(9).setResizable(false);
-            jTable1.getColumnModel().getColumn(10).setResizable(false);
-            jTable1.getColumnModel().getColumn(11).setResizable(false);
-            jTable1.getColumnModel().getColumn(12).setResizable(false);
-            jTable1.getColumnModel().getColumn(13).setResizable(false);
-            jTable1.getColumnModel().getColumn(14).setMinWidth(0);
-            jTable1.getColumnModel().getColumn(14).setPreferredWidth(0);
-            jTable1.getColumnModel().getColumn(14).setMaxWidth(0);
-        }
 
         jPanel1.add(jScrollPane1, java.awt.BorderLayout.CENTER);
 
@@ -758,6 +770,7 @@ public class StockValueStatementDateWise extends javax.swing.JInternalFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGap(24, 24, 24)
                                 .addComponent(jbtnView, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jbtnPreview, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -790,8 +803,9 @@ public class StockValueStatementDateWise extends javax.swing.JInternalFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jRadioButton1)
                     .addComponent(jtxtProductName, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jbtnView)
-                    .addComponent(jbtnPreview)
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jbtnPreview)
+                        .addComponent(jbtnView))
                     .addComponent(jbtnClose))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -893,38 +907,6 @@ public class StockValueStatementDateWise extends javax.swing.JInternalFrame {
             this.dispose();
         }
     }//GEN-LAST:event_jbtnCloseKeyPressed
-
-    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
-        // TODO add your handling code here:
-        if (evt.getClickCount() == 2 && jTable1.getSelectedRow() != -1) {
-            StockSummaryDetail sd = new StockSummaryDetail(jTable1.getValueAt(jTable1.getSelectedRow(), 0).toString(), jTable1.getValueAt(jTable1.getSelectedRow(), 6).toString());
-            SkableHome.addOnScreen(sd, "Stock Itemwise Monthwise");
-        }
-        if (evt.getButton() == java.awt.event.MouseEvent.BUTTON3) {
-            popup.setVisible(false);
-            popup.removeAll();
-            ActionListener menuListener = new ActionListener() {
-                public void actionPerformed(ActionEvent event) {
-                    popup.setVisible(false);
-                    int row = jTable1.getSelectedRow();
-                    int column = jTable1.getSelectedColumn();
-                    if (row != -1 && column != -1) {
-                        String selection = jTable1.getValueAt(row, column).toString();
-                        StringSelection data = new StringSelection(selection);
-                        Clipboard clipboard
-                                = Toolkit.getDefaultToolkit().getSystemClipboard();
-                        clipboard.setContents(data, data);
-                    }
-                }
-            };
-            final JMenuItem item;
-            popup.add(item = new JMenuItem("COPY"));
-            item.setHorizontalTextPosition(JMenuItem.RIGHT);
-            item.addActionListener(menuListener);
-            popup.setLocation(MouseInfo.getPointerInfo().getLocation());
-            popup.setVisible(true);
-        }
-    }//GEN-LAST:event_jTable1MouseClicked
 
     private void jtxtProductNameFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtxtProductNameFocusGained
         lb.selectAll(evt);
@@ -1066,6 +1048,14 @@ public class StockValueStatementDateWise extends javax.swing.JInternalFrame {
         odc.setLocation(0, 0);
         odc.showDialog(jp, "Select Date");
     }//GEN-LAST:event_jBillDateBtn1ActionPerformed
+
+    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
+        // TODO add your handling code here:
+        if (evt.getClickCount() == 2 && jTable1.getSelectedRow() != -1) {
+            StockSummaryDetail sd = new StockSummaryDetail(jTable1.getValueAt(jTable1.getSelectedRow(), 0).toString(), jTable1.getValueAt(jTable1.getSelectedRow(), 6).toString());
+            SkableHome.addOnScreen(sd, "Stock Itemwise Monthwise");
+        }
+    }//GEN-LAST:event_jTable1MouseClicked
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup1;
