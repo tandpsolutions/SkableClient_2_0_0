@@ -178,6 +178,10 @@ public class SkableHome extends javax.swing.JFrame {
         if (!user_grp_cd.equalsIgnoreCase("1")) {
             jmnBranchWiseCreditLimit.setVisible(false);
         }
+        
+        jMenu10.setVisible(false);
+        jMenu12.setVisible(false);
+        jMenu5.setVisible(false);
     }
 
     private void setTrayIcon() {
