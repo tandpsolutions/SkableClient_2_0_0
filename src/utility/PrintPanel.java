@@ -98,6 +98,16 @@ public class PrintPanel extends javax.swing.JDialog {
                             JsonDataSource dataSource = new JsonDataSource(jsonFile);
                             JsonDataSource dataSource1 = new JsonDataSource(jsonFile1);
                             HashMap params = new HashMap();
+                            if (array.get(0).getAsJsonObject().get("TAX_TYPE").getAsInt() == 0) {
+                                params.put("tax_title", "Vat");
+                                params.put("add_tax_title", "Add Vat");
+                            } else if (array.get(0).getAsJsonObject().get("TAX_TYPE").getAsInt() == 1) {
+                                params.put("tax_title", "SGST");
+                                params.put("add_tax_title", "CGST");
+                            }else{
+                                params.put("tax_title", "IGST");
+                                params.put("add_tax_title", "");
+                            }
                             params.put("dir", System.getProperty("user.dir"));
                             params.put("comp_name", "APPLE N BERRY");
                             params.put("tin_no", (array.get(0).getAsJsonObject().get("COMPANY_TIN").getAsString()));

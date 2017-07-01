@@ -36,6 +36,27 @@ public class SeriesMaster {
     @SerializedName("STOCK")
     @Expose
     private String STOCK;
+    @Expose
+    private String GSTCD;
+    @SerializedName("GST_NAME")
+    @Expose
+    private String GSTNAME;
+
+    public String getGSTCD() {
+        return GSTCD;
+    }
+
+    public void setGSTCD(String GSTCD) {
+        this.GSTCD = GSTCD;
+    }
+
+    public String getGSTNAME() {
+        return GSTNAME;
+    }
+
+    public void setGSTNAME(String GSTNAME) {
+        this.GSTNAME = GSTNAME;
+    }
 
     public String getSTOCK() {
         return STOCK;

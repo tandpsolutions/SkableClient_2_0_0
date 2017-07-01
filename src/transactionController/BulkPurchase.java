@@ -16,6 +16,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Vector;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.AbstractAction;
 import javax.swing.ActionMap;
 import javax.swing.InputMap;
@@ -57,14 +59,16 @@ public class BulkPurchase extends javax.swing.JDialog {
     private String item_name = "";
     boolean flag = false;
     private DefaultTableModel dtm;
+    private int tax_type;
 
     /**
      * Creates new form BulkPurchase
      */
-    public BulkPurchase(java.awt.Frame parent, boolean modal, PurchaseController pc) {
+    public BulkPurchase(java.awt.Frame parent, boolean modal, PurchaseController pc,int tax_type) {
         super(parent, modal);
         initComponents();
         this.pc = pc;
+        this.tax_type= tax_type;
 
         // Close the dialog when Esc is pressed
         String cancelName = "cancel";
@@ -132,8 +136,13 @@ public class BulkPurchase extends javax.swing.JDialog {
                                 Vector row = new Vector();
                                 row.add(series.get(i).getSRCD());
                                 row.add(series.get(i).getSRNAME());
-                                row.add(series.get(i).getTAXCD());
-                                row.add(series.get(i).getTAXNAME());
+                                if (tax_type == 0) {
+                                    row.add(series.get(i).getTAXCD());
+                                    row.add(series.get(i).getTAXNAME());
+                                } else {
+                                    row.add(series.get(i).getGSTCD());
+                                    row.add(series.get(i).getGSTNAME());
+                                }
                                 sa.getDtmHeader().addRow(row);
                             }
                             lb.setColumnSizeForTable(viewTable, sa.jPanelHeader.getWidth());
@@ -164,8 +173,7 @@ public class BulkPurchase extends javax.swing.JDialog {
                 public void onFailure(Call<JsonObject> call, Throwable thrwbl) {
                     lb.removeGlassPane(BulkPurchase.this);
                 }
-            }
-            );
+            });
         } catch (Exception ex) {
             lb.printToLogFile("Exception at setData at account master in sales invoice", ex);
         }
@@ -177,7 +185,6 @@ public class BulkPurchase extends javax.swing.JDialog {
             Call<JsonObject> call = lb.getRetrofit().create(StartUpAPI.class).GetDataFromServer("21", sr_cd, pc.ac_cd);
             lb.addGlassPane(this);
             call.enqueue(new Callback<JsonObject>() {
-
                 @Override
                 public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
                     lb.removeGlassPane(BulkPurchase.this);
@@ -203,8 +210,7 @@ public class BulkPurchase extends javax.swing.JDialog {
                     lb.removeGlassPane(BulkPurchase.this);
 
                 }
-            }
-            );
+            });
         } catch (Exception ex) {
             lb.printToLogFile("Exception at setData at account master in sales invoice", ex);
         }
@@ -213,7 +219,6 @@ public class BulkPurchase extends javax.swing.JDialog {
     private void initText() {
 
         jtxtItem.addFocusListener(new java.awt.event.FocusAdapter() {
-
             @Override
             public void focusGained(FocusEvent e) {
                 lb.selectAll(e);
@@ -223,11 +228,9 @@ public class BulkPurchase extends javax.swing.JDialog {
             public void focusLost(FocusEvent e) {
                 lb.toUpper(e);
             }
-
         });
 
         jtxtItem.addKeyListener(new KeyAdapter() {
-
             @Override
             public void keyPressed(KeyEvent e) {
                 if (e.getKeyCode() == KeyEvent.VK_N) {
@@ -241,7 +244,6 @@ public class BulkPurchase extends javax.swing.JDialog {
                     setSeriesData("3", jtxtItem.getText().toUpperCase());
                 }
             }
-
         });
 
         jtxtRate.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -718,30 +720,19 @@ public class BulkPurchase extends javax.swing.JDialog {
             if (tm != null) {
                 double tax_rate = Double.parseDouble(tm.getTAXPER());
                 double add_tax_rate = Double.parseDouble(tm.getADDTAXPER());
-                int add_tax_rate_On = (int) lb.isNumber2(tm.getTAXONSALES());
-                if (tm.getTAXCD().equalsIgnoreCase("T000003")) {
-                    try {
-                        final Calendar cal = Calendar.getInstance();
-                        cal.set(Calendar.MONTH, Calendar.JUNE);
-                        cal.set(Calendar.DATE, 1);
-                        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-                        java.util.Date dt = sdf.parse(pc.jtxtVouDate.getText());
-                        add_tax_rate_On = (int) lb.isNumber2(tm.getTAXONSALES());
-                        if (dt.before(sdf.parse(sdf.format(cal.getTime())))) {
-                            add_tax_rate = 0.00;
-                        }
-                    } catch (ParseException ex) {
-                    }
+                if (tax_type == 2) {
+                    tax_rate += add_tax_rate;
+                    add_tax_rate = 0;
                 }
+                
                 double taxable = (lb.isNumber2(jtxtRate.getText()) * 100) / (100 + tax_rate + add_tax_rate);
                 jtxtBasicAmt.setText(lb.Convert2DecFmtForRs(taxable));
                 jtxtTaxAmt.setText(lb.Convert2DecFmtForRs((tax_rate * taxable) / 100));
-                double tax = lb.isNumber("0.00");
-                if (add_tax_rate_On == 1) {
-                    jtxtAddTaxAmt.setText(lb.Convert2DecFmtForRs((add_tax_rate * taxable) / 100));
-                } else {
-                    jtxtAddTaxAmt.setText(lb.Convert2DecFmtForRs((add_tax_rate * tax) / 100));
-                }
+//                if (add_tax_rate_On == 1) {
+//                    jtxtAddTaxAmt.setText(lb.Convert2DecFmtForRs((add_tax_rate * taxable) / 100));
+//                } else {
+                jtxtAddTaxAmt.setText(lb.Convert2DecFmtForRs((add_tax_rate * taxable) / 100));
+//                }
             }
         }
     }//GEN-LAST:event_jcmbTaxItemStateChanged
@@ -863,8 +854,6 @@ public class BulkPurchase extends javax.swing.JDialog {
         jtxtMRP.setText("");
 
     }
-
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.ButtonGroup buttonGroup2;
@@ -898,6 +887,5 @@ public class BulkPurchase extends javax.swing.JDialog {
     private javax.swing.JTextField jtxtRate;
     private javax.swing.JTextField jtxtTaxAmt;
     // End of variables declaration//GEN-END:variables
-
     private int returnStatus = RET_CANCEL;
 }

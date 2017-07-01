@@ -57,11 +57,13 @@ public class SalesView extends javax.swing.JInternalFrame {
     private JTextField jtfFilter = new JTextField();
     private SalesAPI salesAPI;
     private int vType;
+    private int tax_type;
 
-    public SalesView(int type, int formCd) {
+    public SalesView(int type, int formCd, int tax_type) {
         initComponents();
         setUpData();
         vType = type;
+        this.tax_type = tax_type;
         salesAPI = lb.getRetrofit().create(SalesAPI.class);
         lb.setDateChooserPropertyInit(jtxtFromDate);
         lb.setDateChooserPropertyInit(jtxtToDate);
@@ -113,7 +115,7 @@ public class SalesView extends javax.swing.JInternalFrame {
     public void setData() {
         lb.addGlassPane(this);
         Call<PurchaseHead> call = salesAPI.getDataHeader(lb.ConvertDateFormetForDB(jtxtFromDate.getText()),
-                lb.ConvertDateFormetForDB(jtxtToDate.getText()), vType + "", (jComboBox1.getSelectedIndex() == 0) ? "0" : Constants.BRANCH.get(jComboBox1.getSelectedIndex() - 1).getBranch_cd());
+                lb.ConvertDateFormetForDB(jtxtToDate.getText()), vType + "", (jComboBox1.getSelectedIndex() == 0) ? "0" : Constants.BRANCH.get(jComboBox1.getSelectedIndex() - 1).getBranch_cd(), tax_type + "");
         call.enqueue(new Callback<PurchaseHead>() {
             @Override
             public void onResponse(Call<PurchaseHead> call, Response<PurchaseHead> response) {
@@ -167,7 +169,6 @@ public class SalesView extends javax.swing.JInternalFrame {
 //        add(panel, BorderLayout.SOUTH);
 //        add(new JScrollPane(jTable1), BorderLayout.CENTER);
         jtfFilter.getDocument().addDocumentListener(new DocumentListener() {
-
             @Override
             public void insertUpdate(DocumentEvent e) {
                 String text = jtfFilter.getText();
@@ -194,12 +195,11 @@ public class SalesView extends javax.swing.JInternalFrame {
             public void changedUpdate(DocumentEvent e) {
                 throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
             }
-
         });
     }
 
     private void addPurchaseConroller() {
-        SalesController pc = new SalesController(null, true, vType, this);
+        SalesController pc = new SalesController(null, true, vType, this,tax_type);
         pc.setLocationRelativeTo(null);
         pc.setData(ref_no);
     }
@@ -679,8 +679,6 @@ public class SalesView extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         lb.enterFocus(evt, jButton1);
     }//GEN-LAST:event_jComboBox1KeyPressed
-
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBillDateBtn;
     private javax.swing.JButton jBillDateBtn1;

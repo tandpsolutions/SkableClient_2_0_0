@@ -414,7 +414,6 @@ public class SkableHome extends javax.swing.JFrame {
                 lb.showMessageDailog(result.get("Cause").getAsString());
             }
         } catch (Exception ex) {
-
         }
     }
 
@@ -447,15 +446,12 @@ public class SkableHome extends javax.swing.JFrame {
         jMenuItem14 = new javax.swing.JMenuItem();
         jMenuItem24 = new javax.swing.JMenuItem();
         jmnTransaction = new javax.swing.JMenu();
-        jMenu7 = new javax.swing.JMenu();
-        jmnRDPurchase = new javax.swing.JMenuItem();
-        jmnURDPurchse = new javax.swing.JMenuItem();
-        jmnPurchaseReturn = new javax.swing.JMenuItem();
-        jMenu6 = new javax.swing.JMenu();
-        jmnRetailInvoice = new javax.swing.JMenuItem();
-        jmnTaxInvoice = new javax.swing.JMenuItem();
-        jmnSalesBillNumber = new javax.swing.JMenuItem();
-        jmnSalesReturn = new javax.swing.JMenuItem();
+        jMenu10 = new javax.swing.JMenu();
+        jmnRDPurchase1 = new javax.swing.JMenuItem();
+        jmnRDPurchase2 = new javax.swing.JMenuItem();
+        jMenu12 = new javax.swing.JMenu();
+        jmnRetailInvoice1 = new javax.swing.JMenuItem();
+        jmnRetailInvoice2 = new javax.swing.JMenuItem();
         jMenu1 = new javax.swing.JMenu();
         jmnCashPayment = new javax.swing.JMenuItem();
         jmnCashRcpt = new javax.swing.JMenuItem();
@@ -478,6 +474,16 @@ public class SkableHome extends javax.swing.JFrame {
         jMenu9 = new javax.swing.JMenu();
         jMenuItem11 = new javax.swing.JMenuItem();
         jMenuItem12 = new javax.swing.JMenuItem();
+        jMenu5 = new javax.swing.JMenu();
+        jMenu7 = new javax.swing.JMenu();
+        jmnRDPurchase = new javax.swing.JMenuItem();
+        jmnURDPurchse = new javax.swing.JMenuItem();
+        jmnPurchaseReturn = new javax.swing.JMenuItem();
+        jMenu6 = new javax.swing.JMenu();
+        jmnRetailInvoice = new javax.swing.JMenuItem();
+        jmnTaxInvoice = new javax.swing.JMenuItem();
+        jmnSalesBillNumber = new javax.swing.JMenuItem();
+        jmnSalesReturn = new javax.swing.JMenuItem();
         jmnInventory = new javax.swing.JMenu();
         jmnStockInTransit = new javax.swing.JMenuItem();
         jmnStockInoutReport = new javax.swing.JMenuItem();
@@ -710,80 +716,53 @@ public class SkableHome extends javax.swing.JFrame {
         jmnTransaction.setMnemonic('T');
         jmnTransaction.setText("Transaction");
 
-        jMenu7.setMnemonic('P');
-        jMenu7.setText("Purchase");
+        jMenu10.setText("Purchase");
 
-        jmnRDPurchase.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F1, 0));
-        jmnRDPurchase.setMnemonic('R');
-        jmnRDPurchase.setText("RD Purchase Bill");
-        jmnRDPurchase.addActionListener(new java.awt.event.ActionListener() {
+        jmnRDPurchase1.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F1, 0));
+        jmnRDPurchase1.setMnemonic('R');
+        jmnRDPurchase1.setText("Purchase Bill Local");
+        jmnRDPurchase1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jmnRDPurchaseActionPerformed(evt);
+                jmnRDPurchase1ActionPerformed(evt);
             }
         });
-        jMenu7.add(jmnRDPurchase);
+        jMenu10.add(jmnRDPurchase1);
 
-        jmnURDPurchse.setMnemonic('U');
-        jmnURDPurchse.setText("URD Purchase Bill");
-        jmnURDPurchse.addActionListener(new java.awt.event.ActionListener() {
+        jmnRDPurchase2.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F1, 0));
+        jmnRDPurchase2.setMnemonic('R');
+        jmnRDPurchase2.setText("Purchase Bill Outside");
+        jmnRDPurchase2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jmnURDPurchseActionPerformed(evt);
+                jmnRDPurchase2ActionPerformed(evt);
             }
         });
-        jMenu7.add(jmnURDPurchse);
+        jMenu10.add(jmnRDPurchase2);
 
-        jmnPurchaseReturn.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F2, 0));
-        jmnPurchaseReturn.setText("Purchase Return");
-        jmnPurchaseReturn.addActionListener(new java.awt.event.ActionListener() {
+        jmnTransaction.add(jMenu10);
+
+        jMenu12.setText("Sales Invoice");
+
+        jmnRetailInvoice1.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F7, 0));
+        jmnRetailInvoice1.setMnemonic('R');
+        jmnRetailInvoice1.setText("Sales Invoice Local");
+        jmnRetailInvoice1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jmnPurchaseReturnActionPerformed(evt);
+                jmnRetailInvoice1ActionPerformed(evt);
             }
         });
-        jMenu7.add(jmnPurchaseReturn);
+        jMenu12.add(jmnRetailInvoice1);
 
-        jmnTransaction.add(jMenu7);
-
-        jMenu6.setMnemonic('S');
-        jMenu6.setText("Sales Imvoice");
-
-        jmnRetailInvoice.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F7, 0));
-        jmnRetailInvoice.setMnemonic('R');
-        jmnRetailInvoice.setText("Retail Invoice");
-        jmnRetailInvoice.addActionListener(new java.awt.event.ActionListener() {
+        jmnRetailInvoice2.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F7, 0));
+        jmnRetailInvoice2.setMnemonic('R');
+        jmnRetailInvoice2.setText("Sales Invoice Outside");
+        jmnRetailInvoice2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jmnRetailInvoiceActionPerformed(evt);
+                jmnRetailInvoice2ActionPerformed(evt);
             }
         });
-        jMenu6.add(jmnRetailInvoice);
+        jMenu12.add(jmnRetailInvoice2);
 
-        jmnTaxInvoice.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F8, 0));
-        jmnTaxInvoice.setMnemonic('T');
-        jmnTaxInvoice.setText("Tax Invoice");
-        jmnTaxInvoice.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jmnTaxInvoiceActionPerformed(evt);
-            }
-        });
-        jMenu6.add(jmnTaxInvoice);
-
-        jmnSalesBillNumber.setText("Sales Insurance Bill");
-        jmnSalesBillNumber.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jmnSalesBillNumberActionPerformed(evt);
-            }
-        });
-        jMenu6.add(jmnSalesBillNumber);
-
-        jmnSalesReturn.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F9, 0));
-        jmnSalesReturn.setText("Sales Return");
-        jmnSalesReturn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jmnSalesReturnActionPerformed(evt);
-            }
-        });
-        jMenu6.add(jmnSalesReturn);
-
-        jmnTransaction.add(jMenu6);
+        jmnTransaction.add(jMenu12);
 
         jMenu1.setText("Cash Entry");
 
@@ -944,6 +923,85 @@ public class SkableHome extends javax.swing.JFrame {
         jMenu9.add(jMenuItem12);
 
         jmnTransaction.add(jMenu9);
+
+        jMenu5.setText("Archive");
+
+        jMenu7.setMnemonic('P');
+        jMenu7.setText("Purchase");
+
+        jmnRDPurchase.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F1, 0));
+        jmnRDPurchase.setMnemonic('R');
+        jmnRDPurchase.setText("RD Purchase Bill");
+        jmnRDPurchase.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmnRDPurchaseActionPerformed(evt);
+            }
+        });
+        jMenu7.add(jmnRDPurchase);
+
+        jmnURDPurchse.setMnemonic('U');
+        jmnURDPurchse.setText("URD Purchase Bill");
+        jmnURDPurchse.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmnURDPurchseActionPerformed(evt);
+            }
+        });
+        jMenu7.add(jmnURDPurchse);
+
+        jmnPurchaseReturn.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F2, 0));
+        jmnPurchaseReturn.setText("Purchase Return");
+        jmnPurchaseReturn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmnPurchaseReturnActionPerformed(evt);
+            }
+        });
+        jMenu7.add(jmnPurchaseReturn);
+
+        jMenu5.add(jMenu7);
+
+        jMenu6.setMnemonic('S');
+        jMenu6.setText("Sales Imvoice");
+
+        jmnRetailInvoice.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F7, 0));
+        jmnRetailInvoice.setMnemonic('R');
+        jmnRetailInvoice.setText("Retail Invoice");
+        jmnRetailInvoice.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmnRetailInvoiceActionPerformed(evt);
+            }
+        });
+        jMenu6.add(jmnRetailInvoice);
+
+        jmnTaxInvoice.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F8, 0));
+        jmnTaxInvoice.setMnemonic('T');
+        jmnTaxInvoice.setText("Tax Invoice");
+        jmnTaxInvoice.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmnTaxInvoiceActionPerformed(evt);
+            }
+        });
+        jMenu6.add(jmnTaxInvoice);
+
+        jmnSalesBillNumber.setText("Sales Insurance Bill");
+        jmnSalesBillNumber.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmnSalesBillNumberActionPerformed(evt);
+            }
+        });
+        jMenu6.add(jmnSalesBillNumber);
+
+        jmnSalesReturn.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F9, 0));
+        jmnSalesReturn.setText("Sales Return");
+        jmnSalesReturn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmnSalesReturnActionPerformed(evt);
+            }
+        });
+        jMenu6.add(jmnSalesReturn);
+
+        jMenu5.add(jMenu6);
+
+        jmnTransaction.add(jMenu5);
 
         jMenuBar3.add(jmnTransaction);
 
@@ -1710,13 +1768,13 @@ public class SkableHome extends javax.swing.JFrame {
 
     private void jmnRDPurchaseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmnRDPurchaseActionPerformed
         // TODO add your handling code here:
-        PurchaseView pv = new PurchaseView(0, 10);
+        PurchaseView pv = new PurchaseView(0, 10, 0);
         addOnScreen(pv, "RD Purchase View");
     }//GEN-LAST:event_jmnRDPurchaseActionPerformed
 
     private void jmnURDPurchseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmnURDPurchseActionPerformed
         // TODO add your handling code here:
-        PurchaseView pv = new PurchaseView(1, 11);
+        PurchaseView pv = new PurchaseView(1, 11, 0);
         addOnScreen(pv, "URD Purchase Bill View");
     }//GEN-LAST:event_jmnURDPurchseActionPerformed
 
@@ -1728,13 +1786,13 @@ public class SkableHome extends javax.swing.JFrame {
 
     private void jmnRetailInvoiceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmnRetailInvoiceActionPerformed
         // TODO add your handling code here:
-        SalesView sb = new SalesView(0, 13);
+        SalesView sb = new SalesView(0, 13,0);
         addOnScreen(sb, "Retail Invoice View");
     }//GEN-LAST:event_jmnRetailInvoiceActionPerformed
 
     private void jmnTaxInvoiceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmnTaxInvoiceActionPerformed
         // TODO add your handling code here:
-        SalesView sb = new SalesView(1, 14);
+        SalesView sb = new SalesView(1, 14,0);
         addOnScreen(sb, "Tax Invoice View");
     }//GEN-LAST:event_jmnTaxInvoiceActionPerformed
 
@@ -1746,7 +1804,7 @@ public class SkableHome extends javax.swing.JFrame {
 
     private void jmnSalesBillNumberActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmnSalesBillNumberActionPerformed
         // TODO add your handling code here:
-        SalesView sb = new SalesView(2, 16);
+        SalesView sb = new SalesView(2, 16,0);
         addOnScreen(sb, "Retail Insurance Invoice View");
     }//GEN-LAST:event_jmnSalesBillNumberActionPerformed
 
@@ -2351,14 +2409,41 @@ public class SkableHome extends javax.swing.JFrame {
         addOnScreen(updategst, "Update GST");
     }//GEN-LAST:event_jMenuItem21ActionPerformed
 
+    private void jmnRDPurchase1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmnRDPurchase1ActionPerformed
+        // TODO add your handling code here:
+        PurchaseView pv = new PurchaseView(0, 10, 1);
+        addOnScreen(pv, "RD Purchase View");
+    }//GEN-LAST:event_jmnRDPurchase1ActionPerformed
+
+    private void jmnRDPurchase2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmnRDPurchase2ActionPerformed
+        // TODO add your handling code here:
+        PurchaseView pv = new PurchaseView(0, 10, 2);
+        addOnScreen(pv, "RD Purchase View");
+    }//GEN-LAST:event_jmnRDPurchase2ActionPerformed
+
+    private void jmnRetailInvoice1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmnRetailInvoice1ActionPerformed
+        // TODO add your handling code here:
+        SalesView sb = new SalesView(0, 13,1);
+        addOnScreen(sb, "Retail Invoice View");
+    }//GEN-LAST:event_jmnRetailInvoice1ActionPerformed
+
+    private void jmnRetailInvoice2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmnRetailInvoice2ActionPerformed
+        // TODO add your handling code here:
+        SalesView sb = new SalesView(0, 13,2);
+        addOnScreen(sb, "Retail Invoice View");
+    }//GEN-LAST:event_jmnRetailInvoice2ActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu asdsds;
     private static javax.swing.JDesktopPane jDesktopPane1;
     private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenu jMenu10;
     private javax.swing.JMenu jMenu11;
+    private javax.swing.JMenu jMenu12;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
+    private javax.swing.JMenu jMenu5;
     private javax.swing.JMenu jMenu6;
     private javax.swing.JMenu jMenu7;
     private javax.swing.JMenu jMenu8;
@@ -2438,7 +2523,11 @@ public class SkableHome extends javax.swing.JFrame {
     private javax.swing.JMenuItem jmnPurchaseReturnRegister;
     private javax.swing.JMenuItem jmnPurchaseReturnRegisterDetail;
     private javax.swing.JMenuItem jmnRDPurchase;
+    private javax.swing.JMenuItem jmnRDPurchase1;
+    private javax.swing.JMenuItem jmnRDPurchase2;
     private javax.swing.JMenuItem jmnRetailInvoice;
+    private javax.swing.JMenuItem jmnRetailInvoice1;
+    private javax.swing.JMenuItem jmnRetailInvoice2;
     private javax.swing.JMenuItem jmnSalesBillNumber;
     private javax.swing.JMenuItem jmnSalesRegister;
     private javax.swing.JMenuItem jmnSalesRegisterCardWise;

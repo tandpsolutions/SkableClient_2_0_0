@@ -1357,7 +1357,7 @@ public class Library {
             }
         } else if (ref_no.startsWith("05")) {
             if (SkableHome.userRightsMap.get(10).getEDITS().equalsIgnoreCase("1")) {
-                PurchaseController sbc = new PurchaseController(null, true, 0, null);
+                PurchaseController sbc = new PurchaseController(null, true, 0, null,-1);
                 sbc.setLocationRelativeTo(null);
                 sbc.setData(null, ref_no);
             } else {

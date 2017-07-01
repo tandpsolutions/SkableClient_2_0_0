@@ -21,7 +21,7 @@ import retrofit2.http.Query;
 public interface SalesAPI {
 
     @GET("GetSalesDetail")
-    Call<PurchaseHead> getDataHeader(@Query("from_date") String from_date, @Query("to_date") String to_date, @Query("v_type") String v_type, @Query("branch_cd") String branch_cd);
+    Call<PurchaseHead> getDataHeader(@Query("from_date") String from_date, @Query("to_date") String to_date, @Query("v_type") String v_type, @Query("branch_cd") String branch_cd, @Query("tax_type") String tax_type);
 
     @GET("SalesTrack")
     Call<PurchaseHead> SalesTrack(@Query("from_date") String from_date, @Query("to_date") String to_date, @Query("branch_cd") String branch_cd,

@@ -56,10 +56,12 @@ public class PurchaseView extends javax.swing.JInternalFrame {
     private JTextField jtfFilter = new JTextField();
     private PurchaseAPI purchasAPI;
     private int vType;
+    private int tax_type;
 
-    public PurchaseView(int type, int formCd) {
+    public PurchaseView(int type, int formCd, int tax_type) {
         initComponents();
         vType = type;
+        this.tax_type = tax_type;
         purchasAPI = lb.getRetrofit().create(PurchaseAPI.class);
         lb.setDateChooserPropertyInit(jtxtFromDate);
         lb.setDateChooserPropertyInit(jtxtToDate);
@@ -96,7 +98,7 @@ public class PurchaseView extends javax.swing.JInternalFrame {
 
     public void setData() {
         lb.addGlassPane(this);
-        Call<PurchaseHead> call = purchasAPI.getDataHeader(lb.ConvertDateFormetForDB(jtxtFromDate.getText()), lb.ConvertDateFormetForDB(jtxtToDate.getText()), vType + "");
+        Call<PurchaseHead> call = purchasAPI.getDataHeader(lb.ConvertDateFormetForDB(jtxtFromDate.getText()), lb.ConvertDateFormetForDB(jtxtToDate.getText()), vType + "", tax_type);
         call.enqueue(new Callback<PurchaseHead>() {
             @Override
             public void onResponse(Call<PurchaseHead> call, Response<PurchaseHead> response) {
@@ -145,7 +147,6 @@ public class PurchaseView extends javax.swing.JInternalFrame {
 //        add(panel, BorderLayout.SOUTH);
 //        add(new JScrollPane(jTable1), BorderLayout.CENTER);
         jtfFilter.getDocument().addDocumentListener(new DocumentListener() {
-
             @Override
             public void insertUpdate(DocumentEvent e) {
                 String text = jtfFilter.getText();
@@ -172,12 +173,11 @@ public class PurchaseView extends javax.swing.JInternalFrame {
             public void changedUpdate(DocumentEvent e) {
                 throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
             }
-
         });
     }
 
     private void addPurchaseConroller() {
-        PurchaseController pc = new PurchaseController(null, true, vType, this);
+        PurchaseController pc = new PurchaseController(null, true, vType, this, tax_type);
         pc.setLocationRelativeTo(null);
         pc.setData(purchasAPI, ref_no);
         jButton1.doClick();
@@ -630,8 +630,6 @@ public class PurchaseView extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         lb.enterClick(evt);
     }//GEN-LAST:event_jButton1KeyPressed
-
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBillDateBtn;
     private javax.swing.JButton jBillDateBtn1;

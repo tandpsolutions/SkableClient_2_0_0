@@ -93,7 +93,6 @@ public class PurchaseController extends javax.swing.JDialog {
      * A return status code - returned if OK button has been pressed
      */
     public static final int RET_OK = 1;
-
     Library lb = Library.getInstance();
     public String ac_cd = "";
     private String ref_no = "";
@@ -118,16 +117,18 @@ public class PurchaseController extends javax.swing.JDialog {
     private DefaultTableModel dtmTax;
     private HashMap<String, double[]> taxInfo;
     private PurchaseView pbv;
+    private int tax_type;
 
     /**
      * Creates new form PurchaseController
      */
-    public PurchaseController(java.awt.Frame parent, boolean modal, int type, PurchaseView pbv) {
+    public PurchaseController(java.awt.Frame parent, boolean modal, int type, PurchaseView pbv, int tax_type) {
         super(parent, modal);
         initComponents();
         dtm = (DefaultTableModel) jTable1.getModel();
         dtmTax = (DefaultTableModel) jTable2.getModel();
         this.pbv = pbv;
+        this.tax_type = tax_type;
 // Close the dialog when Esc is pressed
         String cancelName = "cancel";
         InputMap inputMap = getRootPane().getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
@@ -158,7 +159,6 @@ public class PurchaseController extends javax.swing.JDialog {
         SkableHome.zoomTable.setToolTipOn(true);
         final Container zoomIFrame = this;
         jTable1.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
-
             @Override
             public void mouseMoved(java.awt.event.MouseEvent evt) {
                 SkableHome.zoomTable.zoomInToolTipForTable(jTable1, jScrollPane1, zoomIFrame, evt);
@@ -176,8 +176,7 @@ public class PurchaseController extends javax.swing.JDialog {
                 if (row != -1 && column != -1) {
                     String selection = jTable1.getValueAt(row, column).toString();
                     StringSelection data = new StringSelection(selection);
-                    Clipboard clipboard
-                            = Toolkit.getDefaultToolkit().getSystemClipboard();
+                    Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
                     clipboard.setContents(data, data);
                 }
             }
@@ -243,7 +242,6 @@ public class PurchaseController extends javax.swing.JDialog {
 //        add(panel, BorderLayout.SOUTH);
 //        add(new JScrollPane(jTable1), BorderLayout.CENTER);
         jtfFilter.getDocument().addDocumentListener(new DocumentListener() {
-
             @Override
             public void insertUpdate(DocumentEvent e) {
                 String text = jtfFilter.getText();
@@ -270,7 +268,6 @@ public class PurchaseController extends javax.swing.JDialog {
             public void changedUpdate(DocumentEvent e) {
                 throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
             }
-
         });
     }
 
@@ -297,7 +294,6 @@ public class PurchaseController extends javax.swing.JDialog {
 
         jtxtItem = new javax.swing.JTextField();
         jtxtItem.addFocusListener(new java.awt.event.FocusAdapter() {
-
             @Override
             public void focusGained(FocusEvent e) {
                 lb.selectAll(e);
@@ -307,11 +303,9 @@ public class PurchaseController extends javax.swing.JDialog {
             public void focusLost(FocusEvent e) {
                 lb.toUpper(e);
             }
-
         });
 
         jtxtItem.addKeyListener(new KeyAdapter() {
-
             @Override
             public void keyPressed(KeyEvent e) {
                 if (e.getKeyCode() == KeyEvent.VK_N) {
@@ -330,7 +324,6 @@ public class PurchaseController extends javax.swing.JDialog {
                     setSeriesData("3", jtxtItem.getText().toUpperCase());
                 }
             }
-
         });
 
         jtxtIMEI = new javax.swing.JTextField();
@@ -356,7 +349,6 @@ public class PurchaseController extends javax.swing.JDialog {
             public void keyTyped(KeyEvent e) {
                 lb.onlyNumber(e, 15);
             }
-
         });
 
         jtxtSerialNo = new javax.swing.JTextField();
@@ -382,7 +374,6 @@ public class PurchaseController extends javax.swing.JDialog {
             public void keyTyped(KeyEvent e) {
                 lb.fixLength(e, 20);
             }
-
         });
 
         jtxtQty = new javax.swing.JTextField();
@@ -595,7 +586,6 @@ public class PurchaseController extends javax.swing.JDialog {
         jtxtAmount = new javax.swing.JTextField();
 
         jtxtAmount.addFocusListener(new java.awt.event.FocusAdapter() {
-
             @Override
             public void focusGained(java.awt.event.FocusEvent e) {
                 lb.selectAll(e);
@@ -703,8 +693,13 @@ public class PurchaseController extends javax.swing.JDialog {
                                 Vector row = new Vector();
                                 row.add(series.get(i).getSRCD());
                                 row.add(series.get(i).getSRNAME());
-                                row.add(series.get(i).getTAXCD());
-                                row.add(series.get(i).getTAXNAME());
+                                if (tax_type == 0) {
+                                    row.add(series.get(i).getTAXCD());
+                                    row.add(series.get(i).getTAXNAME());
+                                } else {
+                                    row.add(series.get(i).getGSTCD());
+                                    row.add(series.get(i).getGSTNAME());
+                                }
                                 sa.getDtmHeader().addRow(row);
                             }
                             lb.setColumnSizeForTable(viewTable, sa.jPanelHeader.getWidth());
@@ -735,8 +730,7 @@ public class PurchaseController extends javax.swing.JDialog {
                 public void onFailure(Call<JsonObject> call, Throwable thrwbl) {
                     lb.removeGlassPane(PurchaseController.this);
                 }
-            }
-            );
+            });
         } catch (Exception ex) {
             lb.printToLogFile("Exception at setData at account master in sales invoice", ex);
         }
@@ -748,7 +742,6 @@ public class PurchaseController extends javax.swing.JDialog {
             Call<JsonObject> call = lb.getRetrofit().create(StartUpAPI.class).GetDataFromServer("21", sr_cd, ac_cd);
             lb.addGlassPane(this);
             call.enqueue(new Callback<JsonObject>() {
-
                 @Override
                 public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
                     lb.removeGlassPane(PurchaseController.this);
@@ -774,8 +767,7 @@ public class PurchaseController extends javax.swing.JDialog {
                     lb.removeGlassPane(PurchaseController.this);
 
                 }
-            }
-            );
+            });
         } catch (Exception ex) {
             lb.printToLogFile("Exception at setData at account master in sales invoice", ex);
         }
@@ -833,6 +825,7 @@ public class PurchaseController extends javax.swing.JDialog {
                                         jtxtBillNo.setText(array.get(i).getAsJsonObject().get("BILL_NO").getAsString());
                                         ac_cd = array.get(i).getAsJsonObject().get("AC_CD").getAsString();
                                         jtxtName.setText(array.get(i).getAsJsonObject().get("FNAME").getAsString());
+                                        tax_type = array.get(i).getAsJsonObject().get("TAX_TYPE").getAsInt();
 //                                    jtxtAddress.setText(array.get(i).getAsJsonObject().get("ADD1").getAsString());
 //                                    jtxtMobile.setText(array.get(i).getAsJsonObject().get("MOBILE1").getAsString());
                                         jtxtTinNum.setText(array.get(i).getAsJsonObject().get("TIN").getAsString());
@@ -916,7 +909,6 @@ public class PurchaseController extends javax.swing.JDialog {
         try {
             Call<JsonObject> call = lb.getRetrofit().create(StartUpAPI.class).getDataFromServer(param_cd, value.toUpperCase());
             call.enqueue(new Callback<JsonObject>() {
-
                 @Override
                 public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
                     lb.removeGlassPane(PurchaseController.this);
@@ -1138,6 +1130,7 @@ public class PurchaseController extends javax.swing.JDialog {
         header.setUSER_ID(SkableHome.user_id);
         header.setV_DATE(lb.ConvertDateFormetForDB(jtxtVouDate.getText()));
         header.setV_TYPE(jcmbType.getSelectedIndex());
+        header.setTAX_TYPE(tax_type);
 
         final ArrayList<PurchaseControllerDetailModel> detail = new ArrayList<PurchaseControllerDetailModel>();
         for (int i = 0; i < jTable1.getRowCount(); i++) {
@@ -1186,7 +1179,6 @@ public class PurchaseController extends javax.swing.JDialog {
                         PurchaseController.this.dispose();
                         if (ref_no.equalsIgnoreCase("")) {
                             SwingWorker worker = new SwingWorker() {
-
                                 @Override
                                 protected Object doInBackground() throws Exception {
 //                                    lb.displayPurchaseVoucherEmail(header, detail);
@@ -2344,7 +2336,11 @@ public class PurchaseController extends javax.swing.JDialog {
             if (tm != null) {
                 double tax_rate = Double.parseDouble(tm.getTAXPER());
                 double add_tax_rate = Double.parseDouble(tm.getADDTAXPER());
-                int add_tax_rate_On = (int) lb.isNumber2(tm.getTAXONSALES());
+                if (tax_type == 2) {
+                    tax_rate += add_tax_rate;
+                    add_tax_rate = 0;
+                }
+//                int add_tax_rate_On = (int) lb.isNumber2(tm.getTAXONSALES());
                 if (tm.getTAXCD().equalsIgnoreCase("T000003")) {
                     try {
                         final Calendar cal = Calendar.getInstance();
@@ -2352,7 +2348,7 @@ public class PurchaseController extends javax.swing.JDialog {
                         cal.set(Calendar.DATE, 1);
                         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
                         java.util.Date dt = sdf.parse(jtxtVouDate.getText());
-                        add_tax_rate_On = (int) lb.isNumber2(tm.getTAXONSALES());
+//                        add_tax_rate_On = (int) lb.isNumber2(tm.getTAXONSALES());
                         if (dt.before(sdf.parse(sdf.format(cal.getTime())))) {
                             add_tax_rate = 0.00;
                         }
@@ -2364,11 +2360,11 @@ public class PurchaseController extends javax.swing.JDialog {
                 jtxtBasicAmt.setText(lb.Convert2DecFmtForRs(taxable));
                 jtxtTaxAmt.setText(lb.Convert2DecFmtForRs((tax_rate * taxable) / 100));
                 double tax = lb.isNumber(jlblTax);
-                if (add_tax_rate_On == 1) {
-                    jtxtAddTaxAmt.setText(lb.Convert2DecFmtForRs((add_tax_rate * taxable) / 100));
-                } else {
-                    jtxtAddTaxAmt.setText(lb.Convert2DecFmtForRs((add_tax_rate * tax) / 100));
-                }
+//                if (add_tax_rate_On == 1) {
+//                    jtxtAddTaxAmt.setText(lb.Convert2DecFmtForRs((add_tax_rate * taxable) / 100));
+//                } else {
+                jtxtAddTaxAmt.setText(lb.Convert2DecFmtForRs((add_tax_rate * taxable) / 100));
+//                }
             }
         }
     }//GEN-LAST:event_jcmbTaxItemStateChanged
@@ -2674,7 +2670,7 @@ public class PurchaseController extends javax.swing.JDialog {
 
     private void jbtnBulkPurchaseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnBulkPurchaseActionPerformed
         // TODO add your handling code here:
-        BulkPurchase bp = new BulkPurchase(null, true, this);
+        BulkPurchase bp = new BulkPurchase(null, true, this, tax_type);
         bp.setLocationRelativeTo(null);
         bp.setVisible(true);
     }//GEN-LAST:event_jbtnBulkPurchaseActionPerformed
@@ -2774,6 +2770,5 @@ public class PurchaseController extends javax.swing.JDialog {
     private javax.swing.JTextField jtxtVoucher;
     private javax.swing.JPanel panel;
     // End of variables declaration//GEN-END:variables
-
     private int returnStatus = RET_CANCEL;
 }

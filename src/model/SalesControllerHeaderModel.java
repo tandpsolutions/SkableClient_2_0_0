@@ -58,6 +58,17 @@ public class SalesControllerHeaderModel {
     private double BAJAJ_CHG;
     private double CARD_PER;
     private double CARD_CHG;
+    private int TAX_TYPE;
+
+    public int getTAX_TYPE() {
+        return TAX_TYPE;
+    }
+
+    public void setTAX_TYPE(int TAX_TYPE) {
+        this.TAX_TYPE = TAX_TYPE;
+    }
+    
+    
 
     public double getAdvance_amt() {
         return advance_amt;
