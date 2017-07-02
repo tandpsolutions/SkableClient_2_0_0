@@ -15,6 +15,7 @@
 	</parameter>
 	<parameter name="tax_title" class="java.lang.String"/>
 	<parameter name="add_tax_title" class="java.lang.String"/>
+	<parameter name="tin_no" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[SELECT v.INV_NO,a.FNAME,a1.ADD1,p.MOBILE1,a.TIN,v.V_DATE,s.SR_NAME,v1.IMEI_NO,s.SR_NAME,v1.QTY,v1.RATE,v1.DISC_RATE,v1.AMT,p1.CASH_AMT,
 p1.CARD_AMT,p1.BANK_AMT,p1.BAJAJ_AMT,v.DET_TOT,v.TAX_AMT,v.ADD_TAX_AMT,v.NET_AMT,v.V_TYPE,p1.CHEQUE_NO
@@ -317,11 +318,11 @@ LEFT JOIN payment p1 ON v.REF_NO=p1.REF_NO]]>
 				<imageExpression><![CDATA[$P{dir}+File.separator+"Resources"+File.separator+"Images"+File.separator+"vivo.png"]]></imageExpression>
 			</image>
 			<textField>
-				<reportElement uuid="c1ffbbab-b751-48d2-8b7e-0d81eee3bc6f" x="235" y="1" width="320" height="14"/>
+				<reportElement uuid="c1ffbbab-b751-48d2-8b7e-0d81eee3bc6f" x="235" y="15" width="320" height="14"/>
 				<textElement>
 					<font isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA["Tin "+$F{COMPANY_TIN}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{tin_no}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
 				<reportElement uuid="8d19a3f6-3cf5-45b9-ba13-3e58ffaf9e22" stretchType="RelativeToBandHeight" x="235" y="29" width="320" height="14"/>
@@ -344,20 +345,13 @@ LEFT JOIN payment p1 ON v.REF_NO=p1.REF_NO]]>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{add3}]]></textFieldExpression>
 			</textField>
-			<textField>
-				<reportElement uuid="f1d3dfbf-b78b-45e1-8263-7acde86db609" x="235" y="15" width="320" height="14"/>
-				<textElement>
-					<font isBold="true"/>
-				</textElement>
-				<textFieldExpression><![CDATA["CST "+$F{COMPANY_CST}]]></textFieldExpression>
-			</textField>
 			<textField isBlankWhenNull="true">
 				<reportElement uuid="ab0ac6ec-d007-4177-9f26-3fb57d1d24b8" stretchType="RelativeToBandHeight" mode="Transparent" x="1" y="131" width="159" height="15"/>
 				<box leftPadding="4" rightPadding="2"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="8" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA["Customer's State Code : 24" ]]></textFieldExpression>
+				<textFieldExpression><![CDATA["Customer's State Code : 24"]]></textFieldExpression>
 			</textField>
 		</band>
 	</pageHeader>

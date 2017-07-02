@@ -152,7 +152,7 @@ LEFT JOIN taxmst t ON v1.TAX_CD=t.TAX_CD GROUP BY t.TAX_NAME]]>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{add_tax}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField pattern="###0.00;-###0.00">
 				<reportElement uuid="8a06d9ca-3d2d-40b7-bd63-dc89baf5c615" x="169" y="0" width="47" height="20"/>
 				<box rightPadding="2">
 					<topPen lineWidth="0.5"/>

@@ -101,16 +101,19 @@ public class PrintPanel extends javax.swing.JDialog {
                             if (array.get(0).getAsJsonObject().get("TAX_TYPE").getAsInt() == 0) {
                                 params.put("tax_title", "Vat");
                                 params.put("add_tax_title", "Add Vat");
+                                params.put("tin_no", "Tin No : "+(array.get(0).getAsJsonObject().get("COMPANY_TIN").getAsString()));
                             } else if (array.get(0).getAsJsonObject().get("TAX_TYPE").getAsInt() == 1) {
                                 params.put("tax_title", "SGST");
                                 params.put("add_tax_title", "CGST");
-                            }else{
+                                params.put("tin_no", "GST No : "+(array.get(0).getAsJsonObject().get("GST_NO").getAsString()));
+                            } else {
                                 params.put("tax_title", "IGST");
                                 params.put("add_tax_title", "");
+                                params.put("tin_no", "GST No : "+(array.get(0).getAsJsonObject().get("GST_NO").getAsString()));
                             }
                             params.put("dir", System.getProperty("user.dir"));
                             params.put("comp_name", "APPLE N BERRY");
-                            params.put("tin_no", (array.get(0).getAsJsonObject().get("COMPANY_TIN").getAsString()));
+//                            params.put("tin_no", (array.get(0).getAsJsonObject().get("COMPANY_TIN").getAsString()));
                             params.put("cst_no", (array.get(0).getAsJsonObject().get("COMPANY_CST").getAsString()));
                             params.put("add1", Constants.BRANCH.get(array.get(0).getAsJsonObject().get("BRANCH_CD").getAsInt() - 1).getAddress1());
                             params.put("add2", Constants.BRANCH.get(array.get(0).getAsJsonObject().get("BRANCH_CD").getAsInt() - 1).getAddress2());

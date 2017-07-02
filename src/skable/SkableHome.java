@@ -179,9 +179,9 @@ public class SkableHome extends javax.swing.JFrame {
             jmnBranchWiseCreditLimit.setVisible(false);
         }
         
-        jMenu10.setVisible(false);
-        jMenu12.setVisible(false);
-        jMenu5.setVisible(false);
+//        jMenu10.setVisible(false);
+//        jMenu12.setVisible(false);
+//        jMenu5.setVisible(false);
     }
 
     private void setTrayIcon() {
@@ -2427,13 +2427,13 @@ public class SkableHome extends javax.swing.JFrame {
 
     private void jmnRetailInvoice1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmnRetailInvoice1ActionPerformed
         // TODO add your handling code here:
-        SalesView sb = new SalesView(0, 13,1);
+        SalesView sb = new SalesView(3, 13,1);
         addOnScreen(sb, "Retail Invoice View");
     }//GEN-LAST:event_jmnRetailInvoice1ActionPerformed
 
     private void jmnRetailInvoice2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmnRetailInvoice2ActionPerformed
         // TODO add your handling code here:
-        SalesView sb = new SalesView(0, 13,2);
+        SalesView sb = new SalesView(3, 13,2);
         addOnScreen(sb, "Retail Invoice View");
     }//GEN-LAST:event_jmnRetailInvoice2ActionPerformed
 

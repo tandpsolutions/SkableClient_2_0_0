@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="inVoice" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="5f096cfe-7c20-47fd-8f84-d94a86d085ec">
 	<property name="ireport.zoom" value="1.9453068450750086"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="1497"/>
+	<property name="ireport.y" value="0"/>
 	<parameter name="dir" class="java.lang.String"/>
 	<parameter name="email" class="java.lang.String"/>
 	<parameter name="mobile" class="java.lang.String"/>
@@ -15,6 +15,7 @@
 	</parameter>
 	<parameter name="tax_title" class="java.lang.String"/>
 	<parameter name="add_tax_title" class="java.lang.String"/>
+	<parameter name="tin_no" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[SELECT v.INV_NO,a.FNAME,a1.ADD1,p.MOBILE1,a.TIN,v.V_DATE,s.SR_NAME,v1.IMEI_NO,s.SR_NAME,v1.QTY,v1.RATE,v1.DISC_RATE,v1.AMT,p1.CASH_AMT,
 p1.CARD_AMT,p1.BANK_AMT,p1.BAJAJ_AMT,v.DET_TOT,v.TAX_AMT,v.ADD_TAX_AMT,v.NET_AMT,v.V_TYPE,p1.CHEQUE_NO
@@ -317,11 +318,11 @@ LEFT JOIN payment p1 ON v.REF_NO=p1.REF_NO]]>
 				<imageExpression><![CDATA[$P{dir}+File.separator+"Resources"+File.separator+"Images"+File.separator+"logo.JPG"]]></imageExpression>
 			</image>
 			<textField>
-				<reportElement uuid="c1ffbbab-b751-48d2-8b7e-0d81eee3bc6f" x="235" y="1" width="320" height="14"/>
+				<reportElement uuid="c1ffbbab-b751-48d2-8b7e-0d81eee3bc6f" x="235" y="15" width="320" height="14"/>
 				<textElement>
 					<font isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA["Tin "+$F{COMPANY_TIN}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{tin_no}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
 				<reportElement uuid="8d19a3f6-3cf5-45b9-ba13-3e58ffaf9e22" stretchType="RelativeToBandHeight" x="235" y="29" width="320" height="14"/>
@@ -344,20 +345,13 @@ LEFT JOIN payment p1 ON v.REF_NO=p1.REF_NO]]>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{add3}]]></textFieldExpression>
 			</textField>
-			<textField>
-				<reportElement uuid="f1d3dfbf-b78b-45e1-8263-7acde86db609" x="235" y="15" width="320" height="14"/>
-				<textElement>
-					<font isBold="true"/>
-				</textElement>
-				<textFieldExpression><![CDATA["CST "+$F{COMPANY_CST}]]></textFieldExpression>
-			</textField>
 			<textField isBlankWhenNull="true">
 				<reportElement uuid="ab0ac6ec-d007-4177-9f26-3fb57d1d24b8" stretchType="RelativeToBandHeight" mode="Transparent" x="1" y="131" width="159" height="15"/>
 				<box leftPadding="4" rightPadding="2"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="8" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA["Customer's State Code : 24" ]]></textFieldExpression>
+				<textFieldExpression><![CDATA["Customer's State Code : 24"]]></textFieldExpression>
 			</textField>
 		</band>
 	</pageHeader>
@@ -810,7 +804,7 @@ LEFT JOIN payment p1 ON v.REF_NO=p1.REF_NO]]>
 				</textField>
 			</frame>
 			<textField>
-				<reportElement uuid="c60cba84-2914-4d54-bc8f-7e687eb37f43" x="0" y="152" width="554" height="45"/>
+				<reportElement uuid="c60cba84-2914-4d54-bc8f-7e687eb37f43" x="0" y="170" width="554" height="45"/>
 				<textElement markup="html">
 					<font fontName="Arial" size="9"/>
 				</textElement>
@@ -824,7 +818,7 @@ LEFT JOIN payment p1 ON v.REF_NO=p1.REF_NO]]>
 				<text><![CDATA[I/We have read invoice and the terms & conditions as given above. We have checked the quality of the above goods and received the same in good condition.]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="e01a19f1-6685-4f7a-8679-003d91a9d3c1" x="-1" y="194" width="554" height="18"/>
+				<reportElement uuid="e01a19f1-6685-4f7a-8679-003d91a9d3c1" x="-1" y="210" width="554" height="18"/>
 				<box>
 					<topPen lineWidth="0.5" lineStyle="Dashed"/>
 				</box>
@@ -834,32 +828,25 @@ LEFT JOIN payment p1 ON v.REF_NO=p1.REF_NO]]>
 				<text><![CDATA[<b>Satellite..</b> 30/31, Manas Complex, Opp. Ratnmani Complex, Nr.Jodhpur Char Rasta, Ahmedabad 380015. (M).9099009672]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="9bc64abb-2825-4be8-b435-ebba2e843b93" x="0" y="212" width="554" height="16"/>
+				<reportElement uuid="9bc64abb-2825-4be8-b435-ebba2e843b93" x="0" y="228" width="554" height="16"/>
 				<textElement verticalAlignment="Bottom" markup="html">
 					<font fontName="Arial" size="9"/>
 				</textElement>
 				<text><![CDATA[<b>Juhapura..</b> B/4 Uneed Complex,Nr.Noor E Burhan Society, Sarkhej Road, Ahmedabad  (M).9099009693]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="7974e8bd-9f85-4efc-b8c3-064e97b20275" x="0" y="227" width="554" height="16"/>
+				<reportElement uuid="7974e8bd-9f85-4efc-b8c3-064e97b20275" x="0" y="243" width="554" height="16"/>
 				<textElement verticalAlignment="Bottom" markup="html">
 					<font fontName="Arial" size="9"/>
 				</textElement>
 				<text><![CDATA[<b>Ashram Road..</b> Shop No.11 C/8, Janpath Complex, Ashram Road, Ahmedabad 380009.  (M):9924440222]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="cc88c256-6221-4c7c-93ff-e0af0472ffe8" x="0" y="244" width="554" height="16"/>
+				<reportElement uuid="cc88c256-6221-4c7c-93ff-e0af0472ffe8" x="0" y="260" width="554" height="16"/>
 				<textElement verticalAlignment="Bottom" markup="html">
 					<font fontName="Arial" size="9"/>
 				</textElement>
 				<text><![CDATA[<b>CGRD..</b> Rock Regency Hotel Opp Zinzuwadia Jewellers Body line Cross Road,  (M).9099009675]]></text>
-			</staticText>
-			<staticText>
-				<reportElement uuid="0afdd1f3-6902-42bf-a64a-13059596e55d" x="0" y="260" width="554" height="16"/>
-				<textElement verticalAlignment="Bottom" markup="html">
-					<font fontName="Arial" size="9"/>
-				</textElement>
-				<text><![CDATA[<b>Maninagar..</b> G3 Keshar Kunj Complex, Krishnabaug Cross Road,Maninagar, Ahmedabad, (M) 9099009691]]></text>
 			</staticText>
 			<staticText>
 				<reportElement uuid="3b158d1d-de1d-46c7-97d4-f8812c30646c" x="-1" y="324" width="556" height="16"/>
