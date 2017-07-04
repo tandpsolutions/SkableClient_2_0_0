@@ -56,10 +56,12 @@ public class SalesReturnView extends javax.swing.JInternalFrame {
     private JTextField jtfFilter = new JTextField();
     private SalesReturnAPI salsReturnAPI;
     private int vType;
+    private int tax_type;
 
-    public SalesReturnView(int type, int formCd) {
+    public SalesReturnView(int type, int formCd, int tax_type) {
         initComponents();
         vType = type;
+        this.tax_type = tax_type;
         salsReturnAPI = lb.getRetrofit().create(SalesReturnAPI.class);
         lb.setDateChooserPropertyInit(jtxtFromDate);
         lb.setDateChooserPropertyInit(jtxtToDate);
@@ -96,7 +98,7 @@ public class SalesReturnView extends javax.swing.JInternalFrame {
 
     private void setData() {
         lb.addGlassPane(this);
-        Call<PurchaseHead> call = salsReturnAPI.getDataHeader(lb.ConvertDateFormetForDB(jtxtFromDate.getText()), lb.ConvertDateFormetForDB(jtxtToDate.getText()), vType + "");
+        Call<PurchaseHead> call = salsReturnAPI.getDataHeader(lb.ConvertDateFormetForDB(jtxtFromDate.getText()), lb.ConvertDateFormetForDB(jtxtToDate.getText()), vType + "", tax_type + "");
         call.enqueue(new Callback<PurchaseHead>() {
             @Override
             public void onResponse(Call<PurchaseHead> call, Response<PurchaseHead> response) {
@@ -181,7 +183,7 @@ public class SalesReturnView extends javax.swing.JInternalFrame {
     }
 
     private void addSalesReturnController() {
-        SalesReturnController pc = new SalesReturnController(null, true);
+        SalesReturnController pc = new SalesReturnController(null, true,tax_type);
         pc.setLocationRelativeTo(null);
         pc.setData(ref_no);
     }

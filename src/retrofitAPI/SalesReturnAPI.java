@@ -21,7 +21,7 @@ import retrofit2.http.Query;
 public interface SalesReturnAPI {
 
     @GET("GetSalesReturnHeader")
-    Call<PurchaseHead> getDataHeader(@Query("from_date") String from_date, @Query("to_date") String to_date, @Query("v_type") String v_type);
+    Call<PurchaseHead> getDataHeader(@Query("from_date") String from_date, @Query("to_date") String to_date, @Query("v_type") String v_type, @Query("tax_type") String tax_type);
 
     @GET("GetSalesReturnBill")
     Call<JsonObject> getBill(@Query("ref_no") String ref_no);

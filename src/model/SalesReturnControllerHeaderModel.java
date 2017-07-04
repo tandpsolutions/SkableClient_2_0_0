@@ -41,6 +41,15 @@ public class SalesReturnControllerHeaderModel {
     private String SFID;
     private String pmt_days;
     private double advance_amt;
+    private int tax_type;
+
+    public int getTax_type() {
+        return tax_type;
+    }
+
+    public void setTax_type(int tax_type) {
+        this.tax_type = tax_type;
+    }
 
     public double getAdvance_amt() {
         return advance_amt;

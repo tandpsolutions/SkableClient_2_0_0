@@ -300,7 +300,7 @@ public class Library {
         }
         return ans;
     }
-    
+
     public String checkTag(String inputTag) {
         String tag[] = inputTag.split("/");
         if (tag.length == 2) {
@@ -1357,7 +1357,7 @@ public class Library {
             }
         } else if (ref_no.startsWith("05")) {
             if (SkableHome.userRightsMap.get(10).getEDITS().equalsIgnoreCase("1")) {
-                PurchaseController sbc = new PurchaseController(null, true, 0, null,-1);
+                PurchaseController sbc = new PurchaseController(null, true, 0, null, -1);
                 sbc.setLocationRelativeTo(null);
                 sbc.setData(null, ref_no);
             } else {
@@ -1421,7 +1421,7 @@ public class Library {
             }
         } else if (ref_no.startsWith("SR")) {
             if (SkableHome.userRightsMap.get(15).getEDITS().equalsIgnoreCase("1")) {
-                SalesReturnController sbc = new SalesReturnController(null, true);
+                SalesReturnController sbc = new SalesReturnController(null, true, -1);
                 sbc.setLocationRelativeTo(null);
                 sbc.setData(ref_no);
             } else {
