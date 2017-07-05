@@ -306,7 +306,7 @@ LEFT JOIN payment p1 ON v.REF_NO=p1.REF_NO]]>
 				<textFieldExpression><![CDATA["Mobile : "+$F{MOBILE1}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="ab0ac6ec-d007-4177-9f26-3fb57d1d24b8" stretchType="RelativeToBandHeight" mode="Transparent" x="1" y="116" width="159" height="15"/>
+				<reportElement uuid="ab0ac6ec-d007-4177-9f26-3fb57d1d24b8" stretchType="RelativeToBandHeight" mode="Transparent" x="1" y="116" width="307" height="15"/>
 				<box leftPadding="4" rightPadding="2"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="8" isBold="true"/>
