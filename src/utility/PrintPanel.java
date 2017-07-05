@@ -12,8 +12,6 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.AbstractAction;
@@ -31,7 +29,6 @@ import retrofitAPI.SalesAPI;
 import retrofitAPI.SalesReturnAPI;
 import retrofitAPI.StkTrAPI;
 import skable.Constants;
-import skable.Skable;
 import skable.SkableHome;
 import support.Library;
 
@@ -454,6 +451,19 @@ public class PrintPanel extends javax.swing.JDialog {
                             JsonDataSource dataSource = new JsonDataSource(jsonFile);
                             JsonDataSource dataSource1 = new JsonDataSource(jsonFile1);
                             HashMap params = new HashMap();
+                            if (array.get(0).getAsJsonObject().get("TAX_TYPE").getAsInt() == 0) {
+                                params.put("tax_title", "Vat");
+                                params.put("add_tax_title", "Add Vat");
+                                params.put("tin_no", "Tin No : "+(array.get(0).getAsJsonObject().get("COMPANY_TIN").getAsString()));
+                            } else if (array.get(0).getAsJsonObject().get("TAX_TYPE").getAsInt() == 1) {
+                                params.put("tax_title", "SGST");
+                                params.put("add_tax_title", "CGST");
+                                params.put("tin_no", "GST No : "+(array.get(0).getAsJsonObject().get("COMPANY_GST_NO").getAsString()));
+                            } else {
+                                params.put("tax_title", "IGST");
+                                params.put("add_tax_title", "");
+                                params.put("tin_no", "GST No : "+(array.get(0).getAsJsonObject().get("COMPANY_GST_NO").getAsString()));
+                            }
                             params.put("dir", System.getProperty("user.dir"));
                             params.put("comp_name", "Apple N Berry");
                             params.put("tin_no", (array.get(0).getAsJsonObject().get("COMPANY_TIN").getAsString()));

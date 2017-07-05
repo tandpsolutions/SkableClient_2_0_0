@@ -753,8 +753,13 @@ public class SalesReturnController extends javax.swing.JDialog {
                                 Vector row = new Vector();
                                 row.add(series.get(i).getSRCD());
                                 row.add(series.get(i).getSRNAME());
-                                row.add(series.get(i).getTAXCD());
-                                row.add(series.get(i).getTAXNAME());
+                                if (tax_type == 0) {
+                                    row.add(series.get(i).getTAXCD());
+                                    row.add(series.get(i).getTAXNAME());
+                                } else {
+                                    row.add(series.get(i).getGSTCD());
+                                    row.add(series.get(i).getGSTNAME());
+                                }
                                 sa.getDtmHeader().addRow(row);
                             }
                             lb.setColumnSizeForTable(viewTable, sa.jPanelHeader.getWidth());
