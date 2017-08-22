@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="inVoice" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="5f096cfe-7c20-47fd-8f84-d94a86d085ec">
 	<property name="ireport.zoom" value="1.9453068450750086"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="1418"/>
 	<parameter name="dir" class="java.lang.String"/>
 	<parameter name="email" class="java.lang.String"/>
 	<parameter name="mobile" class="java.lang.String"/>
@@ -220,10 +220,10 @@ LEFT JOIN payment p1 ON v.REF_NO=p1.REF_NO]]>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Arial" size="20" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[($F{V_TYPE} == 1)?"Tax Invoice":"Sales Invoice"]]></textFieldExpression>
+				<textFieldExpression><![CDATA[($F{V_TYPE} == 0)?"Retail Invoice":"Tax Invoice"]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="1b9375ee-b1ee-4d86-bb74-4eca7200068c" mode="Transparent" x="1" y="71" width="409" height="15"/>
+				<reportElement uuid="1b9375ee-b1ee-4d86-bb74-4eca7200068c" mode="Transparent" x="1" y="71" width="307" height="15"/>
 				<box leftPadding="4" rightPadding="2"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="8" isBold="true"/>
@@ -353,6 +353,15 @@ LEFT JOIN payment p1 ON v.REF_NO=p1.REF_NO]]>
 				</textElement>
 				<textFieldExpression><![CDATA["Customer's State Code : 24"]]></textFieldExpression>
 			</textField>
+			<image onErrorType="Blank">
+				<reportElement uuid="b1817a64-d499-4722-935f-da80f5d5554b" x="308" y="71" width="17" height="15"/>
+				<imageExpression><![CDATA[$P{dir}+File.separator+"Resources"+File.separator+"Images"+File.separator+"like.JPG"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement uuid="78d470b3-a10a-436c-b0f8-26290b1a262c" x="325" y="71" width="228" height="15"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Like us on facebook.com/applenberry.store]]></text>
+			</staticText>
 		</band>
 	</pageHeader>
 	<columnHeader>
@@ -842,11 +851,11 @@ LEFT JOIN payment p1 ON v.REF_NO=p1.REF_NO]]>
 				<text><![CDATA[<b>Ashram Road..</b> Shop No.11 C/8, Janpath Complex, Ashram Road, Ahmedabad 380009.  (M):9924440222]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="cc88c256-6221-4c7c-93ff-e0af0472ffe8" x="0" y="260" width="554" height="16"/>
+				<reportElement uuid="b6fc41ae-0ec7-438c-8df4-e8a694caabe1" x="0" y="260" width="554" height="16"/>
 				<textElement verticalAlignment="Bottom" markup="html">
 					<font fontName="Arial" size="9"/>
 				</textElement>
-				<text><![CDATA[<b>CGRD..</b> Rock Regency Hotel Opp Zinzuwadia Jewellers Body line Cross Road,  (M).9099009675]]></text>
+				<text><![CDATA[<b>Bapunagar</b> Shop No 2, Shyam Shikhar Complex OPP Dinesh Chambers Near Tolnaka,  (M).9099009651]]></text>
 			</staticText>
 			<staticText>
 				<reportElement uuid="3b158d1d-de1d-46c7-97d4-f8812c30646c" x="-1" y="324" width="556" height="16"/>
@@ -955,14 +964,14 @@ LEFT JOIN payment p1 ON v.REF_NO=p1.REF_NO]]>
 				<textElement verticalAlignment="Bottom" markup="html">
 					<font fontName="Arial" size="9"/>
 				</textElement>
-				<text><![CDATA[<b>New Naroda..</b> A1, Galaxy Avenue,  Opp Galaxy Cinema naroda - 382330,  (M).9099009670]]></text>
+				<text><![CDATA[<b>New Naroda..</b> A1, Galaxy Avenue,  Opp Galaxy Cinema naroda - 382330,  (M).9099009685]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="e00e47e0-04ac-4d44-8a81-adefb8b3b663" x="1" y="308" width="554" height="16"/>
+				<reportElement uuid="79686205-dc41-4759-818c-3d56a4523045" x="1" y="308" width="554" height="16"/>
 				<textElement verticalAlignment="Bottom" markup="html">
 					<font fontName="Arial" size="9"/>
 				</textElement>
-				<text><![CDATA[<b>Bapunagar..</b> 29/30/31, Sukhsagar Complex,Besides Kakadia Hospital, Bapunagar Ahmedabad 380028,  (M).9099009700]]></text>
+				<text><![CDATA[<b>Bapunagar..</b> 29/30/31, Sukhsagar Complex,Besides Kakadia Hospital, Bapunagar Ahmedabad 380028,  (M).9099009666]]></text>
 			</staticText>
 			<staticText>
 				<reportElement uuid="3d8e5ecb-eea7-41ff-9517-72b11aa69ac0" x="386" y="67" width="69" height="13" forecolor="#000000"/>
