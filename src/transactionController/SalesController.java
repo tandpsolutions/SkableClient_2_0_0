@@ -64,6 +64,7 @@ import retrofit2.Response;
 import retrofitAPI.SalesAPI;
 import retrofitAPI.StartUpAPI;
 import retrofitAPI.UpdateInterface;
+import selecthint.SeriesSelection;
 import skable.Constants;
 import skable.SkableHome;
 import support.Library;
@@ -342,7 +343,7 @@ public class SalesController extends javax.swing.JDialog {
                 if (lb.isEnter(e) && !lb.isBlank(jtxtTag)) {
                     try {
                         jtxtTag.setText(lb.checkTag(jtxtTag.getText()));
-                        JsonObject call = salesAPI.getTagNoDetailSales("'" + jtxtTag.getText() + "'", "20", true, (jComboBox1.getSelectedIndex() + 1) + "").execute().body();
+                        JsonObject call = salesAPI.getTagNoDetailSales("'" + jtxtTag.getText() + "'", "20", true, Constants.BRANCH.get(jComboBox1.getSelectedIndex()).getBranch_cd()).execute().body();
 
                         if (call != null) {
                             JsonArray array = call.getAsJsonArray("data");
@@ -490,7 +491,27 @@ public class SalesController extends javax.swing.JDialog {
                     }
                 }
                 if (lb.isEnter(e)) {
-                    setSeriesData("3", jtxtItem.getText().toUpperCase(), "1");
+                    SeriesSelection ss = new SeriesSelection(null, true);
+                    ss.setSeriesData("3", jtxtItem.getText().toUpperCase());
+                    ss.setVisible(true);
+                    if (ss.getReturnStatus() == SelectDailog.RET_OK) {
+
+                        int row = ss.getjTable1().getSelectedRow();
+                        if (row != -1) {
+                            sr_cd = ss.getjTable1().getValueAt(row, 0).toString();
+                            item_name = ss.getjTable1().getValueAt(row, 1).toString();
+                            jtxtItem.setText(ss.getjTable1().getValueAt(row, 1).toString());
+                            jtxtIMEI.requestFocusInWindow();
+                            if(tax_type == 0){
+                                jcmbTax.setSelectedItem(ss.getjTable1().getValueAt(row, 3).toString());
+                            }else{
+                                jcmbTax.setSelectedItem(ss.getjTable1().getValueAt(row, 5).toString());
+                            }
+                            jcmbTaxItemStateChanged(null);
+                        }
+
+                        ss.dispose();
+                    }
                 }
             }
         });
@@ -955,10 +976,14 @@ public class SalesController extends javax.swing.JDialog {
                                         jComboBox2.setSelectedItem(array.get(i).getAsJsonObject().get("REF_NAME").getAsString());
                                         jcmbPmt.setSelectedIndex(array.get(i).getAsJsonObject().get("PMT_MODE").getAsInt());
                                         ac_cd = array.get(i).getAsJsonObject().get("AC_CD").getAsString();
-                                        tax_type = array.get(i).getAsJsonObject().get("TAX_TYPE").getAsInt();
+                                        if (array.get(i).getAsJsonObject().get("TAX_TYPE")==null) {
+                                            tax_type = 0;
+                                        } else {
+                                            tax_type = array.get(i).getAsJsonObject().get("TAX_TYPE").getAsInt();
+                                        }
                                         if (!array.get(i).getAsJsonObject().get("BUY_BACK_CD").isJsonNull()) {
                                             jtxtBuyBack.setText(array.get(i).getAsJsonObject().get("BUY_BACK_MODEL").getAsString());
-                                        }
+                                        } 
                                         if (!array.get(i).getAsJsonObject().get("INS_CD").isJsonNull()) {
                                             ins_cd = array.get(i).getAsJsonObject().get("INS_CD").getAsString();
                                             jtxtInstItemName.setText(array.get(i).getAsJsonObject().get("INS_MODEL").getAsString());
@@ -1326,7 +1351,7 @@ public class SalesController extends javax.swing.JDialog {
         if (!SkableHome.user_grp_cd.equalsIgnoreCase("1") && ref_no.equalsIgnoreCase("")) {
             try {
                 final UpdateInterface update1 = Library.getInstance().getRetrofit().create(UpdateInterface.class);
-                final JsonObject branchMaster = update1.GetCreditLimit((jComboBox1.getSelectedIndex() + 1) + "").execute().body();
+                final JsonObject branchMaster = update1.GetCreditLimit(Constants.BRANCH.get(jComboBox1.getSelectedIndex()).getBranch_cd()).execute().body();
                 final int result = branchMaster.get("result").getAsInt();
                 if (result == 1) {
                     if (jcmbPmt.getSelectedIndex() == 0) {
@@ -1374,7 +1399,7 @@ public class SalesController extends javax.swing.JDialog {
         header.setTAX_AMT(lb.isNumber(jlblTax));
         header.setADD_TAX_AMT(lb.isNumber(jlblAddTax));
         header.setAc_name(jtxtAcName.getText());
-        header.setBRANCH_CD(jComboBox1.getSelectedIndex() + 1);
+        header.setBRANCH_CD(Integer.parseInt(Constants.BRANCH.get(jComboBox1.getSelectedIndex()).getBranch_cd()));
         header.setUSER_ID(SkableHome.user_id);
         header.setTAX_TYPE(tax_type);
         header.setV_DATE(lb.ConvertDateFormetForDB(jtxtVouDate.getText()));
@@ -2741,7 +2766,7 @@ public class SalesController extends javax.swing.JDialog {
                 jtxtTaxAmt.setText(lb.Convert2DecFmtForRs((tax_rate * taxable) / 100));
                 double tax = lb.isNumber(jlblTax);
 //                if (add_tax_rate_On == 1) {
-                    jtxtAddTaxAmt.setText(lb.Convert2DecFmtForRs((add_tax_rate * taxable) / 100));
+                jtxtAddTaxAmt.setText(lb.Convert2DecFmtForRs((add_tax_rate * taxable) / 100));
 //                } else {
 //                    jtxtAddTaxAmt.setText(lb.Convert2DecFmtForRs((add_tax_rate * tax) / 100));
 //                }

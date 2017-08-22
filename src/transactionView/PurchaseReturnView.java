@@ -181,7 +181,7 @@ public class PurchaseReturnView extends javax.swing.JInternalFrame {
     }
 
     private void addSalesReturnController() {
-        PurchaseReturnController pc = new PurchaseReturnController(null, true);
+        PurchaseReturnController pc = new PurchaseReturnController(null, true,vType);
         pc.setLocationRelativeTo(null);
         pc.setData(ref_no);
     }

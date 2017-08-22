@@ -71,6 +71,7 @@ import retrofit2.Response;
 import retrofitAPI.PurchaseAPI;
 import retrofitAPI.StartUpAPI;
 import retrofitAPI.SupportAPI;
+import selecthint.SeriesSelection;
 import skable.Constants;
 import skable.SkableHome;
 import support.Library;
@@ -321,7 +322,28 @@ public class PurchaseController extends javax.swing.JDialog {
                     }
                 }
                 if (lb.isEnter(e)) {
-                    setSeriesData("3", jtxtItem.getText().toUpperCase());
+                    SeriesSelection ss = new SeriesSelection(null, true);
+                    ss.setSeriesData("3", jtxtItem.getText().toUpperCase());
+                    ss.setVisible(true);
+                    if (ss.getReturnStatus() == SelectDailog.RET_OK) {
+                        int row = ss.getjTable1().getSelectedRow();
+                        if (row != -1) {
+                            sr_cd = ss.getjTable1().getValueAt(row, 0).toString();
+                            item_name = ss.getjTable1().getValueAt(row, 1).toString();
+                            jtxtItem.setText(ss.getjTable1().getValueAt(row, 1).toString());
+                            jtxtIMEI.requestFocusInWindow();
+                            if (tax_type == 0) {
+                                jcmbTax.setSelectedItem(ss.getjTable1().getValueAt(row, 3).toString());
+                            } else {
+                                jcmbTax.setSelectedItem(ss.getjTable1().getValueAt(row, 5).toString());
+                            }
+                            jcmbTaxItemStateChanged(null);
+                            getLastRate();
+                        }
+                        ss.dispose();
+                    } else {
+                        jtxtItem.requestFocusInWindow();
+                    }
                 }
             }
         });
@@ -825,7 +847,11 @@ public class PurchaseController extends javax.swing.JDialog {
                                         jtxtBillNo.setText(array.get(i).getAsJsonObject().get("BILL_NO").getAsString());
                                         ac_cd = array.get(i).getAsJsonObject().get("AC_CD").getAsString();
                                         jtxtName.setText(array.get(i).getAsJsonObject().get("FNAME").getAsString());
-                                        tax_type = array.get(i).getAsJsonObject().get("TAX_TYPE").getAsInt();
+                                        if (array.get(i).getAsJsonObject().get("TAX_TYPE") == null) {
+                                            tax_type = 0;
+                                        } else {
+                                            tax_type = array.get(i).getAsJsonObject().get("TAX_TYPE").getAsInt();
+                                        }
 //                                    jtxtAddress.setText(array.get(i).getAsJsonObject().get("ADD1").getAsString());
 //                                    jtxtMobile.setText(array.get(i).getAsJsonObject().get("MOBILE1").getAsString());
                                         jtxtTinNum.setText(array.get(i).getAsJsonObject().get("TIN").getAsString());

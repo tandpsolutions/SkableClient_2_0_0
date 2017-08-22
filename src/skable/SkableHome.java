@@ -453,6 +453,8 @@ public class SkableHome extends javax.swing.JFrame {
         jMenu10 = new javax.swing.JMenu();
         jmnRDPurchase1 = new javax.swing.JMenuItem();
         jmnRDPurchase2 = new javax.swing.JMenuItem();
+        jMenuItem25 = new javax.swing.JMenuItem();
+        jMenuItem26 = new javax.swing.JMenuItem();
         jMenu12 = new javax.swing.JMenu();
         jmnRetailInvoice1 = new javax.swing.JMenuItem();
         jmnRetailInvoice2 = new javax.swing.JMenuItem();
@@ -579,8 +581,6 @@ public class SkableHome extends javax.swing.JFrame {
         jMenuItem21 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        jDesktopPane1.setLayout(null);
 
         jmenuLogin.setMnemonic('L');
         jmenuLogin.setText("Login");
@@ -745,6 +745,22 @@ public class SkableHome extends javax.swing.JFrame {
             }
         });
         jMenu10.add(jmnRDPurchase2);
+
+        jMenuItem25.setText("Purchase Return Local");
+        jMenuItem25.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem25ActionPerformed(evt);
+            }
+        });
+        jMenu10.add(jMenuItem25);
+
+        jMenuItem26.setText("Purchase Return Outside");
+        jMenuItem26.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem26ActionPerformed(evt);
+            }
+        });
+        jMenu10.add(jMenuItem26);
 
         jmnTransaction.add(jMenu10);
 
@@ -2469,6 +2485,18 @@ public class SkableHome extends javax.swing.JFrame {
         addOnScreen(srv, "Sales Return Outside View");
     }//GEN-LAST:event_jMenuItem23ActionPerformed
 
+    private void jMenuItem25ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem25ActionPerformed
+        // TODO add your handling code here:
+        PurchaseReturnView prv = new PurchaseReturnView(1, 12);
+        addOnScreen(prv, "Purchase Return Local View");
+    }//GEN-LAST:event_jMenuItem25ActionPerformed
+
+    private void jMenuItem26ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem26ActionPerformed
+        // TODO add your handling code here:
+        PurchaseReturnView prv = new PurchaseReturnView(1, 12);
+        addOnScreen(prv, "Purchase Return Outside View");
+    }//GEN-LAST:event_jMenuItem26ActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu asdsds;
     private static javax.swing.JDesktopPane jDesktopPane1;
@@ -2502,6 +2530,8 @@ public class SkableHome extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem22;
     private javax.swing.JMenuItem jMenuItem23;
     private javax.swing.JMenuItem jMenuItem24;
+    private javax.swing.JMenuItem jMenuItem25;
+    private javax.swing.JMenuItem jMenuItem26;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem30;
     private javax.swing.JMenuItem jMenuItem31;

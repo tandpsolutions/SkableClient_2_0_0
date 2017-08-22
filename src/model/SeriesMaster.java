@@ -20,27 +20,27 @@ public class SeriesMaster {
     @SerializedName("SR_NAME")
     @Expose
     private String SRNAME;
-
     @SerializedName("TAX_CD")
     @Expose
     private String TAXCD;
-
     @SerializedName("TAX_NAME")
     @Expose
     private String TAXNAME;
-
     @SerializedName("SR_ALIAS")
     @Expose
     private String SRALIAS;
-
     @SerializedName("STOCK")
     @Expose
     private String STOCK;
+    @SerializedName("GST_CD")
     @Expose
     private String GSTCD;
     @SerializedName("GST_NAME")
     @Expose
     private String GSTNAME;
+    @SerializedName("HSN_CODE")
+    @Expose
+    private String HSNCODE;
 
     public String getGSTCD() {
         return GSTCD;
@@ -122,4 +122,11 @@ public class SeriesMaster {
         this.TAXNAME = TAXNAME;
     }
 
+    public String getHSNCODE() {
+        return HSNCODE;
+    }
+
+    public void setHSNCODE(String HSNCODE) {
+        this.HSNCODE = HSNCODE;
+    }
 }

@@ -240,7 +240,7 @@ public class ModelMasterController extends javax.swing.JDialog {
         Call<JsonObject> call = modelAPI.AppUpdateModelMaster(model_cd, jtxtModelName.getText(),
                 brand_cd,
                 type_cd,
-                tax_cd, SkableHome.user_id, SkableHome.selected_year,gst_cd);
+                tax_cd, SkableHome.user_id, SkableHome.selected_year,gst_cd,jtxtHsnCode.getText());
         call.enqueue(new Callback<JsonObject>() {
 
             @Override

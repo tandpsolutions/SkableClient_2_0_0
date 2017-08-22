@@ -63,6 +63,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofitAPI.SalesReturnAPI;
 import retrofitAPI.StartUpAPI;
+import selecthint.SeriesSelection;
 import skable.Constants;
 import skable.SkableHome;
 import support.Library;
@@ -374,7 +375,27 @@ public class SalesReturnController extends javax.swing.JDialog {
                     }
                 }
                 if (lb.isEnter(e)) {
-                    setSeriesData("3", jtxtItem.getText().toUpperCase(), "1");
+                    SeriesSelection ss = new SeriesSelection(null, true);
+                    ss.setSeriesData("3", jtxtItem.getText().toUpperCase());
+                    ss.setVisible(true);
+                    if (ss.getReturnStatus() == SelectDailog.RET_OK) {
+
+                        int row = ss.getjTable1().getSelectedRow();
+                        if (row != -1) {
+                            sr_cd = ss.getjTable1().getValueAt(row, 0).toString();
+                            item_name = ss.getjTable1().getValueAt(row, 1).toString();
+                            jtxtItem.setText(ss.getjTable1().getValueAt(row, 1).toString());
+                            jtxtIMEI.requestFocusInWindow();
+                            if(tax_type == 0){
+                                jcmbTax.setSelectedItem(ss.getjTable1().getValueAt(row, 3).toString());
+                            }else{
+                                jcmbTax.setSelectedItem(ss.getjTable1().getValueAt(row, 5).toString());
+                            }
+                            jcmbTaxItemStateChanged(null);
+                        }
+
+                        ss.dispose();
+                    }
                 }
             }
 

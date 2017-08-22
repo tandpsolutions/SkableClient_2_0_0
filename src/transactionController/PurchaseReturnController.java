@@ -59,12 +59,14 @@ import model.SeriesMaster;
 import model.TaxMasterModel;
 import retrofitAPI.PurchaseReturnAPI;
 import retrofitAPI.StartUpAPI;
+import selecthint.SeriesSelection;
 import skable.Constants;
 import skable.SkableHome;
 import support.Library;
 import support.OurDateChooser;
 import support.ReportTable;
 import support.SelectDailog;
+import transactionView.PurchaseReturnView;
 
 /**
  *
@@ -92,7 +94,6 @@ public class PurchaseReturnController extends javax.swing.JDialog {
     private TableRowSorter<TableModel> rowSorter;
     private final JTextField jtfFilter = new JTextField();
     DefaultTableModel dtm = null;
-    int type = -1;
     boolean flag = false;
     PurchaseReturnAPI purchaseReturnAPI = null;
     private ReportTable viewTable = null;
@@ -104,15 +105,17 @@ public class PurchaseReturnController extends javax.swing.JDialog {
     private SalesPaymentDialog sd = null;
     private final HashMap<String, double[]> taxInfo;
     private final DefaultTableModel dtmTax;
+    private int v_type;
 
     /**
      * Creates new form PurchaseController
      */
-    public PurchaseReturnController(java.awt.Frame parent, boolean modal) {
+    public PurchaseReturnController(java.awt.Frame parent, boolean modal, int v_type) {
         super(parent, modal);
         initComponents();
         dtm = (DefaultTableModel) jTable1.getModel();
         dtmTax = (DefaultTableModel) jTable2.getModel();
+        this.v_type = v_type;
 
         // Close the dialog when Esc is pressed
         String cancelName = "cancel";
@@ -295,7 +298,11 @@ public class PurchaseReturnController extends javax.swing.JDialog {
                                         item_name = (array.get(i).getAsJsonObject().get("ITEM_NAME").getAsString());
                                         pur_rate = (array.get(i).getAsJsonObject().get("PUR_RATE").getAsDouble());
                                         jtxtQty.setText("1");
-                                        jcmbTax.setSelectedItem(array.get(i).getAsJsonObject().get("TAX_NAME").getAsString());
+                                        if (v_type == 0) {
+                                            jcmbTax.setSelectedItem(array.get(i).getAsJsonObject().get("TAX_NAME").getAsString());
+                                        } else {
+                                            jcmbTax.setSelectedItem(array.get(i).getAsJsonObject().get("GST_NAME").getAsString());
+                                        }
                                         jtxtRate.requestFocusInWindow();
                                     } else {
                                         PurchaseReturnControllerDetailModel model = new PurchaseReturnControllerDetailModel();
@@ -354,7 +361,27 @@ public class PurchaseReturnController extends javax.swing.JDialog {
                     }
                 }
                 if (lb.isEnter(e)) {
-                    setSeriesData("3", jtxtItem.getText().toUpperCase(), "1");
+                    SeriesSelection ss = new SeriesSelection(null, true);
+                    ss.setSeriesData("3", jtxtItem.getText().toUpperCase());
+                    ss.setVisible(true);
+                    if (ss.getReturnStatus() == SelectDailog.RET_OK) {
+
+                        int row = ss.getjTable1().getSelectedRow();
+                        if (row != -1) {
+                            sr_cd = ss.getjTable1().getValueAt(row, 0).toString();
+                            item_name = ss.getjTable1().getValueAt(row, 1).toString();
+                            jtxtItem.setText(ss.getjTable1().getValueAt(row, 1).toString());
+                            jtxtIMEI.requestFocusInWindow();
+                            if(v_type == 0){
+                                jcmbTax.setSelectedItem(ss.getjTable1().getValueAt(row, 3).toString());
+                            }else{
+                                jcmbTax.setSelectedItem(ss.getjTable1().getValueAt(row, 5).toString());
+                            }
+                            jcmbTaxItemStateChanged(null);
+                        }
+
+                        ss.dispose();
+                    }
                 }
             }
 
@@ -803,6 +830,14 @@ public class PurchaseReturnController extends javax.swing.JDialog {
                                 jComboBox1.setSelectedIndex(array.get(i).getAsJsonObject().get("BRANCH_CD").getAsInt() - 1);
                                 jcmbPmt.setSelectedIndex(array.get(i).getAsJsonObject().get("PMT_MODE").getAsInt());
                                 ac_cd = array.get(i).getAsJsonObject().get("AC_CD").getAsString();
+                                v_type = array.get(i).getAsJsonObject().get("V_TYPE").getAsInt();
+                                if (v_type == 0) {
+                                    setTitle("Purchase Return");
+                                } else if (v_type == 1) {
+                                    setTitle("Purchase Return Local");
+                                } else {
+                                    setTitle("Purchase Return Outside");
+                                }
                                 jtxtPmtDays.setText(array.get(i).getAsJsonObject().get("PMT_DAYS").getAsString());
                                 jtxtAdvance.setText(array.get(i).getAsJsonObject().get("ADVANCE_AMT").getAsString());
                                 jtxtName.setText(array.get(i).getAsJsonObject().get("FNAME").getAsString());
@@ -1072,6 +1107,7 @@ public class PurchaseReturnController extends javax.swing.JDialog {
         header.setNET_AMT(lb.isNumber(jlblNet));
         header.setPMT_MODE(jcmbPmt.getSelectedIndex());
         header.setTAX_AMT(lb.isNumber(jlblTax));
+        header.setV_TYPE(v_type);
         header.setADD_TAX_AMT(lb.isNumber(jlblAddTax));
         header.setAc_name(jtxtName.getText());
         header.setBRANCH_CD(jComboBox1.getSelectedIndex() + 1);
@@ -2055,7 +2091,11 @@ public class PurchaseReturnController extends javax.swing.JDialog {
             if (tm != null) {
                 double tax_rate = Double.parseDouble(tm.getTAXPER());
                 double add_tax_rate = Double.parseDouble(tm.getADDTAXPER());
-                int add_tax_rate_On = (int) lb.isNumber2(tm.getTAXONSALES());
+                if (v_type == 2) {
+                    tax_rate += add_tax_rate;
+                    add_tax_rate = 0.00;
+                }
+//                int add_tax_rate_On = (int) lb.isNumber2(tm.getTAXONSALES());
                 if (tm.getTAXCD().equalsIgnoreCase("T000003")) {
                     try {
                         final Calendar cal = Calendar.getInstance();
@@ -2063,7 +2103,7 @@ public class PurchaseReturnController extends javax.swing.JDialog {
                         cal.set(Calendar.DATE, 1);
                         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
                         java.util.Date dt = sdf.parse(jtxtVouDate.getText());
-                        add_tax_rate_On = (int) lb.isNumber2(tm.getTAXONSALES());
+//                        add_tax_rate_On = (int) lb.isNumber2(tm.getTAXONSALES());
                         if (dt.before(sdf.parse(sdf.format(cal.getTime())))) {
                             add_tax_rate = 0.00;
                         }
@@ -2074,12 +2114,8 @@ public class PurchaseReturnController extends javax.swing.JDialog {
                 double taxable = (lb.isNumber2(jtxtRate.getText()) * 100) / (100 + tax_rate + add_tax_rate);
                 jtxtBasicAmt.setText(lb.Convert2DecFmtForRs(taxable));
                 jtxtTaxAmt.setText(lb.Convert2DecFmtForRs((tax_rate * taxable) / 100));
-                double tax = lb.isNumber(jlblTax);
-                if (add_tax_rate_On == 1) {
-                    jtxtAddTaxAmt.setText(lb.Convert2DecFmtForRs((add_tax_rate * taxable) / 100));
-                } else {
-                    jtxtAddTaxAmt.setText(lb.Convert2DecFmtForRs((add_tax_rate * tax) / 100));
-                }
+//                double tax = lb.isNumber(jlblTax);
+                jtxtAddTaxAmt.setText(lb.Convert2DecFmtForRs(lb.isNumber(jtxtRate) - lb.isNumber(jtxtTaxAmt) - lb.isNumber(jtxtBasicAmt)));
             }
         }
     }//GEN-LAST:event_jcmbTaxItemStateChanged
