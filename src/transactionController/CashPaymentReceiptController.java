@@ -60,7 +60,6 @@ public class CashPaymentReceiptController extends javax.swing.JDialog {
      * A return status code - returned if OK button has been pressed
      */
     public static final int RET_OK = 1;
-
     Library lb = Library.getInstance();
     private String ac_cd = "";
     private String ref_no = "";
@@ -110,7 +109,6 @@ public class CashPaymentReceiptController extends javax.swing.JDialog {
         SkableHome.zoomTable.setToolTipOn(true);
         final Container zoomIFrame = this;
         jTable1.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
-
             @Override
             public void mouseMoved(java.awt.event.MouseEvent evt) {
                 SkableHome.zoomTable.zoomInToolTipForTable(jTable1, jScrollPane1, zoomIFrame, evt);
@@ -128,8 +126,7 @@ public class CashPaymentReceiptController extends javax.swing.JDialog {
                 if (row != -1 && column != -1) {
                     String selection = jTable1.getValueAt(row, column).toString();
                     StringSelection data = new StringSelection(selection);
-                    Clipboard clipboard
-                            = Toolkit.getDefaultToolkit().getSystemClipboard();
+                    Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
                     clipboard.setContents(data, data);
                 }
             }
@@ -223,13 +220,13 @@ public class CashPaymentReceiptController extends javax.swing.JDialog {
                     JsonObject object = call;
 
                     JsonArray array = object.get("data").getAsJsonArray();
-                     String remark = "";
+                    String remark = "";
                     try {
                         for (int i = 0; i < array.size(); i++) {
                             jtxtVoucher.setText(array.get(i).getAsJsonObject().get("REF_NO").getAsString() + "");
                             jtxtVouDate.setText(lb.ConvertDateFormetForDBForConcurrency(array.get(i).getAsJsonObject().get("VDATE").getAsString()));
                             CashPaymentReceiptController.this.ref_no = array.get(i).getAsJsonObject().get("REF_NO").getAsString();
-                             jlblUser.setText(array.get(i).getAsJsonObject().get("USER_ID").getAsString()+ "");
+                            jlblUser.setText(array.get(i).getAsJsonObject().get("USER_ID").getAsString() + "");
                             jlblEditNo.setText(array.get(i).getAsJsonObject().get("EDIT_NO").getAsDouble() + "");
                             jlblTimeStamp.setText(array.get(i).getAsJsonObject().get("TIME_STAMP").getAsString());
                             jlblVday.setText(lb.setDay(jtxtVouDate));
@@ -322,6 +319,31 @@ public class CashPaymentReceiptController extends javax.swing.JDialog {
         doc_cd = "";
         jtxtRemark.setText("");
         jtxtAmount.setText("");
+    }
+
+    private boolean validateVoucehr() {
+        if (jTable1.getRowCount() == 0) {
+            lb.showMessageDailog("Voucher can not be empty");
+            return false;
+        }
+
+        if (!lb.checkDate(jtxtVouDate)) {
+            lb.showMessageDailog("Invalid Voucher Date");
+            jtxtVouDate.requestFocusInWindow();
+            flag = false;
+        }
+
+        if (ac_cd.equalsIgnoreCase("")) {
+            lb.showMessageDailog("Please select account");
+            return false;
+        }
+
+        if (jTable1.getRowCount() > 1) {
+            lb.showMessageDailog("You can not add multiple entry in voucher");
+            return false;
+        }
+
+        return true;
     }
 
     private void saveVoucher() {
@@ -879,7 +901,7 @@ public class CashPaymentReceiptController extends javax.swing.JDialog {
             jTable1.setValueAt(jtxtAmount.getText(), rowSel, 3);
             jTable1.setValueAt(jtxtRemark.getText(), rowSel, 4);
         }
-        jlblRemark.setText(jlblRemark.getText()+"\n"+jtxtRemark.getText());
+        jlblRemark.setText(jlblRemark.getText() + "\n" + jtxtRemark.getText());
         clear();
         jTable1.clearSelection();
         if (JOptionPane.showConfirmDialog(this, "Do you want to Add more Entry?", "Cash Entry", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
@@ -897,7 +919,9 @@ public class CashPaymentReceiptController extends javax.swing.JDialog {
 
     private void jbtnOKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnOKActionPerformed
         // TODO add your handling code here:
-        saveVoucher();
+        if (validateVoucehr()) {
+            saveVoucher();
+        }
     }//GEN-LAST:event_jbtnOKActionPerformed
 
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
@@ -907,14 +931,14 @@ public class CashPaymentReceiptController extends javax.swing.JDialog {
             int rowSel = jTable1.getSelectedRow();
             if (rowSel != -1) {
 //                if (jTable1.getValueAt(rowSel, 5).toString().equalsIgnoreCase("1")) {
-                    doc_ref_no = (jTable1.getValueAt(rowSel, 0).toString());
-                    jtxtDocRefNo.setText(jTable1.getValueAt(rowSel, 1).toString());
-                    doc_cd = (jTable1.getValueAt(rowSel, 2).toString());
-                    jtxtAmount.setText(jTable1.getValueAt(rowSel, 3).toString());
-                    jtxtRemark.setText(jTable1.getValueAt(rowSel, 4).toString());
-                    jtxtDocRefNo.requestFocusInWindow();
+                doc_ref_no = (jTable1.getValueAt(rowSel, 0).toString());
+                jtxtDocRefNo.setText(jTable1.getValueAt(rowSel, 1).toString());
+                doc_cd = (jTable1.getValueAt(rowSel, 2).toString());
+                jtxtAmount.setText(jTable1.getValueAt(rowSel, 3).toString());
+                jtxtRemark.setText(jTable1.getValueAt(rowSel, 4).toString());
+                jtxtDocRefNo.requestFocusInWindow();
 //                }
-            }else{
+            } else {
                 lb.showMessageDailog("This item already adjusted");
             }
         }
@@ -1040,6 +1064,5 @@ public class CashPaymentReceiptController extends javax.swing.JDialog {
     private javax.swing.JTextField jtxtVouDate;
     private javax.swing.JTextField jtxtVoucher;
     // End of variables declaration//GEN-END:variables
-
     private int returnStatus = RET_CANCEL;
 }

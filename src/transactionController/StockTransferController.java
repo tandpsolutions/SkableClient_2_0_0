@@ -452,11 +452,10 @@ public class StockTransferController extends javax.swing.JDialog {
 
     }
 
-    private boolean validateVoucher() {
+     private boolean validateVoucher() {
 
-        if (lb.ConvertDateFormetForDB(jtxtVouDate.getText()).equalsIgnoreCase("")) {
-            lb.showMessageDailog("Invalid Voucher Date");
-            jtxtVouDate.requestFocusInWindow();
+        if (!lb.checkDate(jtxtVouDate)) {
+            lb.showMessageDailog("Invalid Date");
             return false;
         }
 
@@ -464,6 +463,16 @@ public class StockTransferController extends javax.swing.JDialog {
             lb.showMessageDailog("Please Insert Value in Voucher");
             jtxtItem.requestFocusInWindow();
             return false;
+        }
+
+        if (jTextArea1.getText().isEmpty()) {
+            lb.confirmDialog("Please enter remark");
+            if (lb.type) {
+                jTextArea1.requestFocusInWindow();
+                return false;
+            } else {
+                return true;
+            }
         }
         return true;
     }

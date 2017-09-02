@@ -66,7 +66,6 @@ public class DCController extends javax.swing.JDialog {
             jtxtRate = null, jtxtAmount = null, jtxtPurTagNo = null, jtxtRemark = null;
     javax.swing.JTextField jtxtItem = null;
     private ReportTable viewTable = null;
-
     /**
      * A return status code - returned if Cancel button has been pressed
      */
@@ -101,7 +100,6 @@ public class DCController extends javax.swing.JDialog {
         SkableHome.zoomTable.setToolTipOn(true);
         final Container zoomIFrame = this;
         jTable1.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
-
             @Override
             public void mouseMoved(java.awt.event.MouseEvent evt) {
                 SkableHome.zoomTable.zoomInToolTipForTable(jTable1, jScrollPane1, zoomIFrame, evt);
@@ -119,8 +117,7 @@ public class DCController extends javax.swing.JDialog {
                 if (row != -1 && column != -1) {
                     String selection = jTable1.getValueAt(row, column).toString();
                     StringSelection data = new StringSelection(selection);
-                    Clipboard clipboard
-                            = Toolkit.getDefaultToolkit().getSystemClipboard();
+                    Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
                     clipboard.setContents(data, data);
                 }
             }
@@ -249,7 +246,6 @@ public class DCController extends javax.swing.JDialog {
 
         jtxtItem = new javax.swing.JTextField();
         jtxtItem.addFocusListener(new java.awt.event.FocusAdapter() {
-
             @Override
             public void focusGained(FocusEvent e) {
                 lb.selectAll(e);
@@ -259,11 +255,9 @@ public class DCController extends javax.swing.JDialog {
             public void focusLost(FocusEvent e) {
                 lb.toUpper(e);
             }
-
         });
 
         jtxtItem.addKeyListener(new KeyAdapter() {
-
             @Override
             public void keyPressed(KeyEvent e) {
                 if (e.getKeyCode() == KeyEvent.VK_N) {
@@ -277,7 +271,6 @@ public class DCController extends javax.swing.JDialog {
                     setSeriesData("3", jtxtItem.getText().toUpperCase());
                 }
             }
-
         });
 
         jtxtIMEI = new javax.swing.JTextField();
@@ -303,7 +296,6 @@ public class DCController extends javax.swing.JDialog {
             public void keyTyped(KeyEvent e) {
                 lb.onlyNumber(e, 15);
             }
-
         });
 
         jtxtSerialNo = new javax.swing.JTextField();
@@ -329,7 +321,6 @@ public class DCController extends javax.swing.JDialog {
             public void keyTyped(KeyEvent e) {
                 lb.fixLength(e, 20);
             }
-
         });
 
         jtxtQty = new javax.swing.JTextField();
@@ -388,7 +379,6 @@ public class DCController extends javax.swing.JDialog {
         jtxtAmount = new javax.swing.JTextField();
 
         jtxtAmount.addFocusListener(new java.awt.event.FocusAdapter() {
-
             @Override
             public void focusGained(java.awt.event.FocusEvent e) {
                 lb.selectAll(e);
@@ -454,7 +444,6 @@ public class DCController extends javax.swing.JDialog {
             Call<JsonObject> call = lb.getRetrofit().create(StartUpAPI.class).getDataFromServer(param_cd, value.toUpperCase());
             lb.addGlassPane(this);
             call.enqueue(new Callback<JsonObject>() {
-
                 @Override
                 public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
                     lb.removeGlassPane(DCController.this);
@@ -503,8 +492,7 @@ public class DCController extends javax.swing.JDialog {
                 public void onFailure(Call<JsonObject> call, Throwable thrwbl) {
                     lb.removeGlassPane(DCController.this);
                 }
-            }
-            );
+            });
         } catch (Exception ex) {
             lb.printToLogFile("Exception at setData at account master in sales invoice", ex);
         }
@@ -525,7 +513,6 @@ public class DCController extends javax.swing.JDialog {
             try {
                 Call<JsonObject> call = dcAPI.getBill(ref_no);
                 call.enqueue(new Callback<JsonObject>() {
-
                     @Override
                     public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
                         if (response.isSuccessful()) {
@@ -602,7 +589,7 @@ public class DCController extends javax.swing.JDialog {
             return false;
         }
 
-        if (lb.ConvertDateFormetForDB(jtxtVouDate.getText()).equalsIgnoreCase("")) {
+        if (!lb.checkDate(jtxtVouDate)) {
             lb.showMessageDailog("Invalid Voucher Date");
             jtxtVouDate.requestFocusInWindow();
             return false;
@@ -621,7 +608,6 @@ public class DCController extends javax.swing.JDialog {
             Call<JsonObject> call = lb.getRetrofit().create(StartUpAPI.class).getDataFromServer(param_cd, value.toUpperCase());
             lb.addGlassPane(this);
             call.enqueue(new Callback<JsonObject>() {
-
                 @Override
                 public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
                     lb.removeGlassPane(DCController.this);
@@ -1098,7 +1084,6 @@ public class DCController extends javax.swing.JDialog {
 
     private void jtxtVoucherKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtVoucherKeyPressed
         // TODO add your handling code here:
-
     }//GEN-LAST:event_jtxtVoucherKeyPressed
 
     private void jtxtVouDateFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtxtVouDateFocusLost
@@ -1152,7 +1137,6 @@ public class DCController extends javax.swing.JDialog {
     }//GEN-LAST:event_jtxtAcAliasFocusGained
 
     private void jtxtAcAliasFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtxtAcAliasFocusLost
-
     }//GEN-LAST:event_jtxtAcAliasFocusLost
 
     private void jtxtAcAliasKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtAcAliasKeyPressed
@@ -1184,7 +1168,6 @@ public class DCController extends javax.swing.JDialog {
     }//GEN-LAST:event_jtxtAcAliasKeyPressed
 
     private void jtxtAcAliasKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtAcAliasKeyReleased
-
     }//GEN-LAST:event_jtxtAcAliasKeyReleased
 
     private void jbtnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnAddActionPerformed
@@ -1325,7 +1308,6 @@ public class DCController extends javax.swing.JDialog {
         setVisible(false);
         dispose();
     }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton cancelButton;
     private javax.swing.JButton jBillDateBtn;
@@ -1354,6 +1336,5 @@ public class DCController extends javax.swing.JDialog {
     private javax.swing.JTextField jtxtVouDate;
     private javax.swing.JTextField jtxtVoucher;
     // End of variables declaration//GEN-END:variables
-
     private int returnStatus = RET_CANCEL;
 }

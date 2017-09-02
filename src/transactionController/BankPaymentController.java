@@ -440,7 +440,7 @@ public class BankPaymentController extends javax.swing.JDialog {
 
     }
 
-    private boolean validateVoucehr() {
+   private boolean validateVoucehr() {
         if (jTable1.getRowCount() == 0) {
             lb.showMessageDailog("Voucher can not be empty");
             return false;
@@ -448,6 +448,22 @@ public class BankPaymentController extends javax.swing.JDialog {
 
         if (bank_cd.equalsIgnoreCase("")) {
             lb.showMessageDailog("Please select valid our bank");
+            return false;
+        }
+        
+        if (ac_cd.equalsIgnoreCase("")) {
+            lb.showMessageDailog("Please select valid Account");
+            return false;
+        }
+
+        if (!lb.checkDate(jtxtVouDate)) {
+            lb.showMessageDailog("Invalid Voucher Date");
+            jtxtVouDate.requestFocusInWindow();
+            flag = false;
+        }
+        
+        if(jTable1.getRowCount()>1){
+            lb.showMessageDailog("You can not add multiple entry in voucher");
             return false;
         }
 

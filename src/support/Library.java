@@ -217,7 +217,7 @@ public class Library {
         if (flag) {
             try {
                 Date dt = userFormat.parse(jtxtDate.getText());
-                int year = (int) isNumber2("2015");
+                int year = (int) isNumber2(SkableHome.selected_year);
                 Date from = new Date(year - 1900, 3, 1);
                 Date to = new Date(year + 1 - 1900, 2, 31);
                 if (dt.before(from) || dt.after(to)) {
@@ -352,7 +352,7 @@ public class Library {
                 String setDate = (temp.substring(0, 2)).replace(temp.substring(0, 2), temp.substring(0, 2) + "/") + (temp.substring(2, 4)).replace(temp.substring(2, 4), temp.substring(2, 4) + "/") + temp.substring(4, temp.length());
                 jtxtDate.setText(setDate);
             }
-
+            flag = checkFinancialDate(jtxtDate);
         } catch (Exception ex) {
             flag = false;
             jtxtDate.requestFocusInWindow();

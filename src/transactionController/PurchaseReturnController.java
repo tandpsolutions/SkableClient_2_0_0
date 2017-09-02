@@ -1077,7 +1077,7 @@ public class PurchaseReturnController extends javax.swing.JDialog {
             return false;
         }
 
-        if (lb.ConvertDateFormetForDB(jtxtVouDate.getText()).equalsIgnoreCase("")) {
+        if (lb.checkDate(jtxtVouDate)) {
             lb.showMessageDailog("Invalid Voucher Date");
             jtxtVouDate.requestFocusInWindow();
             return false;

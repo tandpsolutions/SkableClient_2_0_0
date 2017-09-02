@@ -59,7 +59,6 @@ public class DNCNController extends javax.swing.JDialog {
      * A return status code - returned if OK button has been pressed
      */
     public static final int RET_OK = 1;
-
     Library lb = Library.getInstance();
     private String ac_cd = "";
     private String bank_cd = "";
@@ -109,7 +108,6 @@ public class DNCNController extends javax.swing.JDialog {
         SkableHome.zoomTable.setToolTipOn(true);
         final Container zoomIFrame = this;
         jTable1.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
-
             @Override
             public void mouseMoved(java.awt.event.MouseEvent evt) {
                 SkableHome.zoomTable.zoomInToolTipForTable(jTable1, jScrollPane1, zoomIFrame, evt);
@@ -127,8 +125,7 @@ public class DNCNController extends javax.swing.JDialog {
                 if (row != -1 && column != -1) {
                     String selection = jTable1.getValueAt(row, column).toString();
                     StringSelection data = new StringSelection(selection);
-                    Clipboard clipboard
-                            = Toolkit.getDefaultToolkit().getSystemClipboard();
+                    Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
                     clipboard.setContents(data, data);
                 }
             }
@@ -420,7 +417,24 @@ public class DNCNController extends javax.swing.JDialog {
         }
 
         if (bank_cd.equalsIgnoreCase("")) {
-            lb.showMessageDailog("Please select valid our bank");
+            lb.showMessageDailog("Please select valid account");
+            return false;
+        }
+
+        if (ac_cd.equalsIgnoreCase("")) {
+            lb.showMessageDailog("Please select valid party account");
+            return false;
+        }
+
+
+        if (!lb.checkDate(jtxtVouDate)) {
+            lb.showMessageDailog("Invalid Voucher Date");
+            jtxtVouDate.requestFocusInWindow();
+            flag = false;
+        }
+
+        if (jTable1.getRowCount() > 1) {
+            lb.showMessageDailog("You can not add multiple entry in voucher");
             return false;
         }
 
@@ -882,7 +896,7 @@ public class DNCNController extends javax.swing.JDialog {
             jTable1.setValueAt(jtxtAmount.getText(), rowSel, 3);
             jTable1.setValueAt(jtxtRemark.getText(), rowSel, 4);
         }
-        jlblRemark.setText(jlblRemark.getText()+"\n"+jtxtRemark.getText());
+        jlblRemark.setText(jlblRemark.getText() + "\n" + jtxtRemark.getText());
         clear();
         jTable1.clearSelection();
         if (JOptionPane.showConfirmDialog(this, "Do you want to Add more Entry?", "Cash Entry", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
@@ -1049,6 +1063,5 @@ public class DNCNController extends javax.swing.JDialog {
     private javax.swing.JTextField jtxtVouDate;
     private javax.swing.JTextField jtxtVoucher;
     // End of variables declaration//GEN-END:variables
-
     private int returnStatus = RET_CANCEL;
 }

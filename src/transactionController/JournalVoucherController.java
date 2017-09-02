@@ -56,7 +56,6 @@ public class JournalVoucherController extends javax.swing.JDialog {
      * A return status code - returned if OK button has been pressed
      */
     public static final int RET_OK = 1;
-
     Library lb = Library.getInstance();
     private String ac_cd = "";
     private String ref_no = "";
@@ -93,7 +92,6 @@ public class JournalVoucherController extends javax.swing.JDialog {
         SkableHome.zoomTable.setToolTipOn(true);
         final Container zoomIFrame = this;
         jTable1.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
-
             @Override
             public void mouseMoved(java.awt.event.MouseEvent evt) {
                 SkableHome.zoomTable.zoomInToolTipForTable(jTable1, jScrollPane1, zoomIFrame, evt);
@@ -111,8 +109,7 @@ public class JournalVoucherController extends javax.swing.JDialog {
                 if (row != -1 && column != -1) {
                     String selection = jTable1.getValueAt(row, column).toString();
                     StringSelection data = new StringSelection(selection);
-                    Clipboard clipboard
-                            = Toolkit.getDefaultToolkit().getSystemClipboard();
+                    Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
                     clipboard.setContents(data, data);
                 }
             }
@@ -177,7 +174,7 @@ public class JournalVoucherController extends javax.swing.JDialog {
                             jtxtVoucher.setText(array.get(i).getAsJsonObject().get("REF_NO").getAsString() + "");
                             jtxtVouDate.setText(lb.ConvertDateFormetForDBForConcurrency(array.get(i).getAsJsonObject().get("VDATE").getAsString()));
                             JournalVoucherController.this.ref_no = array.get(i).getAsJsonObject().get("REF_NO").getAsString();
-                            jlblUser.setText(array.get(i).getAsJsonObject().get("USER_ID").getAsString()+ "");
+                            jlblUser.setText(array.get(i).getAsJsonObject().get("USER_ID").getAsString() + "");
                             jlblEditNo.setText(array.get(i).getAsJsonObject().get("EDIT_NO").getAsDouble() + "");
                             jlblTimeStamp.setText(array.get(i).getAsJsonObject().get("TIME_STAMP").getAsString());
                             jlblVday.setText(lb.setDay(jtxtVouDate));
@@ -874,7 +871,7 @@ public class JournalVoucherController extends javax.swing.JDialog {
             lb.showMessageDailog("DR/CR not matched");
             flag = false;
         }
-        if (!lb.checkDate2(jtxtVouDate)) {
+        if (!lb.checkDate(jtxtVouDate)) {
             lb.showMessageDailog("Invalid Voucher Date");
             jtxtVouDate.requestFocusInWindow();
             flag = false;
@@ -887,8 +884,6 @@ public class JournalVoucherController extends javax.swing.JDialog {
         }
         return flag;
     }
-
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton cancelButton;
     private javax.swing.JButton jBillDateBtn;
@@ -923,6 +918,5 @@ public class JournalVoucherController extends javax.swing.JDialog {
     private javax.swing.JTextField jtxtVouDate;
     private javax.swing.JTextField jtxtVoucher;
     // End of variables declaration//GEN-END:variables
-
     private int returnStatus = RET_CANCEL;
 }

@@ -657,7 +657,7 @@ public class SalesPaymentDialog extends javax.swing.JDialog {
 
         jlblRemainPay.setText("0.00");
 
-        jcbBajaj.setText("Bajaj Capital");
+        jcbBajaj.setText("Finance Detail");
         jcbBajaj.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 jcbBajajItemStateChanged(evt);
