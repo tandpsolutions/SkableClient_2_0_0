@@ -1141,7 +1141,7 @@ public class SalesReturnController extends javax.swing.JDialog {
             return false;
         }
 
-        if (lb.checkDate(jtxtVouDate)) {
+        if (!lb.checkDate(jtxtVouDate)) {
             lb.showMessageDailog("Invalid Voucher Date");
             jtxtVouDate.requestFocusInWindow();
             return false;

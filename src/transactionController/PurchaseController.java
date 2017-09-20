@@ -1114,7 +1114,7 @@ public class PurchaseController extends javax.swing.JDialog {
             lb.showMessageDailog("Please enter Bill number of party");
             return false;
         }
-        if (lb.checkDate(jtxtVouDate)) {
+        if (!lb.checkDate(jtxtVouDate)) {
             lb.showMessageDailog("Invalid Voucher Date");
             jtxtVouDate.requestFocusInWindow();
             return false;
