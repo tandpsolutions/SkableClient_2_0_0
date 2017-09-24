@@ -122,6 +122,7 @@ import transactionView.DCView;
 import transactionView.DNCNView;
 import transactionView.JournalVoucherView;
 import transactionView.ListBill;
+import transactionView.OrderBookView;
 import transactionView.PurchaseReturnView;
 import transactionView.PurchaseView;
 import transactionView.SalesReturnView;
@@ -492,6 +493,7 @@ public class SkableHome extends javax.swing.JFrame {
         jmnTaxInvoice = new javax.swing.JMenuItem();
         jmnSalesBillNumber = new javax.swing.JMenuItem();
         jmnSalesReturn = new javax.swing.JMenuItem();
+        jmnOrderBook = new javax.swing.JMenuItem();
         jmnInventory = new javax.swing.JMenu();
         jmnStockInTransit = new javax.swing.JMenuItem();
         jmnStockInoutReport = new javax.swing.JMenuItem();
@@ -1042,6 +1044,14 @@ public class SkableHome extends javax.swing.JFrame {
         jMenu5.add(jMenu6);
 
         jmnTransaction.add(jMenu5);
+
+        jmnOrderBook.setText("Order Book");
+        jmnOrderBook.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmnOrderBookActionPerformed(evt);
+            }
+        });
+        jmnTransaction.add(jmnOrderBook);
 
         jMenuBar3.add(jmnTransaction);
 
@@ -2497,6 +2507,12 @@ public class SkableHome extends javax.swing.JFrame {
         addOnScreen(prv, "Purchase Return Outside View");
     }//GEN-LAST:event_jMenuItem26ActionPerformed
 
+    private void jmnOrderBookActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmnOrderBookActionPerformed
+        // TODO add your handling code here:
+        OrderBookView odv = new OrderBookView(37);
+        addOnScreen(odv, "Order Book View");
+    }//GEN-LAST:event_jmnOrderBookActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu asdsds;
     private static javax.swing.JDesktopPane jDesktopPane1;
@@ -2582,6 +2598,7 @@ public class SkableHome extends javax.swing.JFrame {
     private javax.swing.JMenu jmnMaster;
     private javax.swing.JMenuItem jmnMemoryMst;
     private javax.swing.JMenuItem jmnModelMst;
+    private javax.swing.JMenuItem jmnOrderBook;
     private javax.swing.JMenuItem jmnPurRetRegAcc;
     private javax.swing.JMenuItem jmnPurchaseRateByTag;
     private javax.swing.JMenuItem jmnPurchaseRegister;
