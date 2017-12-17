@@ -171,7 +171,7 @@ public class SelectIP extends javax.swing.JFrame {
 
         jLabel5.setText("IP");
 
-        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "182.70.127.231:8080", "219.91.131.204:8080", "127.0.0.1:8080", "127.0.0.1:8084" }));
+        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "182.70.127.231:8080", "219.91.131.212:8080", "127.0.0.1:8080", "127.0.0.1:8084" }));
         jComboBox3.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 jComboBox3KeyPressed(evt);
