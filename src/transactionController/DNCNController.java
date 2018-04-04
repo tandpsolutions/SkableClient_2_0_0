@@ -217,6 +217,7 @@ public class DNCNController extends javax.swing.JDialog {
                             jlblTimeStamp.setText(array.get(i).getAsJsonObject().get("TIME_STAMP").getAsString());
                             jlblVday.setText(lb.setDay(jtxtVouDate));
                             ac_cd = (array.get(i).getAsJsonObject().get("AC_CD").getAsString());
+                            type = (array.get(i).getAsJsonObject().get("CTYPE").getAsInt());
                             bank_cd = (array.get(i).getAsJsonObject().get("BANK_CD").getAsString());
                             jtxtAcName.setText(array.get(i).getAsJsonObject().get("FNAME").getAsString());
                             jtxtBankName.setText(array.get(i).getAsJsonObject().get("BANK_NAME").getAsString());

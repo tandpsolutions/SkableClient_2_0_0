@@ -174,10 +174,16 @@ public class ChangeYear extends javax.swing.JFrame {
         jbtnLogin.setEnabled(false);
         SkableHome.selected_branch = Constants.BRANCH.get(jComboBox1.getSelectedIndex());
         SkableHome.selected_year = jComboBox2.getSelectedItem().toString();
-        if (jComboBox2.getSelectedIndex() != 0) {
-            Constants.BASE_URL = "http://" + Constants.HOST1 + "/" + Constants.FOLDER + "/";
-        } else {
-            Constants.BASE_URL = "http://" + Constants.HOST1 + "/" + Constants.FOLDER_NEW + "/";
+        switch (jComboBox2.getSelectedIndex()) {
+            case 0:
+                Constants.BASE_URL = "http://" + Constants.HOST1 + "/" + Constants.FOLDER_NEW_2018 + "/";
+                break;
+            case 1:
+                Constants.BASE_URL = "http://" + Constants.HOST1 + "/" + Constants.FOLDER_NEW + "/";
+                break;
+            default:
+                Constants.BASE_URL = "http://" + Constants.HOST1 + "/" + Constants.FOLDER + "/";
+                break;
         }
         Library.getInstance().makeConnection();
         SkableHome home = new SkableHome();

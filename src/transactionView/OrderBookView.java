@@ -250,7 +250,7 @@ public class OrderBookView extends javax.swing.JInternalFrame {
             public void callPrint() {
                 int row = jTable1.getSelectedRow();
                 if (row != -1) {
-                    callPrint(jTable1.getValueAt(row, 0).toString());
+//                    callPrint(jTable1.getValueAt(row, 0).toString());
                 }
             }
         }
