@@ -502,9 +502,9 @@ public class SalesController extends javax.swing.JDialog {
                             item_name = ss.getjTable1().getValueAt(row, 1).toString();
                             jtxtItem.setText(ss.getjTable1().getValueAt(row, 1).toString());
                             jtxtIMEI.requestFocusInWindow();
-                            if(tax_type == 0){
+                            if (tax_type == 0) {
                                 jcmbTax.setSelectedItem(ss.getjTable1().getValueAt(row, 3).toString());
-                            }else{
+                            } else {
                                 jcmbTax.setSelectedItem(ss.getjTable1().getValueAt(row, 5).toString());
                             }
                             jcmbTaxItemStateChanged(null);
@@ -976,14 +976,14 @@ public class SalesController extends javax.swing.JDialog {
                                         jComboBox2.setSelectedItem(array.get(i).getAsJsonObject().get("REF_NAME").getAsString());
                                         jcmbPmt.setSelectedIndex(array.get(i).getAsJsonObject().get("PMT_MODE").getAsInt());
                                         ac_cd = array.get(i).getAsJsonObject().get("AC_CD").getAsString();
-                                        if (array.get(i).getAsJsonObject().get("TAX_TYPE")==null) {
+                                        if (array.get(i).getAsJsonObject().get("TAX_TYPE") == null) {
                                             tax_type = 0;
                                         } else {
                                             tax_type = array.get(i).getAsJsonObject().get("TAX_TYPE").getAsInt();
                                         }
                                         if (!array.get(i).getAsJsonObject().get("BUY_BACK_CD").isJsonNull()) {
                                             jtxtBuyBack.setText(array.get(i).getAsJsonObject().get("BUY_BACK_MODEL").getAsString());
-                                        } 
+                                        }
                                         if (!array.get(i).getAsJsonObject().get("INS_CD").isJsonNull()) {
                                             ins_cd = array.get(i).getAsJsonObject().get("INS_CD").getAsString();
                                             jtxtInstItemName.setText(array.get(i).getAsJsonObject().get("INS_MODEL").getAsString());
@@ -1314,7 +1314,6 @@ public class SalesController extends javax.swing.JDialog {
 //                return false;
 //            }
 //        }
-
         if (jcmbPmt.getSelectedIndex() == 1) {
             if (jComboBox2.getSelectedIndex() == 0) {
                 lb.showMessageDailog("Please select ref by");
@@ -1331,7 +1330,6 @@ public class SalesController extends javax.swing.JDialog {
 //                return false;
 //            }
 //        }
-
         if (!lb.checkDate(jtxtVouDate)) {
             lb.showMessageDailog("Invalid Voucher Date");
             jtxtVouDate.requestFocusInWindow();
@@ -2795,43 +2793,43 @@ public class SalesController extends javax.swing.JDialog {
         if (validateRow(tag)) {
             int index = jTable1.getSelectedRow();
             if (index == -1) {
-                for (int i = 0; i < (int) lb.isNumber2(jtxtQty.getText()); i++) {
-                    Vector row = new Vector();
-                    row.add(jtxtTag.getText());
-                    row.add(item_name);
-                    row.add(jtxtIMEI.getText());
-                    row.add(jtxtSerialNo.getText());
-                    row.add(1);
-                    row.add(lb.isNumber2(jtxtRate.getText()));
-                    row.add(pur_tag_no);
-                    row.add("0");
-                    row.add(jcmbTax.getSelectedItem().toString());
-                    row.add(lb.isNumber2(jtxtBasicAmt.getText()));
-                    row.add(lb.isNumber2(jtxtTaxAmt.getText()));
-                    row.add(lb.isNumber2(jtxtAddTaxAmt.getText()));
-                    row.add(lb.isNumber2(jtxtDiscPer.getText()));
-                    row.add(lb.isNumber2(jtxtMRP.getText()));
-                    row.add(lb.isNumber2(jtxtMRP.getText()));
-                    row.add(lb.isNumber2("1"));
-                    row.add(sr_cd);
-                    dtm.addRow(row);
-                    if (taxInfo.get(jcmbTax.getSelectedItem().toString()) != null) {
-                        double[] tax = taxInfo.get(jcmbTax.getSelectedItem().toString());
-                        tax[0] += lb.isNumber2(jtxtTaxAmt.getText());
-                        tax[1] += lb.isNumber2(jtxtAddTaxAmt.getText());
-                        tax[2] += lb.isNumber2(jtxtBasicAmt.getText());
-                        tax[3] += lb.isNumber2(jtxtDiscount.getText());
-                        taxInfo.put(jcmbTax.getSelectedItem().toString(), tax);
-                    } else {
-                        double[] tax = new double[4];
-                        tax[0] += lb.isNumber2(jtxtTaxAmt.getText());;
-                        tax[1] += lb.isNumber2(jtxtAddTaxAmt.getText());
-                        tax[2] += lb.isNumber2(jtxtBasicAmt.getText());
-                        tax[3] += lb.isNumber2(jtxtDiscount.getText());
-                        taxInfo.put(jcmbTax.getSelectedItem().toString(), tax);
-                    }
-
+//                for (int i = 0; i < (int) lb.isNumber2(jtxtQty.getText()); i++) {
+                Vector row = new Vector();
+                row.add(jtxtTag.getText());
+                row.add(item_name);
+                row.add(jtxtIMEI.getText());
+                row.add(jtxtSerialNo.getText());
+                row.add((int) lb.isNumber2(jtxtQty.getText()));
+                row.add(lb.isNumber2(jtxtRate.getText()));
+                row.add(pur_tag_no);
+                row.add("0");
+                row.add(jcmbTax.getSelectedItem().toString());
+                row.add(lb.isNumber2(jtxtBasicAmt.getText()));
+                row.add(lb.isNumber2(jtxtTaxAmt.getText()));
+                row.add(lb.isNumber2(jtxtAddTaxAmt.getText()));
+                row.add(lb.isNumber2(jtxtDiscPer.getText()));
+                row.add(lb.isNumber2(jtxtMRP.getText()));
+                row.add(lb.isNumber2(jtxtAmount.getText()));
+                row.add(lb.isNumber2("1"));
+                row.add(sr_cd);
+                dtm.addRow(row);
+                if (taxInfo.get(jcmbTax.getSelectedItem().toString()) != null) {
+                    double[] tax = taxInfo.get(jcmbTax.getSelectedItem().toString());
+                    tax[0] += lb.isNumber2(jtxtTaxAmt.getText());
+                    tax[1] += lb.isNumber2(jtxtAddTaxAmt.getText());
+                    tax[2] += lb.isNumber2(jtxtBasicAmt.getText());
+                    tax[3] += lb.isNumber2(jtxtDiscount.getText());
+                    taxInfo.put(jcmbTax.getSelectedItem().toString(), tax);
+                } else {
+                    double[] tax = new double[4];
+                    tax[0] += lb.isNumber2(jtxtTaxAmt.getText());;
+                    tax[1] += lb.isNumber2(jtxtAddTaxAmt.getText());
+                    tax[2] += lb.isNumber2(jtxtBasicAmt.getText());
+                    tax[3] += lb.isNumber2(jtxtDiscount.getText());
+                    taxInfo.put(jcmbTax.getSelectedItem().toString(), tax);
                 }
+
+//                }
                 for (int i = 0; i < subDetail.size(); i++) {
                     jtxtTag.setText(subDetail.get(i).getTAG_NO());
                     jtxtItem.setText(subDetail.get(i).getSR_NAME());
@@ -2845,7 +2843,7 @@ public class SalesController extends javax.swing.JDialog {
                     jtxtQty.setText("1");
                     jcmbTax.setSelectedItem(subDetail.get(i).getTAX_CD());
                     jcmbTaxItemStateChanged(null);
-                    Vector row = new Vector();
+                    row = new Vector();
                     row.add(jtxtTag.getText());
                     row.add(item_name);
                     row.add(jtxtIMEI.getText());
